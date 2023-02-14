@@ -1,7 +1,10 @@
 
 # Lost Elves
 #### [cs2-dotnet-game]
-Make sure that you have the monogame packages download and installed.
+Make sure that you have atlest 'MonoGame.Content.Builder.Task' and 'MonoGame.Framework.DesktopGL' monogame packages download and installed.
+
+Link: https://www.nuget.org/profiles/MonoGame
+
 > *Work in branches, make sure to co-author when possible.*
 
 > *Help each-other when needed, and write clean code!*
