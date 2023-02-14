@@ -7,7 +7,7 @@ Link: https://www.nuget.org/profiles/MonoGame
 
 > *Work in branches, make sure to co-author when possible.*
 
-> *Help each-other when needed, and write clean code!*
+> *Help each-other when needed and write clean code!*
 ❤️
 
 ### Game Story
