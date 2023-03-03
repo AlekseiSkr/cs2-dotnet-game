@@ -16,6 +16,7 @@ public class MenuState : State
         var y = Globals.Bounds.Y / 2;
         addButton(new(Globals.Content.Load<Texture2D>("Menu/easy"), new(x + 300, y))).OnClick += gm.start;
         addButton(SoundManager.SoundButton);
+        addButton(SoundManager.MusicButton);
     }
     
     private Button addButton(Button button)
