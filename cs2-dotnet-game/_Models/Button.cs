@@ -1,7 +1,4 @@
-﻿using _Managers;
-using _Models;
-using cs2_dotnet_game._Manager;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cs2_dotnet_game._Models;
+namespace cs2_dotnet_game;
 public class Button : Sprite
 {
     private readonly Rectangle _rectangle;    

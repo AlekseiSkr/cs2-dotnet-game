@@ -1,10 +1,5 @@
-﻿using _Managers;
-using cs2_dotnet_game._Manager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using cs2_dotnet_game;
+
 public abstract class State
 {
     #region Methods

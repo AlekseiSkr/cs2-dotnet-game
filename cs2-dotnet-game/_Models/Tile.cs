@@ -1,8 +1,7 @@
-﻿using cs2_dotnet_game;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _Models;
+namespace cs2_dotnet_game;
 
 public class Tile
 {
@@ -41,8 +40,8 @@ public class Tile
     public void Draw()
     {
         var color = Color.White;
-        //if (_keyboardSelected) color = Color.Red;
-        //if (_mouseSelected) color = Color.Green;
+        if (_keyboardSelected) color = Color.Red;
+        if (_mouseSelected) color = Color.Green;
         Globals.SpriteBatch.Draw(_texture, _position, color);
     }
 }

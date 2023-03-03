@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System;
-using cs2_dotnet_game._Models;
 
-namespace cs2_dotnet_game._Manager;
+namespace cs2_dotnet_game;
 public static class SoundManager
 {
     public static bool MusicOn { get; private set; }
@@ -19,10 +18,10 @@ public static class SoundManager
         _music = Globals.Content.Load<Song>("Sound/background");
 
         MusicOn = true;
-        SoundsOn= true;
+        SoundsOn = true;
 
-        MediaPlayer.IsRepeating= true;
-        MediaPlayer.Volume= 0.4f;
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Volume = 0.2f;
         MediaPlayer.Play(_music);
 
         MusicButton = new(Globals.Content.Load<Texture2D>("Menu/music"), new(50, 50));

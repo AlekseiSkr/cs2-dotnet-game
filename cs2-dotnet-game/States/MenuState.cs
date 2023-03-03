@@ -1,14 +1,9 @@
-﻿using cs2_dotnet_game;
-using cs2_dotnet_game._Manager;
-using cs2_dotnet_game._Models;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-namespace cs2_dotnet_game._State;
+
+namespace cs2_dotnet_game;
 
 public class MenuState : State
 {
@@ -19,8 +14,8 @@ public class MenuState : State
         var r = new Random();
         var x = Globals.Bounds.X / 2;
         var y = Globals.Bounds.Y / 2;
-        addButton(new(Globals.Content.Load<Texture2D>("tile1"), new(x - 300, y))).OnClick += gm.start;
-
+        addButton(new(Globals.Content.Load<Texture2D>("Menu/easy"), new(x + 300, y))).OnClick += gm.start;
+        addButton(SoundManager.SoundButton);
     }
     
     private Button addButton(Button button)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace cs2_dotnet_game._Manager;
+namespace cs2_dotnet_game;
 
 public static class InputManager
 {

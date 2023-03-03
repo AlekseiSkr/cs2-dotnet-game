@@ -1,10 +1,6 @@
-﻿using _Enum;
-using _Managers;
-using _Models;
-using cs2_dotnet_game._Models;
-using System;
+﻿using System;
 
-namespace cs2_dotnet_game._Manager;
+namespace cs2_dotnet_game;
 
 public class GameManager
 {
@@ -17,6 +13,7 @@ public class GameManager
     public GameManager()
     {
         _map = new Map();
+        SoundManager.Init();
         GameStateManager.Init(this);
         ChangeState(GameStates.Menu);
     }
@@ -24,7 +21,7 @@ public class GameManager
 
     public void start(object sender, EventArgs e)
     {
-        _map.Draw();
+        ChangeState(GameStates.Play);
     }
     public void ChangeState(GameStates states)
     {
