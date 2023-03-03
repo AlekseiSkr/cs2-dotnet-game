@@ -1,4 +1,5 @@
 ﻿using _Managers;
+using cs2_dotnet_game._Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,6 +25,7 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = 1024;
         _graphics.PreferredBackBufferHeight = 768;
         _graphics.ApplyChanges();
+        Window.Title = "C#2 Resit: Last Elves";
 
         Globals.Content = Content;
 
