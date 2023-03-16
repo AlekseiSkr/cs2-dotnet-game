@@ -15,10 +15,10 @@ public class PlayerBaseState : State
     {
         backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
 
-        spriteBatchPlayerBase.Begin();
-        spriteBatchPlayerBase.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
+        //spriteBatchPlayerBase.Begin();
+        Globals.SpriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
         //add other logic here
-        spriteBatchPlayerBase.End();
+        
     }
 
     public void upgradeBase(int upgrade)
