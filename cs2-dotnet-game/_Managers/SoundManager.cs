@@ -16,13 +16,13 @@ public static class SoundManager
     public static void Init()
     {
         _music = Globals.Content.Load<Song>("Sound/background");
-
-        MusicOn = true;
+        
+        MusicOn = false;
         SoundsOn = true;
 
         MediaPlayer.IsRepeating = true;
         MediaPlayer.Volume = 0.2f;
-        MediaPlayer.Play(_music);
+        //MediaPlayer.Play(_music);
 
         MusicButton = new(Globals.Content.Load<Texture2D>("Menu/music"), new(50, 50));
         MusicButton.OnClick += SwitchMusic;
