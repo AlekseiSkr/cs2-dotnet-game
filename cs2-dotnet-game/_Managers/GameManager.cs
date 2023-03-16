@@ -15,7 +15,7 @@ public class GameManager
         _map = new Map();
         SoundManager.Init();
         GameStateManager.Init(this);
-        ChangeState(GameStates.Menu);
+        ChangeState(GameStates.PlayerBase);
     }
 
 
@@ -23,10 +23,17 @@ public class GameManager
     {
         ChangeState(GameStates.Play);
     }
+
+    public void playerBaseState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.PlayerBase);
+    }
+
     public void ChangeState(GameStates states)
     {
         _gameState = GameStateManager.States[states];
     }
+
     public void Update()
     {
         InputManager.Update();

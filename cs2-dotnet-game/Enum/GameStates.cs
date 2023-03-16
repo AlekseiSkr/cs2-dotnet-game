@@ -3,5 +3,9 @@
 public enum GameStates
 {
     Menu,
-    Play
+    Play,
+    PlayerBase,
+    TraderBase,
+    EnemyBase,
+    Boss
 }
