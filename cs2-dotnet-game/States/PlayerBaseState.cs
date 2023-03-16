@@ -13,7 +13,7 @@ public class PlayerBaseState : State
 
     public override void Draw(GameManager gm)
     {
-        backgroundTexture = Globals.Content.Load<Texture2D>("Menu/easy");
+        backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
 
         spriteBatch.Begin();
         spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);

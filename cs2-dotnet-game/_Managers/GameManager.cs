@@ -15,7 +15,7 @@ public class GameManager
         _map = new Map();
         SoundManager.Init();
         GameStateManager.Init(this);
-        ChangeState(GameStates.PlayerBase);
+        ChangeState(GameStates.Menu);
     }
 
 
