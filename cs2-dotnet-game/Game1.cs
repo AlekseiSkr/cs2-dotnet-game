@@ -19,7 +19,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         Globals.Game = this;
-        Globals.Bounds = new(1280, 720);
+        Globals.Bounds = new(1792, 1008); //slightly less than 1920x1080, still retains the 16x9 aspect ratio
         // TODO: Add your initialization logic here
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
