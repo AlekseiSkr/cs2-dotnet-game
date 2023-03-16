@@ -25,10 +25,6 @@ public class MenuState : State
         return button;
     }
 
-    private static void playMusic(object sender, EventArgs e)
-    {
-        
-    }
     public override void Draw(GameManager gm)
     {
         foreach (var button in _buttons)

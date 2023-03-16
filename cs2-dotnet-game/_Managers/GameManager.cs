@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace cs2_dotnet_game;
 
@@ -22,6 +23,11 @@ public class GameManager
     public void start(object sender, EventArgs e)
     {
         ChangeState(GameStates.Play);
+    }
+
+    private void quit(object sender, EventArgs e)
+    {
+        System.Environment.Exit(0);
     }
     public void ChangeState(GameStates states)
     {
