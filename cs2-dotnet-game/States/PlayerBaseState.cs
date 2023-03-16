@@ -5,7 +5,7 @@ namespace cs2_dotnet_game;
 public class PlayerBaseState : State
 {
     private Texture2D backgroundTexture;
-    private SpriteBatch spriteBatch;
+    private SpriteBatch spriteBatchPlayerBase;
     public override void update(GameManager gm)
     {
 
@@ -15,10 +15,10 @@ public class PlayerBaseState : State
     {
         backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
 
-        spriteBatch.Begin();
-        spriteBatch.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
+        spriteBatchPlayerBase.Begin();
+        spriteBatchPlayerBase.Draw(backgroundTexture, new Vector2(0, 0), Color.White);
         //add other logic here
-        spriteBatch.End();
+        spriteBatchPlayerBase.End();
     }
 
     public void upgradeBase(int upgrade)
