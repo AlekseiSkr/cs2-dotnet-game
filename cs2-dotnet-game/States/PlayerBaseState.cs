@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace cs2_dotnet_game;
@@ -17,10 +18,8 @@ public class PlayerBaseState : State
     private int imageY = 0;
 
     private Rectangle backgroundRectangle;
-    public override void update(GameManager gm)
-    {
-       
-    }
+    //private readonly List<Button> _buttons = new();
+    private Button buttonChange;
 
     public override void Draw(GameManager gm)
     {
@@ -30,13 +29,18 @@ public class PlayerBaseState : State
         //spriteBatchPlayerBase.Begin();
         Globals.SpriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
         //Globals.SpriteBatch.Draw(Globals.Content.Load<Texture2D>("PlayerBase/baseV2"), new Rectangle(0, 500, 300, 300), Color.White);
-        Button buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(50, 50));
-        buttonChange.OnClick += updateBase1Event;
+        buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(100, 100));
+        //buttonChange.OnClick += updateBase1Event;
+        buttonChange.OnClick += gm.start;
         buttonChange.Draw();
         //add other logic here
 
     }
-    
+    public override void update(GameManager gm)
+    {
+        buttonChange.Update();
+    }
+
     public void generateRectangle()
     {
         imageX = (screenWidth - imageWidth) / 2;
