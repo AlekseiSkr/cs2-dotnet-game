@@ -3,17 +3,21 @@ using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Drawing;
+using Point = Microsoft.Xna.Framework.Point;
 
 namespace _Models;
 
 public class Map
 {
-    private readonly Point MAP_SIZE = new(6, 4);
+    public readonly Point MAP_SIZE = new(6, 4);
     private readonly Point TILE_SIZE;
     private readonly Vector2 MAP_OFFSET = new(2.5f, 2);
-    private readonly Tile[,] _tiles;
+    public readonly Tile[,] _tiles;
     private Point _keyboardSelected = new(0, 0);
     private Tile _lastMouseSelected;
+    public Vector2 MapToScreenPub(int x, int y) => new(x * TILE_SIZE.X, y * TILE_SIZE.Y);
+    public (int x, int y) ScreenToMapPub(Vector2 pos) => ((int)pos.X / TILE_SIZE.X, (int)pos.Y / TILE_SIZE.Y);
 
     public Map()
     {
@@ -38,11 +42,9 @@ public class Map
             for (int x = 0; x < MAP_SIZE.X; x++)
             {
                 int r = random.Next(0, textures.Length);
-                _tiles[x, y] = new(textures[r], MapToScreen(x, y));
+                _tiles[x, y] = new(textures[r], MapToScreen(x, y), 4, 5);
             }
         }
-
-        _tiles[_keyboardSelected.X, _keyboardSelected.Y].KeyboardSelect();
     }
 
     private Vector2 MapToScreen(int mapX, int mapY)
@@ -65,24 +67,32 @@ public class Map
         return new(mapX, mapY);
     }
 
+    //public void Update()
+    //{
+    //    _lastMouseSelected?.MouseDeselect();
+
+    //    var map = ScreenToMap(InputManager.MousePosition);
+
+    //    if (map.X >= 0 && map.Y >= 0 && map.X < MAP_SIZE.X && map.Y < MAP_SIZE.Y)
+    //    {
+    //        _lastMouseSelected = _tiles[map.X, map.Y];
+    //        _lastMouseSelected.MouseSelect();
+    //    }
+
+    //    if (InputManager.Direction != Point.Zero)
+    //    {
+    //        _tiles[_keyboardSelected.X, _keyboardSelected.Y].KeyboardDeselect();
+    //        _keyboardSelected.X = Math.Clamp(_keyboardSelected.X + InputManager.Direction.X, 0, MAP_SIZE.X - 1);
+    //        _keyboardSelected.Y = Math.Clamp(_keyboardSelected.Y + InputManager.Direction.Y, 0, MAP_SIZE.Y - 1);
+    //        _tiles[_keyboardSelected.X, _keyboardSelected.Y].KeyboardSelect();
+    //    }
+    //}
+
     public void Update()
     {
-        _lastMouseSelected?.MouseDeselect();
-
-        var map = ScreenToMap(InputManager.MousePosition);
-
-        if (map.X >= 0 && map.Y >= 0 && map.X < MAP_SIZE.X && map.Y < MAP_SIZE.Y)
+        for (int y = 0; y < MAP_SIZE.Y; y++)
         {
-            _lastMouseSelected = _tiles[map.X, map.Y];
-            _lastMouseSelected.MouseSelect();
-        }
-
-        if (InputManager.Direction != Point.Zero)
-        {
-            _tiles[_keyboardSelected.X, _keyboardSelected.Y].KeyboardDeselect();
-            _keyboardSelected.X = Math.Clamp(_keyboardSelected.X + InputManager.Direction.X, 0, MAP_SIZE.X - 1);
-            _keyboardSelected.Y = Math.Clamp(_keyboardSelected.Y + InputManager.Direction.Y, 0, MAP_SIZE.Y - 1);
-            _tiles[_keyboardSelected.X, _keyboardSelected.Y].KeyboardSelect();
+            for (int x = 0; x < MAP_SIZE.X; x++) _tiles[x, y].Update();
         }
     }
 

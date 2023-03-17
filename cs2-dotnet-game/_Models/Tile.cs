@@ -1,48 +1,49 @@
-﻿using cs2_dotnet_game;
+﻿using _Managers;
+using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace _Models;
 
-public class Tile
+public class Tile : Sprite
 {
-    private readonly Texture2D _texture;
-    private readonly Vector2 _position;
-    private bool _keyboardSelected;
-    private bool _mouseSelected;
+    public bool Blocked { get; set; }
+    public bool Path { get; set; }
+    private readonly int _mapX;
+    private readonly int _mapY;
 
-
-    public Tile(Texture2D texture, Vector2 position)
+    public Tile(Texture2D texture, Vector2 position, int mapX, int mapY) : base(texture, position)
     {
-        _texture = texture;
-        _position = position;
+        _mapX = mapX;
+        _mapY = mapY;
     }
 
-    public void KeyboardSelect()
-    {
-        _keyboardSelected = true;
-    }
 
-    public void KeyboardDeselect()
-    {
-        _keyboardSelected = false;
-    }
+    //public void Draw()
+    //{
+    //    var color = Color.White;
+    //    //if (_keyboardSelected) color = Color.Red;
+    //    //if (_mouseSelected) color = Color.Green;
+    //    Globals.SpriteBatch.Draw(_texture, _position, color);
+    //}
 
-    public void MouseSelect()
+    public void Update()
     {
-        _mouseSelected = true;
-    }
+        if (Pathfinder.Ready() && Rectangle.Contains(InputManager.MouseRectangle))
+        {
+            if (InputManager.MouseClicked)
+            {
+                Blocked = !Blocked;
+            }
 
-    public void MouseDeselect()
-    {
-        _mouseSelected = false;
-    }
+            if (InputManager.MouseRightClicked)
+            {
+                Pathfinder.BFSearch(_mapX, _mapY);
+            }
+        }
 
-    public void Draw()
-    {
-        var color = Color.White;
-        //if (_keyboardSelected) color = Color.Red;
-        //if (_mouseSelected) color = Color.Green;
-        Globals.SpriteBatch.Draw(_texture, _position, color);
+        Color = Path ? Color.Green : Color.White;
+        Color = Blocked ? Color.Red : Color;
     }
 }
