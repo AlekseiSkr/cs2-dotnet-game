@@ -25,7 +25,7 @@ public class GameManager
         ChangeState(GameStates.Play);
     }
 
-    private void quit(object sender, EventArgs e)
+    public void quit(object sender, EventArgs e)
     {
         System.Environment.Exit(0);
     }

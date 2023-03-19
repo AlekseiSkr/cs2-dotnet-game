@@ -21,7 +21,7 @@ public static class SoundManager
         SoundsOn = true;
 
         MediaPlayer.IsRepeating = true;
-        MediaPlayer.Volume = 0.2f;
+        MediaPlayer.Volume = 0.0f;
         MediaPlayer.Play(_music);
 
         MusicButton = new(Globals.Content.Load<Texture2D>("Menu/music"), new(50, 50));
