@@ -1,4 +1,5 @@
 ﻿using _Managers;
+using _Models.Tiles;
 using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

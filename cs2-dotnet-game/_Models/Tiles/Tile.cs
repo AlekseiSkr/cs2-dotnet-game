@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _Models;
+namespace _Models.Tiles;
 
 public class Tile
 {
-    private readonly Texture2D _texture;
-    private readonly Vector2 _position;
-    private bool _keyboardSelected;
-    private bool _mouseSelected;
+    protected readonly Texture2D _texture;
+    protected readonly Vector2 _position;
+    protected bool _keyboardSelected;
+    protected bool _mouseSelected;
 
 
     public Tile(Texture2D texture, Vector2 position)
