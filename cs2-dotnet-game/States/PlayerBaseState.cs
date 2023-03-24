@@ -23,10 +23,10 @@ public class PlayerBaseState : State
 
     public PlayerBaseState(GameManager gm)
     {
-        GenerateRectangle();
+        GenerateRectangleBackground();
         backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
         buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(100, 100));
-        buttonChange.OnClick += gm.start;
+        buttonChange.OnClick += UpdateBase1Event;
     }
 
     public override void Draw(GameManager gm)
@@ -48,7 +48,7 @@ public class PlayerBaseState : State
         buttonChange.Update();
     }
 
-    private void GenerateRectangle()
+    private void GenerateRectangleBackground()
     {
         imageX = (screenWidth - imageWidth) / 2;
         imageY = (screenHeight - imageHeight) / 2;
