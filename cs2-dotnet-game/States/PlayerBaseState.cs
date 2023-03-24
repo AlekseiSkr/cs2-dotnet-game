@@ -30,7 +30,7 @@ public class PlayerBaseState : State
         buttonUpdateTier1 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusOne"), new(100, 100));
         buttonUpdateTier1.OnClick += UpdateBase1Event;
 
-        buttonUpdateTier2 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusTwo"), new (100, 100));
+        buttonUpdateTier2 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusTwo"), new (200, 100));
         buttonUpdateTier2.OnClick += UpdateBase2Event;
 
 
