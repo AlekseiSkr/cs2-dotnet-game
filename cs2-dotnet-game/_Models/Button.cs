@@ -17,6 +17,7 @@ public class Button : Sprite
     public Button(Texture2D tex, Vector2 pos) : base(tex, pos)
     {
         _rectangle = new((int)(pos.X - origin.X), (int)(pos.Y - origin.Y), tex.Width, tex.Height);
+        
     }
     public void Update()
     {

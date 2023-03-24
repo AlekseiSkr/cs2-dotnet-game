@@ -18,9 +18,13 @@ public class PlayerBaseState : State
     private int imageY = 0;
 
     private Rectangle backgroundRectangle;
-    //private readonly List<Button> _buttons = new();
     private Button buttonUpdateTier1;
     private Button buttonUpdateTier2;
+
+    //temp var till player is implemented
+    private int playerXP = 1000;
+    private bool update1 = false;
+    private bool update2 = false;
 
     public PlayerBaseState(GameManager gm)
     {
@@ -29,9 +33,11 @@ public class PlayerBaseState : State
         
         buttonUpdateTier1 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusOne"), new(100, 100));
         buttonUpdateTier1.OnClick += UpdateBase1Event;
+        //buttonUpdateTier1.Disabled = true;
 
         buttonUpdateTier2 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusTwo"), new (200, 100));
         buttonUpdateTier2.OnClick += UpdateBase2Event;
+        //buttonUpdateTier2.Disabled = true;
 
 
     }
@@ -44,9 +50,16 @@ public class PlayerBaseState : State
     }
     public override void Update(GameManager gm)
     {
-        
-        buttonUpdateTier2.Update();
-        buttonUpdateTier1.Update();
+        if (playerXP >= 500 && !update1)
+        {
+            buttonUpdateTier1.Update();
+            
+        }
+        if (playerXP >= 1000 && update1 && !update2)
+        {
+            buttonUpdateTier2.Update();
+            
+        }
 
     }
 
@@ -61,11 +74,13 @@ public class PlayerBaseState : State
     private void UpdateBase1Event(object sender, EventArgs e)
     {
         UpgradeBase(1);
+        update1 = true;
     }
 
     private void UpdateBase2Event(object sender, EventArgs e)
     {
         UpgradeBase(2);
+        update2 = true;
     }
 
     private void UpgradeBase(int upgrade)
