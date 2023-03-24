@@ -14,8 +14,9 @@ public class MenuState : State
         var r = new Random();
         var x = Globals.Bounds.X / 2;
         var y = Globals.Bounds.Y / 2;
-        addButton(new(Globals.Content.Load<Texture2D>("Menu/easy"), new(x + 300, y))).OnClick += gm.start;
-        addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x + 100, y))).OnClick += gm.playerBaseState;
+        addButton(new(Globals.Content.Load<Texture2D>("Menu/easy"), new(x + 300, y))).OnClick += gm.Start;
+        addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x + 100, y))).OnClick += gm.PlayerBaseState;
+        addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x - 100 , y))).OnClick += gm.TraderState;
         addButton(SoundManager.SoundButton);
         addButton(SoundManager.MusicButton);
     }

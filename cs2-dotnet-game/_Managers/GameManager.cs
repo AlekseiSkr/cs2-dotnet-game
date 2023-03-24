@@ -19,14 +19,24 @@ public class GameManager
     }
 
 
-    public void start(object sender, EventArgs e)
+    public void Start(object sender, EventArgs e)
     {
         ChangeState(GameStates.Play);
     }
 
-    public void playerBaseState(object sender, EventArgs e)
+    public void PlayerBaseState(object sender, EventArgs e)
     {
         ChangeState(GameStates.PlayerBase);
+    }
+
+    public void TraderState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.TraderBase);
+    }
+
+    public void MenuState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Menu);
     }
 
     public void ChangeState(GameStates states)

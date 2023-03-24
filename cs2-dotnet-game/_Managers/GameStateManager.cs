@@ -15,5 +15,6 @@ public static class GameStateManager
         States.Add(GameStates.Menu, new MenuState(gm));
         States.Add(GameStates.Play, new PlayState()); 
         States.Add(GameStates.PlayerBase, new PlayerBaseState(gm));
+        States.Add(GameStates.TraderBase, new TraderState(gm));
     }
 }
