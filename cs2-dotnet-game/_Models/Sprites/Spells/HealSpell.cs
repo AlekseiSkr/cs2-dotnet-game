@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ public class HealSpell : Spell
 {
     private readonly int healingPoint;
 
-    public HealSpell(int manaCost, int healingPoint) : base (manaCost)
+    public HealSpell(Texture2D texture, Vector2 position, int manaCost, int healingPoint) : base (texture, position, manaCost)
     {
         this.healingPoint = healingPoint;
     }
@@ -18,5 +20,13 @@ public class HealSpell : Spell
     public int Heal()
     { 
         return this.healingPoint;
+    }
+
+    public override void Draw()
+    {
+    }
+
+    public override void Update()
+    {
     }
 }
