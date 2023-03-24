@@ -19,35 +19,38 @@ public class PlayerBaseState : State
 
     private Rectangle backgroundRectangle;
     //private readonly List<Button> _buttons = new();
-    private Button buttonChange;
+    private Button buttonUpdateTier1;
+    private Button buttonUpdateTier2;
 
     public PlayerBaseState(GameManager gm)
     {
         GenerateRectangleBackground();
         backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
-        buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(100, 100));
-        buttonChange.OnClick += UpdateBase1Event;
+        
+        buttonUpdateTier1 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusOne"), new(100, 100));
+        buttonUpdateTier1.OnClick += UpdateBase1Event;
+
+        buttonUpdateTier2 = new(Globals.Content.Load<Texture2D>("PlayerBase/buttonPlusTwo"), new (100, 100));
+        buttonUpdateTier2.OnClick += UpdateBase2Event;
+
+
     }
 
     public override void Draw(GameManager gm)
     {
-        
-
-        //spriteBatchPlayerBase.Begin();
         Globals.SpriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
-        //Globals.SpriteBatch.Draw(Globals.Content.Load<Texture2D>("PlayerBase/baseV2"), new Rectangle(0, 500, 300, 300), Color.White);
-        
-        //buttonChange.OnClick += updateBase1Event;
-       
-        buttonChange.Draw();
-        //add other logic here
-
+        buttonUpdateTier1.Draw();
+        buttonUpdateTier2.Draw();
     }
     public override void Update(GameManager gm)
     {
-        buttonChange.Update();
+        
+        buttonUpdateTier2.Update();
+        buttonUpdateTier1.Update();
+
     }
 
+    //generates a rectangle for the background image, centered on the middle
     private void GenerateRectangleBackground()
     {
         imageX = (screenWidth - imageWidth) / 2;
@@ -59,7 +62,12 @@ public class PlayerBaseState : State
     {
         UpgradeBase(1);
     }
-  
+
+    private void UpdateBase2Event(object sender, EventArgs e)
+    {
+        UpgradeBase(2);
+    }
+
     private void UpgradeBase(int upgrade)
     {
         if (upgrade == 1)
@@ -70,6 +78,6 @@ public class PlayerBaseState : State
         {
             this.backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV3");
         }
-        else throw new System.Exception("Invalid upgrade");
+        else throw new Exception("Invalid upgrade");
     }
 }
