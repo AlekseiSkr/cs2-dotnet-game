@@ -38,7 +38,7 @@ public class MenuState : State
         }
     }
 
-    public override void update(GameManager gm)
+    public override void Update(GameManager gm)
     {
         foreach (var button in _buttons)
         {

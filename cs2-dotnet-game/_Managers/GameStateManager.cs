@@ -14,6 +14,6 @@ public static class GameStateManager
         States.Clear();
         States.Add(GameStates.Menu, new MenuState(gm));
         States.Add(GameStates.Play, new PlayState()); 
-        States.Add(GameStates.PlayerBase, new PlayerBaseState());
+        States.Add(GameStates.PlayerBase, new PlayerBaseState(gm));
     }
 }

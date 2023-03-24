@@ -1,7 +1,7 @@
 ﻿namespace cs2_dotnet_game;
 public class PlayState : State
 {
-    public override void update(GameManager gm)
+    public override void Update(GameManager gm)
     {
         gm._map.Update();
     }

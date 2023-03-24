@@ -38,7 +38,7 @@ public class GameManager
     {
         InputManager.Update();
         //_map.Update();
-        _gameState.update(this);
+        _gameState.Update(this);
     }
 
     public void Draw()

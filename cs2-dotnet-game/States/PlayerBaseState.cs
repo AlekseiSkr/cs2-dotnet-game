@@ -21,39 +21,46 @@ public class PlayerBaseState : State
     //private readonly List<Button> _buttons = new();
     private Button buttonChange;
 
+    public PlayerBaseState(GameManager gm)
+    {
+        GenerateRectangle();
+        backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
+        buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(100, 100));
+        buttonChange.OnClick += gm.start;
+    }
+
     public override void Draw(GameManager gm)
     {
-        generateRectangle();
-        backgroundTexture = Globals.Content.Load<Texture2D>("PlayerBase/baseV1");
+        
 
         //spriteBatchPlayerBase.Begin();
         Globals.SpriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
         //Globals.SpriteBatch.Draw(Globals.Content.Load<Texture2D>("PlayerBase/baseV2"), new Rectangle(0, 500, 300, 300), Color.White);
-        buttonChange = new(Globals.Content.Load<Texture2D>("Menu/easy"), new(100, 100));
+        
         //buttonChange.OnClick += updateBase1Event;
-        buttonChange.OnClick += gm.start;
+       
         buttonChange.Draw();
         //add other logic here
 
     }
-    public override void update(GameManager gm)
+    public override void Update(GameManager gm)
     {
         buttonChange.Update();
     }
 
-    public void generateRectangle()
+    private void GenerateRectangle()
     {
         imageX = (screenWidth - imageWidth) / 2;
         imageY = (screenHeight - imageHeight) / 2;
         backgroundRectangle = new Rectangle(imageX, imageY, imageWidth, imageHeight);
     }
 
-    public void updateBase1Event(object sender, EventArgs e)
+    private void UpdateBase1Event(object sender, EventArgs e)
     {
-        upgradeBase(1);
+        UpgradeBase(1);
     }
   
-    public void upgradeBase(int upgrade)
+    private void UpgradeBase(int upgrade)
     {
         if (upgrade == 1)
         {
