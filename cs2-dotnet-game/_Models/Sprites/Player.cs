@@ -22,30 +22,9 @@ public class Player : Sprite
     //private HealthBar healthBar;
     private int leadership;
     private int luck;
-    //private List<Party> parties;
     private int experience;
     private double gold;
     private int level;
-    //private Class playerClass;
-
-    //public Player(Texture2D texture, Vector2 position, string name, int heathPoints, int spellPoints, double attack, int critical, List<Item> items, int speed, HealthBar healthBar, int leadership, int luck, List<Party> parties, int experience, double gold, int level, Class playerClass) : base (texture, position)
-    //{
-    //    this.name = name;
-    //    this.heathPoints = heathPoints;
-    //    this.spellPoints = spellPoints;
-    //    this.attack = attack;
-    //    this.critical = critical;
-    //    this.items = items;
-    //    this.speed = speed;
-    //    this.healthBar = healthBar;
-    //    this.leadership = leadership;
-    //    this.luck = luck;
-    //    this.parties = parties;
-    //    this.experience = experience;
-    //    this.gold = gold;
-    //    this.level = level;
-    //    this.playerClass = playerClass;
-    //}
 
     public Player(Texture2D texture, Vector2 position, string name, int heathPoints, int spellPoints, double attack, int critical, List<Item> items, int speed, int leadership, int luck, int experience, double gold, int level) : base (texture, position)
     {
