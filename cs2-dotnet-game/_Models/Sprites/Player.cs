@@ -14,7 +14,8 @@ public class Player : Sprite
 
     private string name;
     private int heathPoints;
-    private int spellPoints;
+    private int staminaPoints;
+    private int battlePoints;
     private double attack;
     private int critical;
     private List<Item> items;
@@ -26,11 +27,12 @@ public class Player : Sprite
     private double gold;
     private int level;
 
-    public Player(Texture2D texture, Vector2 position, string name, int heathPoints, int spellPoints, double attack, int critical, List<Item> items, int speed, int leadership, int luck, int experience, double gold, int level) : base (texture, position)
+    public Player(Texture2D texture, Vector2 position, string name, int heathPoints, int staminaPoints, int battlePoints, double attack, int critical, List<Item> items, int speed, int leadership, int luck, int experience, double gold, int level) : base (texture, position)
     {
         this.name = name;
         this.heathPoints = heathPoints;
-        this.spellPoints = spellPoints;
+        this.staminaPoints = staminaPoints;
+        this.battlePoints = battlePoints;
         this.attack = attack;
         this.critical = critical;
         this.items = items;
