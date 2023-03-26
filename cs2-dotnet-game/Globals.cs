@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace cs2_dotnet_game;
 public static class Globals
@@ -14,5 +15,10 @@ public static class Globals
     public static void Update(GameTime gt)
     {
         TotalSeconds = (float)gt.ElapsedGameTime.TotalSeconds;
+    }
+    
+    public static void ExitGame(object sender, EventArgs e)
+    {
+        Game.Exit();
     }
 }

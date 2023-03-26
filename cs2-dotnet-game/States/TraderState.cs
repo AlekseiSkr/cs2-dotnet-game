@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _Models.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,7 @@ public class TraderState : State
     private readonly Button buttonTrade;
     private readonly Button buttonLeaveTrader;
 
-    private Rectangle playerInventoryRectangle;
-    private Rectangle traderInventoryRectangle;
+    
 
     //temp var till player & trader is implemented
     private int playerXP = 1000;
@@ -31,9 +31,12 @@ public class TraderState : State
         traderTexture = Globals.Content.Load<Texture2D>("Trader/traderGuns");
 
         buttonTrade = new(Globals.Content.Load<Texture2D>("Trader/tradeButton"), new(100, 500));
+        buttonTrade.OnClick += gm.TradingState;
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
         buttonLeaveTrader.OnClick += gm.MenuState;
+
+        
 
         //int inventoryWidth = screenWidth / 2 - 20;
         //int inventoryHeight = screenHeight - 40;

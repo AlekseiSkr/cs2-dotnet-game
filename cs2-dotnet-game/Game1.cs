@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+
 namespace cs2_dotnet_game;
 
 public class Game1 : Game
@@ -19,10 +21,11 @@ public class Game1 : Game
     protected override void Initialize()
     {
         Globals.Game = this;
-        Globals.Bounds = new(1792, 1008); //slightly less than 1920x1080, still retains the 16x9 aspect ratio
+        Globals.Bounds = new(1920, 1080);
         // TODO: Add your initialization logic here
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
+        _graphics.IsFullScreen = true;
         _graphics.ApplyChanges();
         Window.Title = "C#2 Resit: Last Elves";
 
