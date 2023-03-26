@@ -11,6 +11,7 @@ namespace cs2_dotnet_game;
 public class TraderState : State
 {
     private Texture2D backgroundTexture;
+    private Texture2D traderTexture;
 
     private readonly Button buttonTrade;
     private readonly Button buttonLeaveTrader;
@@ -25,8 +26,9 @@ public class TraderState : State
 
     public TraderState(GameManager gm)
     {
+        backgroundTexture = Globals.Content.Load<Texture2D>("Misc/background2");
         GenerateRectangleBackground();
-        backgroundTexture = Globals.Content.Load<Texture2D>("Trader/traderGuns");
+        traderTexture = Globals.Content.Load<Texture2D>("Trader/traderGuns");
 
         buttonTrade = new(Globals.Content.Load<Texture2D>("Trader/tradeButton"), new(100, 500));
 
@@ -41,7 +43,8 @@ public class TraderState : State
     }
     public override void Draw(GameManager gm)
     {
-        Globals.SpriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
+        Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
+        Globals.SpriteBatch.Draw(traderTexture, backgroundRectangle, Color.White);
         buttonTrade.Draw();
         buttonLeaveTrader.Draw();
     }
