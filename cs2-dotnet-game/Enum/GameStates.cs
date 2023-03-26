@@ -7,5 +7,6 @@ public enum GameStates
     PlayerBase,
     TraderBase,
     EnemyBase,
+    BossMansion,
     Boss
 }

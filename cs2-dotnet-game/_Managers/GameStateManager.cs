@@ -16,5 +16,8 @@ public static class GameStateManager
         States.Add(GameStates.Play, new PlayState()); 
         States.Add(GameStates.PlayerBase, new PlayerBaseState(gm));
         States.Add(GameStates.TraderBase, new TraderState(gm));
+        States.Add(GameStates.EnemyBase, new EnemyBaseState(gm));
+        States.Add(GameStates.BossMansion, new BossMansionState(gm));
+        States.Add(GameStates.Boss, new BossState(gm));
     }
 }

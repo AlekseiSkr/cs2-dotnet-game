@@ -14,7 +14,12 @@ public class TraderState : State
 
     private Button buttonTrade;
     private Button buttonLeaveTrader;
-    
+
+    //temp var till player & trader is implemented
+    private int playerXP = 1000;
+    private List<String> playerInventory = new();
+    private List<String> traderInventory = new();
+
     public TraderState(GameManager gm)
     {
         GenerateRectangleBackground();
@@ -24,6 +29,7 @@ public class TraderState : State
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
         buttonLeaveTrader.OnClick += gm.MenuState;
+
     }
     public override void Draw(GameManager gm)
     {
