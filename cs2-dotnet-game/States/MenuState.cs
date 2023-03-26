@@ -8,9 +8,11 @@ namespace cs2_dotnet_game;
 public class MenuState : State
 {
     private readonly List<Button> _buttons = new();
+    private readonly Texture2D backgroundTexture;
 
     public MenuState(GameManager gm) 
     {
+        backgroundTexture = Globals.Content.Load<Texture2D>("Menu/menu_background");
         var r = new Random();
         var x = Globals.Bounds.X / 2;
         var y = Globals.Bounds.Y / 2;
@@ -64,6 +66,7 @@ public class MenuState : State
 
     public override void Draw(GameManager gm)
     {
+        Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
         foreach (var button in _buttons)
         {
             button.Draw();
