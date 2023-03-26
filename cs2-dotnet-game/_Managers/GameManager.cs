@@ -34,6 +34,26 @@ public class GameManager
         ChangeState(GameStates.TraderBase);
     }
 
+    public void BossMansionState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.BossMansion);
+    }
+
+    public void BossState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Boss);
+    }
+
+    public void EnemyState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.EnemyBase);
+    }
+
+    public void TradingState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Trading);
+    }
+
     public void MenuState(object sender, EventArgs e)
     {
         ChangeState(GameStates.Menu);

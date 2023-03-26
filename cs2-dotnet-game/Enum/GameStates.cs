@@ -6,6 +6,7 @@ public enum GameStates
     Play,
     PlayerBase,
     TraderBase,
+    Trading,
     EnemyBase,
     BossMansion,
     Boss

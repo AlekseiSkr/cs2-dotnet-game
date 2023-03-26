@@ -10,9 +10,9 @@ public class PlayerBaseState : State
     private Texture2D backgroundTexture;
 
     
-    private Button buttonUpdateTier1;
-    private Button buttonUpdateTier2;
-    private Button buttonLeaveBase;
+    private readonly Button buttonUpdateTier1;
+    private readonly Button buttonUpdateTier2;
+    private readonly Button buttonLeaveBase;
 
     //temp var till player is implemented
     private int playerXP = 1000;

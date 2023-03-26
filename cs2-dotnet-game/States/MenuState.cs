@@ -17,6 +17,7 @@ public class MenuState : State
         addButton(new(Globals.Content.Load<Texture2D>("Menu/easy"), new(x + 300, y))).OnClick += gm.Start;
         addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x + 100, y))).OnClick += gm.PlayerBaseState;
         addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x - 100 , y))).OnClick += gm.TraderState;
+        addButton(new(Globals.Content.Load<Texture2D>("Menu/medium"), new(x - 300, y))).OnClick += gm.BossMansionState;
         addButton(SoundManager.SoundButton);
         addButton(SoundManager.MusicButton);
     }

@@ -12,8 +12,11 @@ public class TraderState : State
 {
     private Texture2D backgroundTexture;
 
-    private Button buttonTrade;
-    private Button buttonLeaveTrader;
+    private readonly Button buttonTrade;
+    private readonly Button buttonLeaveTrader;
+
+    private Rectangle playerInventoryRectangle;
+    private Rectangle traderInventoryRectangle;
 
     //temp var till player & trader is implemented
     private int playerXP = 1000;
@@ -29,6 +32,11 @@ public class TraderState : State
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
         buttonLeaveTrader.OnClick += gm.MenuState;
+
+        //int inventoryWidth = screenWidth / 2 - 20;
+        //int inventoryHeight = screenHeight - 40;
+        //playerInventoryRectangle = new Rectangle(10, 10, inventoryWidth, inventoryHeight);
+        //traderInventoryRectangle = new Rectangle(screenWidth / 2 + 10, 10, inventoryWidth, inventoryHeight);
 
     }
     public override void Draw(GameManager gm)
