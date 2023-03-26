@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace cs2_dotnet_game;
 public class Button : ButtonSprite
 {
-    private readonly Rectangle _rectangle;    
+    protected Rectangle _rectangle;    
     public event EventHandler OnClick;
     public bool Disabled { get; set; }
 

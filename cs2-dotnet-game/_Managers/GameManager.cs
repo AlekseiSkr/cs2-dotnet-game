@@ -64,6 +64,11 @@ public class GameManager
         _gameState = GameStateManager.States[states];
     }
 
+    public void Quit(object sender, EventArgs e)
+    {
+        System.Environment.Exit(0);
+    }
+
     public void Update()
     {
         InputManager.Update();
