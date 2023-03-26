@@ -1,11 +1,10 @@
-﻿using _Managers;
-using _Models.Tiles;
+﻿using _Models.Tiles;
 using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace _Models;
+namespace cs2_dotnet_game;
 
 public class Map
 {
