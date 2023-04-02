@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace cs2_dotnet_game;
 
@@ -10,12 +11,17 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private GameManager _gameManager;
+    
+    public static List<String> playerItems = new List<String>();
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        playerItems.Add("Sword");
+        playerItems.Add("Shield");
+        playerItems.Add("Potion");
     }
 
     protected override void Initialize()
