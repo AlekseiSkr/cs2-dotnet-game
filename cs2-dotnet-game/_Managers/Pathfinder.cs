@@ -1,7 +1,9 @@
 ﻿
 using _Models;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace cs2_dotnet_game;
 
@@ -41,12 +43,13 @@ public static class Pathfinder
 
     public static (int x, int y) ScreenToMap(Vector2 pos)
     {
-        return _map.ScreenToMapPub(pos);
+        Point position = new Point(Convert.ToInt32(pos.X), Convert.ToInt32(pos.Y));
+        return (_map.ScreenToMap(position).X, _map.ScreenToMap(position).Y);
     }
 
     private static bool IsValid(int x, int y)
     {
-        return x >= 0 && x < _nodeMap.GetLength(0) && y >= 0 && y < _nodeMap.GetLength(1);
+        return x >= 0 && x < _nodeMap.GetLength(1) && y >= 0 && y < _nodeMap.GetLength(1);
     }
 
     private static void CreateNodeMap()
@@ -70,6 +73,7 @@ public static class Pathfinder
         Queue<Node> q = new();
 
         (int startX, int startY) = ScreenToMap(_hero.Position);
+        Debug.WriteLine(ScreenToMap(_hero.Position));
         var start = _nodeMap[startX, startY];
         start.visited = true;
         q.Enqueue(start);
@@ -109,7 +113,7 @@ public static class Pathfinder
         while (curr is not null)
         {
             _map._tiles[curr.x, curr.y].Path = true;
-            stack.Push(_map._tiles[curr.x, curr.y].Position);
+            stack.Push(_map.MapToScreen(curr.x, curr.y)); // Convert map coordinates to screen coordinates
             curr = curr.parent;
         }
 

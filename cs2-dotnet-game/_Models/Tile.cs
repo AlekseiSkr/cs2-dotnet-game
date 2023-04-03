@@ -2,7 +2,6 @@
 using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace _Models;
 
@@ -19,15 +18,6 @@ public class Tile : Sprite
         _mapY = mapY;
     }
 
-
-    //public void Draw()
-    //{
-    //    var color = Color.White;
-    //    //if (_keyboardSelected) color = Color.Red;
-    //    //if (_mouseSelected) color = Color.Green;
-    //    Globals.SpriteBatch.Draw(_texture, _position, color);
-    //}
-
     public void Update()
     {
         if (Pathfinder.Ready() && Rectangle.Contains(InputManager.MouseRectangle))
@@ -39,11 +29,17 @@ public class Tile : Sprite
 
             if (InputManager.MouseRightClicked)
             {
+                // Use map coordinates for the goal position in the BFSearch call
                 Pathfinder.BFSearch(_mapX, _mapY);
+                Color = Color.Blue;
             }
         }
+        //Debug for line drawing, delete on release
+        else
+        {
+            Color = Path ? Color.Green : Color.White;
+            Color = Blocked ? Color.Red : Color;
+        }
 
-        Color = Path ? Color.Green : Color.White;
-        Color = Blocked ? Color.Red : Color;
     }
 }

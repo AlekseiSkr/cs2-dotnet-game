@@ -1,5 +1,4 @@
-﻿using _Managers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -54,9 +53,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
         _gameManager.Draw();
-        _spriteBatch.End();
 
         base.Draw(gameTime);
     }

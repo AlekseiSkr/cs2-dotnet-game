@@ -17,8 +17,10 @@ public class Hero : Sprite
 
     public Hero(Texture2D tex, Vector2 pos) : base(tex, pos)
     {
-        speed = 600;
-        DestinationPosition = pos;
+        speed = 500;
+        Origin = new Vector2(-Texture.Width / 2, Texture.Height / 2);
+        Position = AdjustPosition(pos);
+        DestinationPosition = Position;
         MoveDone = true;
     }
 
@@ -31,6 +33,11 @@ public class Hero : Sprite
         _current = 0;
         DestinationPosition = Path[_current];
         MoveDone = false;
+    }
+
+    private Vector2 AdjustPosition(Vector2 pos)
+    {
+        return new Vector2(pos.X - Texture.Width / 2, pos.Y - Texture.Height);
     }
 
     private bool NearDestination()
