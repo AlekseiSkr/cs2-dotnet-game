@@ -1,7 +1,7 @@
-﻿using _Managers;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace cs2_dotnet_game;
 
@@ -20,14 +20,16 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
+        Globals.Game = this;
+        Globals.Bounds = new(1920, 1080);
         // TODO: Add your initialization logic here
-        _graphics.PreferredBackBufferWidth = 1024;
-        _graphics.PreferredBackBufferHeight = 768;
+        _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
+        _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
+        _graphics.IsFullScreen = true;
         _graphics.ApplyChanges();
+        Window.Title = "C#2 Resit: Last Elves";
 
         Globals.Content = Content;
-
-        _gameManager = new();
 
         base.Initialize();
     }
@@ -36,6 +38,9 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         Globals.SpriteBatch = _spriteBatch;
+        Globals.Content = Content;
+
+        _gameManager = new();
     }
 
     protected override void Update(GameTime gameTime)
