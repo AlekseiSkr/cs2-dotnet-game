@@ -43,7 +43,7 @@ public static class Pathfinder
 
     public static (int x, int y) ScreenToMap(Vector2 pos)
     {
-        Point position = new Point(Convert.ToInt32(pos.X), Convert.ToInt32(pos.Y));
+        Point position = new Point(Convert.ToInt32(pos.X + _map.TILE_SIZE.X / 2), Convert.ToInt32(pos.Y + _map.TILE_SIZE.Y / 2));
         return (_map.ScreenToMap(position).X, _map.ScreenToMap(position).Y);
     }
 
@@ -75,7 +75,6 @@ public static class Pathfinder
         (int startX, int startY) = ScreenToMap(_hero.Position);
         Debug.WriteLine(ScreenToMap(_hero.Position));
         var start = _nodeMap[startX, startY];
-        start.visited = true;
         q.Enqueue(start);
 
         while (q.Count > 0)
@@ -86,6 +85,9 @@ public static class Pathfinder
             {
                 return RetracePath(goalX, goalY);
             }
+
+            // Mark the current node as visited
+            curr.visited = true;
 
             for (int i = 0; i < row.Length; i++)
             {
@@ -103,6 +105,7 @@ public static class Pathfinder
 
         return null;
     }
+
 
     private static List<Vector2> RetracePath(int goalX, int goalY)
     {

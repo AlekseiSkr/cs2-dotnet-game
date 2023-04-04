@@ -10,11 +10,9 @@ public class Map
 {
     public readonly Point MAP_SIZE = new(30, 30);
     public readonly Point TILE_SIZE;
-    private readonly Vector2 MAP_OFFSET = new(2f, 2);
+    public readonly Vector2 MAP_OFFSET = new(2f, 2);
     public readonly Tile[,] _tiles;
-    //private Point _keyboardSelected = new(0, 0);
     private Tile _lastMouseSelected;
-    //public Vector2 MapToScreenPub(int x, int y) => new(x * TILE_SIZE.X, y * TILE_SIZE.Y);
     public (int x, int y) ScreenToMapPub(Vector2 pos) => ((int)pos.X / TILE_SIZE.X, (int)pos.Y / TILE_SIZE.Y);
 
     public Map()

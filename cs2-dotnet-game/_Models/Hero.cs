@@ -1,4 +1,5 @@
-﻿using _Models;
+﻿using _Managers;
+using _Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,6 +15,7 @@ public class Hero : Sprite
     protected float speed;
     public List<Vector2> Path { get; private set; }
     private int _current;
+    private Vector2 _minPos, _maxPos;
 
     public Hero(Texture2D tex, Vector2 pos) : base(tex, pos)
     {
@@ -22,6 +24,12 @@ public class Hero : Sprite
         Position = AdjustPosition(pos);
         DestinationPosition = Position;
         MoveDone = true;
+    }
+
+    public void SetBounds(Point mapSize, Point tileSize)
+    {
+        _minPos = new((-tileSize.X / 2) + Origin.X, (-tileSize.Y / 2) + Origin.Y);
+        _maxPos = new(mapSize.X - (tileSize.X / 2) - Origin.X, mapSize.Y - (tileSize.X / 2) - Origin.Y);
     }
 
     public void SetPath(List<Vector2> path)

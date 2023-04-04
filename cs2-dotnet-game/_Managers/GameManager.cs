@@ -9,7 +9,8 @@ public class GameManager
 {
     private readonly Map _map;
     private readonly Hero _hero;
-    //private readonly Camera _camera;
+    private readonly Camera _camera;
+
 
     public GameManager()
     {
@@ -17,8 +18,9 @@ public class GameManager
         Vector2 heroTilePosition = new Vector2(2, 3); // Set the desired tile position for the hero
         Vector2 heroScreenPosition = _map.MapToScreen((int)heroTilePosition.X, (int)heroTilePosition.Y);
         _hero = new Hero(Globals.Content.Load<Texture2D>("hero"), heroScreenPosition);
+        _hero.SetBounds(_map.MAP_SIZE, _map.TILE_SIZE);
         Pathfinder.Init(_map, _hero);
-        //_camera = new Camera();
+        _camera = new Camera();
     }
 
     private void OnLeftClick()
@@ -30,12 +32,18 @@ public class GameManager
         }
     }
 
+    public static Vector2 PointToVector2(Point point)
+    {
+        return new Vector2(point.X, point.Y);
+    }
+
     private void OnRightClick()
     {
         if (InputManager.MouseRightClicked)
         {
-            var clickedPosition = InputManager.RightClickedPosition;
-            var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
+            Matrix inverseViewMatrix = Matrix.Invert(_camera.Transform);
+            Vector2 worldPosition = Vector2.Transform(PointToVector2(InputManager.RightClickedPosition), inverseViewMatrix);
+            var (mapX, mapY) = _map.ScreenToMap(new Point((int)worldPosition.X, (int)worldPosition.Y));
 
             if (mapX >= 0 && mapX < _map.MAP_SIZE.X && mapY >= 0 && mapY < _map.MAP_SIZE.Y)
             {
@@ -57,16 +65,15 @@ public class GameManager
         _hero.Update();
         OnRightClick();
         OnLeftClick();
-       // _camera.Update(_hero.Position, Globals.WindowSize.X, Globals.WindowSize.Y); // Update the camera with the hero's position
-
+        _camera.Update(_hero.Position, Globals.WindowSize.X, Globals.WindowSize.Y, _hero.Texture); // Update the camera with the hero's position
     }
 
 
     public void Draw()
     {
-        //Globals.SpriteBatch.Begin(transformMatrix: _camera.Transform);
+        Globals.SpriteBatch.Begin(transformMatrix: _camera.Transform);
 
-        Globals.SpriteBatch.Begin();
+        //Globals.SpriteBatch.Begin();
         _map.Draw();
         _hero.Draw();
 
