@@ -96,30 +96,4 @@ public class Game1 : Game
 
         base.Draw(gameTime);
     }
-
-    private void SaveGame(Player pStats)
-    { 
-        string serializedText = JsonSerializer.Serialize<Player>(pStats);
-        Trace.WriteLine(serializedText);
-        File.WriteAllText(SAVE_GAME_PATH, serializedText);
-    }
-
-    private Player LoadGame()
-    { 
-        var fileContents = File.ReadAllText(SAVE_GAME_PATH);
-        return JsonSerializer.Deserialize<Player>(fileContents);
-    }
-
-    private void SaveSettings(Settings settings)
-    {
-        string serializedText = JsonSerializer.Serialize<Settings>(settings);
-        Trace.WriteLine(serializedText);
-        File.WriteAllText(SAVE_SETTINGS_PATH, serializedText);
-    }
-
-    private Settings LoadSettings()
-    {
-        var fileContents = File.ReadAllText(SAVE_SETTINGS_PATH);
-        return JsonSerializer.Deserialize<Settings>(fileContents);
-    }
 }
