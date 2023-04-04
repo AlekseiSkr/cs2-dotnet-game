@@ -9,16 +9,24 @@ using System.Threading.Tasks;
 
 namespace _Models.Sprites.Items;
 
-public abstract class Item : Sprite
+public class Item : Sprite
 {
-    protected bool isMelee;
-    protected double bonusDamage;
-    protected Tier tierLevel;
+    public bool isMelee;
+    public double bonusDamage;
+    public Tier tierLevel;
 
-    protected Item(Texture2D texture, Vector2 position, bool isMelee, double bonusDamage, Tier tierLevel) : base (texture, position)
+    public Item(Texture2D texture, Vector2 position, bool isMelee, double bonusDamage, Tier tierLevel) : base (texture, position)
     {
         this.isMelee = isMelee;
         this.bonusDamage = bonusDamage;
         this.tierLevel = tierLevel;
+    }
+
+    public override void Draw()
+    {
+    }
+
+    public override void Update()
+    {
     }
 }

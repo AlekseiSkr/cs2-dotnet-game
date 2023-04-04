@@ -12,20 +12,20 @@ namespace _Models.Sprites;
 public class Player : Sprite
 {
 
-    private string name;
-    private int heathPoints;
-    private int staminaPoints;
-    private int battlePoints;
-    private double attack;
-    private int critical;
-    private List<Item> items;
-    private int speed;
+    public string name;
+    public int heathPoints;
+    public int staminaPoints;
+    public int battlePoints;
+    public double attack;
+    public int critical;
+    public List<Item> items;
+    public int speed;
     //private HealthBar healthBar;
-    private int leadership;
-    private int luck;
-    private int experience;
-    private double gold;
-    private int level;
+    public int leadership;
+    public int luck;
+    public int experience;
+    public double gold;
+    public int level;
 
     public Player(Texture2D texture, Vector2 position, string name, int heathPoints, int staminaPoints, int battlePoints, double attack, int critical, List<Item> items, int speed, int leadership, int luck, int experience, double gold, int level) : base (texture, position)
     {
