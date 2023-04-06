@@ -74,11 +74,8 @@ public class PlayState : State
 
     public override void Draw(GameManager gm)
     {
-        
-
         _map.Draw();
         _hero.Draw();
-
     }
 
 }

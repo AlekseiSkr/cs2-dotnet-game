@@ -14,10 +14,14 @@ public class Tile : Sprite
     private readonly int _mapY;
     protected bool _keyboardSelected;
     protected bool _mouseSelected;
+    protected Texture2D _texture;
+    protected Vector2 _position;
+
 
     public Tile(Texture2D texture, Vector2 position) : base(texture, position)
     {
-
+        _texture = texture;
+        _position = position;
     }
 
     public override void Update()
@@ -44,5 +48,8 @@ public class Tile : Sprite
         }
     }
 
-    public override void Draw(){ }
+    public override void Draw()
+    {
+        Globals.SpriteBatch.Draw(_texture, _position, null, _color, 0f, _origin, 1f, SpriteEffects.None, 0f);
+    }
 }

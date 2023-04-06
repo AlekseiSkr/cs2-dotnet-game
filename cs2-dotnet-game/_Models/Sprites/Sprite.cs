@@ -22,5 +22,4 @@ public abstract class Sprite
     }
     public Rectangle Rectangle => new((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
 
-
 }

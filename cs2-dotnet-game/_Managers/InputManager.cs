@@ -16,7 +16,6 @@ public static class InputManager
     public static Point Direction => _direction;
     public static Point MousePosition => Mouse.GetState().Position;
 
-
     private static MouseState _lastMouseState;
 
     public static void Update()
@@ -25,31 +24,31 @@ public static class InputManager
         _direction = Point.Zero;
 
         var keyboardState = Keyboard.GetState();
-        var mouseState = Mouse.GetState();
-        MouseClicked = mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
-        MouseRightClicked = mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
+        var ms = Mouse.GetState();
+        MouseClicked = ms.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
+        MouseRightClicked = ms.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
 
         if (MouseClicked)
         {
-            MouseClickedPosition = mouseState.Position;
+            MouseClickedPosition = ms.Position;
+            Debug.WriteLine("MouseClicked" + MouseClicked + ", " + MouseClickedPosition);
         }
 
         if (MouseRightClicked)
         {
-            RightClickedPosition = mouseState.Position;
+            RightClickedPosition = ms.Position;
+            Debug.WriteLine("RightClickedPosition" + MouseRightClicked + ", " + RightClickedPosition);
         }
 
-        _lastMouseState = mouseState;
+        _lastMouseState = ms;
 
         _lastKeyboadState = keyboardState;
 
-        var ms = Mouse.GetState();
 
         var onscreen = ms.X >= 0 && ms.X < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth
                                 && ms.Y >= 0 && ms.Y < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight
                                 && Globals.Game.IsActive;
 
-        _lastMouseState = ms;
 
         MouseRectangle = new(ms.X, ms.Y, 1, 1);
 
