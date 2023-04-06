@@ -11,9 +11,14 @@ namespace cs2_dotnet_game;
 public class EnemyBaseState : State
 {
     private int healthPoints = 100;
-    private int battlePoints = 0;
+    private int battlePoints = 100;
     private int staminaPoints = 5;
-    private int xp  = 500;
+    private int xp = 500;
+    private int attackBPCost = 40;
+    private int defendBPCost = 20;
+    private int attackEfficiency = 35;
+
+    private bool defend = false;
 
     private int enemyHP = 100;
     private int enemyBP = 50;
@@ -30,6 +35,7 @@ public class EnemyBaseState : State
     private Texture2D enemyTexture;
 
     private GameManager _gm;
+    private String hp, bp, sp, enemyhp, errorBp, skip, nextTurn;
 
 
     public EnemyBaseState(GameManager gm)
@@ -42,7 +48,7 @@ public class EnemyBaseState : State
         buttonLeave = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         //buttonLeave.OnClick += gm.MenuState;
         buttonLeave.OnClick += Leave;
-        
+
         buttonAttack = new(Globals.Content.Load<Texture2D>("Enemy/Attack"), new(100, 200));
         buttonDefend = new(Globals.Content.Load<Texture2D>("Enemy/defend"), new(100, 400));
         buttonInventory = new(Globals.Content.Load<Texture2D>("Enemy/items"), new(100, 600));
@@ -53,7 +59,14 @@ public class EnemyBaseState : State
         buttonDefend.OnClick += Defend;
         buttonInventory.OnClick += Inventory;
         buttonSkipRound.OnClick += SkipRound;
-        
+
+        hp = "HP: " + healthPoints;
+        bp = "BP: " + battlePoints;
+        sp = "SP: " + staminaPoints;
+        enemyhp = "HP: " + enemyHP;
+        errorBp = "";
+        skip = "";
+        nextTurn = "";
     }
     public override void Draw(GameManager gm)
     {
@@ -65,6 +78,14 @@ public class EnemyBaseState : State
         buttonDefend.Draw();
         buttonSkipRound.Draw();
         buttonInventory.Draw();
+
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), hp, new Vector2(400, 900), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), bp, new Vector2(400, 950), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), sp, new Vector2(400, 1000), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), enemyhp, new Vector2(1500, 900), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), errorBp, new Vector2(400, 200), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), skip, new Vector2(400, 200), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), nextTurn, new Vector2(400, 200), Color.White);
     }
 
     public override void Update(GameManager gm)
@@ -85,46 +106,101 @@ public class EnemyBaseState : State
         return background;
     }
 
+    private void EnemyAttack()
+    {
+        UpdateCombat(7);
+        if (defend)
+        {
+            healthPoints -= (attackEfficiency / 2);
+        }
+        else
+        {
+            healthPoints -= 35;
+        }
+        if (healthPoints <= 0)
+        {
+            //lose state!
+        }
+    }
+
     private void Attack(object sender, EventArgs e)
     {
-        UpdateCombat(1);
+        if (battlePoints >= attackBPCost)
+        {
+            //attack the enemy
+            //80% chance of success
+            Random rnd = new Random();
+            int number = rnd.Next(1, 101);
+            if (number < 80)
+            {
+                UpdateCombat(1);
+                battlePoints -= attackBPCost;
+                bp = "BP: " + battlePoints;
+            }
+            else
+            {
+                ChangeMessages(4);
+            }
+        }
+        else
+        {
+            //not enough battle points
+            ChangeMessages(0);
+        }
     }
     private void AttackSpell(object sender, EventArgs e)
     {
         UpdateCombat(2);
     }
 
-    private void Defend(object sender, EventArgs e)
+    private async void Defend(object sender, EventArgs e)
     {
         //defend against the enemy
-        UpdateCombat(3);
+        if (battlePoints >= defendBPCost)
+        {
+            UpdateCombat(3);
+            defend = true;
+            battlePoints = 0;
+            bp = "BP: " + battlePoints;
+            ChangeMessages(2);
+
+            await Task.Delay(2000);
+            battlePoints = 100;
+            bp = "BP: " + battlePoints;
+        }
+        else
+        {
+            //not enough battle points
+            ChangeMessages(0);
+        }
     }
 
     private void SkipRound(object sender, EventArgs e)
     {
         //skip the round
+        ChangeMessages(1);
         UpdateCombat(4);
     }
 
     private void Inventory(object sender, EventArgs e)
     {
         //open the inventory
-        UpdateCombat(7);
+        UpdateCombat(0);
     }
 
     private async void Leave(object sender, EventArgs e)
     {
         //reduce player ex and leave the battle state
-        xp -= 100;
-        await Task.Delay(300);
+        ChangeMessages(3);
+        xp -= 100; //change with real one
+        await Task.Delay(2000);
         _gm.ChangeState(GameStates.Menu);
-
     }
     //fight state 0 = player idle, 1 = player attack, 2 = player attack spell, 3 = player defend 4 = player skip round, 5 = player inventory, 6 = enemy idle, 7 = enemy attack, 8 = enemy defeat.
     private async void UpdateCombat(int fightState)
     {
         await Task.Delay(300);
-        
+
         switch (fightState)
         {
             case 0:
@@ -168,12 +244,46 @@ public class EnemyBaseState : State
                 enemyTexture = Globals.Content.Load<Texture2D>("Enemy/enemy1");
                 break;
         }
-   
+
         //wait for 3 seconds
-        await Task.Delay(3000);
+        await Task.Delay(2000);
         //reset the player texture
         playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
         enemyTexture = Globals.Content.Load<Texture2D>("Enemy/enemy1");
+    }
+
+    private async void ChangeMessages(int message)
+    {
+        switch (message)
+        {
+            case 0:
+                //error bp
+                errorBp = "Not enough BP";
+                break;
+            case 1:
+                //skip
+                skip = "You skipped your turn";
+                break;
+            case 2:
+                //next turn
+                nextTurn = "Turn over, enemy attacking!";
+                break;
+            case 3:
+                skip = "Leaving combat... Applying XP penalty of 100!";
+                break;
+            case 4:
+                errorBp = "Attack Failed!";
+                break;
+            default:
+                errorBp = "";
+                skip = "";
+                nextTurn = "";
+                break;
+        }
+        await Task.Delay(2000);
+        errorBp = "";
+        skip = "";
+        nextTurn = "";
     }
 
 
