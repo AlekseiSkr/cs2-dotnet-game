@@ -62,11 +62,9 @@ public class Hero : Sprite
             {
                 _current++;
                 DestinationPosition = Path[_current];
-                Debug.WriteLine("MoveDone" + MoveDone);
             }
             else
             {
-                Debug.WriteLine("MoveDone" + MoveDone);
                 MoveDone = true;
             }
             return true;
