@@ -56,15 +56,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        //GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        //_spriteBatch.Begin();
-        //_gameManager.Draw();
-        //_spriteBatch.End();
-
-        //base.Draw(gameTime);
-
-        //New KODE
+        
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         Matrix? transformMatrix = _gameManager.CurrentStateTransformationMatrix;
