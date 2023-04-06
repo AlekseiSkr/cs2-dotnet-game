@@ -24,6 +24,7 @@ public class PlayState : State
         _camera = new Camera();
     }
 
+
     private void OnLeftClick()
     {
         if (InputManager.MouseClicked)

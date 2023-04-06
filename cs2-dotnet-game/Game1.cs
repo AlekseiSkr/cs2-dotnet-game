@@ -45,11 +45,22 @@ public class Game1 : Game
         base.Update(gameTime);
     }
 
+    protected override void LoadContent()
+    {
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        Globals.SpriteBatch = _spriteBatch;
+        Globals.Content = Content;
+
+        _gameManager = new();
+    }
+
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
+        _spriteBatch.Begin();
         _gameManager.Draw();
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
