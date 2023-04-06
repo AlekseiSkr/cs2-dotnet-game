@@ -11,7 +11,19 @@ public class GameManager
    #region Fields
     //private readonly Map _map;
     private State _gameState;
-    
+    public Matrix? CurrentStateTransformationMatrix
+    {
+        get
+        {
+            if (_gameState != null)
+            {
+                return _gameState.TransformationMatrix;
+            }
+
+            return null;
+        }
+    }
+
     #endregion
     public GameManager()
     {

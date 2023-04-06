@@ -56,12 +56,31 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        //GraphicsDevice.Clear(Color.CornflowerBlue);
+
+        //_spriteBatch.Begin();
+        //_gameManager.Draw();
+        //_spriteBatch.End();
+
+        //base.Draw(gameTime);
+
+        //New KODE
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        Matrix? transformMatrix = _gameManager.CurrentStateTransformationMatrix;
+        if (transformMatrix.HasValue)
+        {
+            _spriteBatch.Begin(transformMatrix: transformMatrix.Value);
+        }
+        else
+        {
+            _spriteBatch.Begin();
+        }
         _gameManager.Draw();
         _spriteBatch.End();
 
         base.Draw(gameTime);
+
+
     }
 }

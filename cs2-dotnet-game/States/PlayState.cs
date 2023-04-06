@@ -67,18 +67,18 @@ public class PlayState : State
         _hero.Update();
         OnRightClick();
         OnLeftClick();
-        _camera.Update(_hero._position, Globals.WindowSize.X, Globals.WindowSize.Y, _hero._texture); // Update the camera with the hero's position
+        _camera.Update(_hero._position, Globals.Bounds.X, Globals.Bounds.Y, _hero._texture);
+        TransformationMatrix = _camera.Transform;
     }
 
 
     public override void Draw(GameManager gm)
     {
-        Globals.SpriteBatch.Begin(transformMatrix: _camera.Transform);
+        
 
         _map.Draw();
         _hero.Draw();
 
-        Globals.SpriteBatch.End();
     }
 
 }

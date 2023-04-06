@@ -12,9 +12,6 @@ public class Tile : Sprite
     public bool Path { get; set; }
     private readonly int _mapX;
     private readonly int _mapY;
-
-    protected readonly Texture2D _texture;
-    protected readonly Vector2 _position;
     protected bool _keyboardSelected;
     protected bool _mouseSelected;
 
