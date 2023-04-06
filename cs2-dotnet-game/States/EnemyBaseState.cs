@@ -15,7 +15,7 @@ public class EnemyBaseState : State
     private int healthPoints = 100;
     private int battlePoints = 0;
     private int staminaPoints = 5;
-    private int xp  = 0;
+    private int xp  = 500;
 
     private int enemyHP = 100;
     private int enemyBP = 50;
@@ -28,27 +28,36 @@ public class EnemyBaseState : State
     private readonly Button buttonInventory;
 
     private Texture2D backgroundTexture;
+    private Texture2D playerTexture;
+    private readonly Texture2D enemyTexture;
 
     private GameManager _gm;
 
 
     public EnemyBaseState(GameManager gm)
     {
-        backgroundTexture = Globals.Content.Load<Texture2D>(GetBackground());
+        //backgroundTexture = Globals.Content.Load<Texture2D>(GetBackground());
+        backgroundTexture = Globals.Content.Load<Texture2D>("Enemy/1");
+        playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
+        enemyTexture = Globals.Content.Load<Texture2D>("Enemy/enemy1");
 
         buttonLeave = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         //buttonLeave.OnClick += gm.MenuState;
         buttonLeave.OnClick += Leave;
         
-        buttonAttack = new(Globals.Content.Load<Texture2D>("Enemy/Attack"), new(300, 850));
-        buttonDefend = new(Globals.Content.Load<Texture2D>("Enemy/defend"), new(500, 850));
-        buttonSkipRound = new(Globals.Content.Load<Texture2D>("Enemy/143-glossy-round-button-arrow-109083212"), new(700, 850));
-        buttonInventory = new(Globals.Content.Load<Texture2D>("Enemy/items"), new(900, 850));
+        buttonAttack = new(Globals.Content.Load<Texture2D>("Enemy/Attack"), new(100, 200));
+        buttonDefend = new(Globals.Content.Load<Texture2D>("Enemy/defend"), new(100, 400));
+        buttonInventory = new(Globals.Content.Load<Texture2D>("Enemy/items"), new(100, 600));
+        buttonSkipRound = new(Globals.Content.Load<Texture2D>("Enemy/143-glossy-round-button-arrow-109083212"), new(100, 800));
         _gm = gm;
+
+        buttonAttack.OnClick += Attack;
     }
     public override void Draw(GameManager gm)
     {
         Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
+        Globals.SpriteBatch.Draw(playerTexture, new Rectangle(100, 250, 500, 500), Color.White);
+        Globals.SpriteBatch.Draw(enemyTexture, new Rectangle(1000, 250, 740, 461), Color.White);
         buttonLeave.Draw();
         buttonAttack.Draw();
         buttonDefend.Draw();
@@ -76,7 +85,7 @@ public class EnemyBaseState : State
 
     private void Attack(object sender, EventArgs e)
     {
-        //attack the enemy
+        UpdateCombat(1);
     }
 
     private void Defend(object sender, EventArgs e)
@@ -97,10 +106,57 @@ public class EnemyBaseState : State
     private void Leave(object sender, EventArgs e)
     {
         //reduce player ex and leave the battle state
-        //player.xp -= 100;
+        xp -= 100;
         _gm.ChangeState(GameStates.Menu);
 
     }
-    
+    //fight state 0 = player idle, 1 = player attack, 2 = player attack spell, 3 = player defend 4 = player skip round, 5 = player inventory, 6 = enemy idle, 7 = enemy attack, 8 = enemy defeat.
+    private async void UpdateCombat(int fightState)
+    {
+        await Task.Delay(1000);
+        
+        switch (fightState)
+        {
+            case 0:
+                playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
+                break;
+            case 1:
+                //player attack
+                playerTexture = Globals.Content.Load<Texture2D>("Player/playerShooting");
+                break;
+            case 2:
+                //player attack spell
+                playerTexture = Globals.Content.Load<Texture2D>("Player/playerSpell");
+                break;
+            case 3:
+                //player defend
+                playerTexture = Globals.Content.Load<Texture2D>("Player/playerDefend");
+                break;
+            case 4:
+                //player skip round
+                playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
+                break;
+            case 5:
+                //player inventory
+                break;
+            case 6:
+                //enemy idle
+                break;
+            case 7:
+                //enemy attack
+                break;
+            case 8:
+                //enemy defeat
+                break;
+            default:
+                break;
+        }
+   
+        //wait for 3 seconds
+        await Task.Delay(3000);
+        //reset the player texture
+        playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
+    }
+
 
 }
