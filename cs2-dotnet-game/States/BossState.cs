@@ -10,7 +10,15 @@ namespace cs2_dotnet_game;
 
 public class BossState : State
 {
-    private readonly Texture2D backgroundTexture;
+    private readonly Button buttonLeave;
+    private readonly Button buttonAttack;
+    private readonly Button buttonDefend;
+    private readonly Button buttonSkipRound;
+    private readonly Button buttonInventory;
+
+    private Texture2D backgroundTexture;
+    private Texture2D playerTexture;
+    private Texture2D enemyTexture;
 
     //temp
     private readonly Button buttonLeaveBase;

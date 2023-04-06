@@ -10,8 +10,6 @@ namespace cs2_dotnet_game;
 
 public class EnemyBaseState : State
 {
-    
-
     private int healthPoints = 100;
     private int battlePoints = 0;
     private int staminaPoints = 5;

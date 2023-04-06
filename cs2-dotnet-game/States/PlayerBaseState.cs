@@ -10,7 +10,6 @@ public class PlayerBaseState : State
     private Texture2D backgroundTexture;
     private Texture2D baseTexture;
 
-    
     private readonly Button buttonUpdateTier1;
     private readonly Button buttonUpdateTier2;
     private readonly Button buttonLeaveBase;
