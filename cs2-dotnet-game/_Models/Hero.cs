@@ -20,9 +20,10 @@ public class Hero : Sprite
     public Vector2 _position;
     private Vector2 _minPos, _maxPos;
 
-    public Hero(Texture2D texure, Vector2 pos) : base(texure, pos)
+    public Hero(Texture2D texture, Vector2 pos) : base(texture, pos)
     {
         speed = 500;
+        _texture = texture;
         _origin = new Vector2(-_texture.Width / 2, _texture.Height / 2);
         _position = Adjustposition(pos);
         DestinationPosition = _position;

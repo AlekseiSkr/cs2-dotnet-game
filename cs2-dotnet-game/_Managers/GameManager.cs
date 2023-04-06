@@ -74,13 +74,11 @@ public class GameManager
     public void Update()
     {
         InputManager.Update();
-        //_map.Update();
         _gameState.Update(this);
     }
 
     public void Draw()
     {
         _gameState.Draw(this);
-        //_map.Draw();
     }
 }
