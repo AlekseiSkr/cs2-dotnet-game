@@ -9,5 +9,7 @@ public enum GameStates
     Trading,
     EnemyBase,
     BossMansion,
-    Boss
+    Boss,
+    Win,
+    GameOver
 }

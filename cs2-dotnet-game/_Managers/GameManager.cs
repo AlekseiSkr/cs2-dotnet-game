@@ -64,6 +64,16 @@ public class GameManager
         _gameState = GameStateManager.States[states];
     }
 
+    public void LoseState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.GameOver);
+    }
+
+    public void WinState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Win);
+    }
+
     public void Quit(object sender, EventArgs e)
     {
         System.Environment.Exit(0);

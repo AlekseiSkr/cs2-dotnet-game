@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:Boss/tower.png
 
+#begin death.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:death.jpg
+
 #begin Enemy/1.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -710,4 +722,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Trader/traderNoGuns.png
+
+#begin win.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:win.jpg
 

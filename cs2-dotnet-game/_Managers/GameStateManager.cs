@@ -20,5 +20,7 @@ public static class GameStateManager
         States.Add(GameStates.BossMansion, new BossMansionState(gm));
         States.Add(GameStates.Boss, new BossState(gm));
         States.Add(GameStates.Trading, new TradingState(gm));
+        States.Add(GameStates.Win, new WinState());
+        States.Add(GameStates.GameOver, new GameOverState(gm));
     }
 }

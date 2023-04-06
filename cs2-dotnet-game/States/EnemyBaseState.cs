@@ -106,7 +106,7 @@ public class EnemyBaseState : State
         return background;
     }
 
-    private void EnemyAttack()
+    private async void EnemyAttack()
     {
         UpdateCombat(7);
         if (defend)
@@ -119,11 +119,12 @@ public class EnemyBaseState : State
         }
         if (healthPoints <= 0)
         {
+            await Task.Delay(200);
             //lose state!
         }
     }
 
-    private void Attack(object sender, EventArgs e)
+    private async void Attack(object sender, EventArgs e)
     {
         if (battlePoints >= attackBPCost)
         {
@@ -136,6 +137,18 @@ public class EnemyBaseState : State
                 UpdateCombat(1);
                 battlePoints -= attackBPCost;
                 bp = "BP: " + battlePoints;
+                ChangeMessages(5);
+
+                if (battlePoints == 0)
+                {
+                    await Task.Delay(2000);
+                    ChangeMessages(2);
+                    await Task.Delay(2000);
+                    battlePoints = 10 * staminaPoints;
+                    bp = "BP: " + battlePoints;
+                    await Task.Delay(200);
+                    EnemyAttack();
+                }
             }
             else
             {
@@ -165,7 +178,8 @@ public class EnemyBaseState : State
             ChangeMessages(2);
 
             await Task.Delay(2000);
-            battlePoints = 100;
+            //battlePoints = 10 * staminaPoints;
+            battlePoints = 40;
             bp = "BP: " + battlePoints;
         }
         else
@@ -273,6 +287,9 @@ public class EnemyBaseState : State
                 break;
             case 4:
                 errorBp = "Attack Failed!";
+                break;
+            case 5:
+                errorBp = "Attack Successful!";
                 break;
             default:
                 errorBp = "";
