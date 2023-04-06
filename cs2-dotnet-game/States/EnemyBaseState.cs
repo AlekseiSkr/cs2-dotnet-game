@@ -12,11 +12,14 @@ public class EnemyBaseState : State
 {
     private int healthPoints = 100;
     private int battlePoints = 100;
-    private int staminaPoints = 5;
+    private int staminaPoints = 4;
     private int xp = 500;
     private int attackBPCost = 40;
     private int defendBPCost = 20;
     private int attackEfficiency = 35;
+
+    private int enemiesKilled = 0;
+    private int keys = 0;
 
     private bool defend = false;
 
@@ -119,8 +122,8 @@ public class EnemyBaseState : State
         }
         if (healthPoints <= 0)
         {
-            await Task.Delay(200);
-            //lose state!
+            await Task.Delay(500);
+            _gm.ChangeState(GameStates.GameOver);
         }
     }
 
@@ -137,6 +140,9 @@ public class EnemyBaseState : State
                 UpdateCombat(1);
                 battlePoints -= attackBPCost;
                 bp = "BP: " + battlePoints;
+                enemyHP -= attackEfficiency;
+                enemyhp = "HP: " + enemyHP;
+
                 ChangeMessages(5);
 
                 if (battlePoints == 0)
@@ -152,6 +158,8 @@ public class EnemyBaseState : State
             }
             else
             {
+                battlePoints -= attackBPCost;
+                bp = "BP: " + battlePoints;
                 ChangeMessages(4);
             }
         }
@@ -173,13 +181,16 @@ public class EnemyBaseState : State
         {
             UpdateCombat(3);
             defend = true;
-            battlePoints = 0;
+            battlePoints -= defendBPCost;
+            if(battlePoints > 0)
+            {
+                battlePoints = 0;
+            }
             bp = "BP: " + battlePoints;
             ChangeMessages(2);
 
             await Task.Delay(2000);
-            //battlePoints = 10 * staminaPoints;
-            battlePoints = 40;
+            battlePoints += 10 * staminaPoints;
             bp = "BP: " + battlePoints;
         }
         else
