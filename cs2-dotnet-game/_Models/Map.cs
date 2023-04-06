@@ -1,10 +1,11 @@
-﻿using cs2_dotnet_game;
+using _Models.Tiles;
+using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Point = Microsoft.Xna.Framework.Point;
 
-namespace _Models;
+namespace cs2_dotnet_game;
 
 public class Map
 {
@@ -12,7 +13,7 @@ public class Map
     public readonly Point TILE_SIZE;
     public readonly Vector2 MAP_OFFSET = new(2f, 2);
     public readonly Tile[,] _tiles;
-    private Tile _lastMouseSelected;
+    //private Tile _lastMouseSelected;
     public (int x, int y) ScreenToMapPub(Vector2 pos) => ((int)pos.X / TILE_SIZE.X, (int)pos.Y / TILE_SIZE.Y);
 
     public Map()
@@ -38,7 +39,7 @@ public class Map
             for (int x = 0; x < MAP_SIZE.X; x++)
             {
                 int r = random.Next(0, textures.Length);
-                _tiles[x, y] = new(textures[r], MapToScreen(x, y), 10, 30);
+                _tiles[x, y] = new(textures[r], MapToScreen(x, y));
             }
         }
     }
