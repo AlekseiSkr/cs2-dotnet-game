@@ -49,8 +49,8 @@ public static class InputManager
                                 && ms.Y >= 0 && ms.Y < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight
                                 && Globals.Game.IsActive;
 
-        MouseClicked = (ms.LeftButton == ButtonState.Pressed) && (_lastMouseState.LeftButton == ButtonState.Released) && onscreen;
-        MouseRightClicked = (ms.RightButton == ButtonState.Pressed) && (_lastMouseState.RightButton == ButtonState.Released) && onscreen;
+        //MouseClicked = (ms.LeftButton == ButtonState.Pressed) && (_lastMouseState.LeftButton == ButtonState.Released) && onscreen;
+        //MouseRightClicked = (ms.RightButton == ButtonState.Pressed) && (_lastMouseState.RightButton == ButtonState.Released) && onscreen;
 
         Debug.WriteLine(MouseClicked);
 
