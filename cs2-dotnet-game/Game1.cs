@@ -26,7 +26,8 @@ public class Game1 : Game
 
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
-        _graphics.IsFullScreen = true;
+        _graphics.IsFullScreen = false;
+        _graphics.HardwareModeSwitch = true;
         _graphics.ApplyChanges();
         Window.Title = "C#2 Resit: Last Elves";
         Globals.Content = Content;

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using _Models.Sprites;
-
+using System.Diagnostics;
 
 namespace cs2_dotnet_game;
 
@@ -62,9 +62,11 @@ public class Hero : Sprite
             {
                 _current++;
                 DestinationPosition = Path[_current];
+                Debug.WriteLine("MoveDone" + MoveDone);
             }
             else
             {
+                Debug.WriteLine("MoveDone" + MoveDone);
                 MoveDone = true;
             }
             return true;
@@ -93,6 +95,5 @@ public class Hero : Sprite
     public override void Draw()
     {
         Globals.SpriteBatch.Draw(_texture, _position, null, _color, 0f, _origin, 1f, SpriteEffects.None, 0f);
-
     }
 }

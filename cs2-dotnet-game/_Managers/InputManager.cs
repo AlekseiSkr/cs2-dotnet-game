@@ -6,50 +6,42 @@ namespace cs2_dotnet_game;
 
 public static class InputManager
 {
-    public static KeyboardState _lastKeyboadState;
+    //Keyboard Functionality SETUP
+
+    //public static KeyboardState _lastKeyboadState;
+    //private static Point _direction;
+    //public static Point Direction => _direction;
+
+
     public static bool MouseClicked { get; private set; }
     public static bool MouseRightClicked { get; private set; }
+
     public static Point RightClickedPosition { get; private set; }
     public static Point MouseClickedPosition { get; private set; }
-    public static Rectangle MouseRectangle { get; private set; }
-    private static Point _direction;
-    public static Point Direction => _direction;
     public static Point MousePosition => Mouse.GetState().Position;
 
-    private static MouseState _lastMouseState;
+    public static Rectangle MouseRectangle { get; private set; }
+
+    public static MouseState LastMouseState { get; private set; }
+    public static MouseState LastRightMouseState { get; private set; }
+
 
     public static void Update()
     {
+        //Keyboard Functionality
+        // _direction = Point.Zero;
+        //_lastKeyboadState = keyboardState;
+        //var keyboardState = Keyboard.GetState();
 
-        _direction = Point.Zero;
-
-        var keyboardState = Keyboard.GetState();
         var ms = Mouse.GetState();
-        MouseClicked = ms.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
-        MouseRightClicked = ms.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
 
-        if (MouseClicked)
-        {
-            MouseClickedPosition = ms.Position;
-            Debug.WriteLine("MouseClicked" + MouseClicked + ", " + MouseClickedPosition);
-        }
+        MouseClicked = (LastMouseState.LeftButton == ms.LeftButton && ms.LeftButton != ButtonState.Released);
+        MouseRightClicked = (LastMouseState.RightButton == ms.RightButton && ms.RightButton != ButtonState.Released);
 
-        if (MouseRightClicked)
-        {
-            RightClickedPosition = ms.Position;
-            Debug.WriteLine("RightClickedPosition" + MouseRightClicked + ", " + RightClickedPosition);
-        }
+        MouseClickedPosition = (MouseClicked) ? ms.Position : LastMouseState.Position;
+        RightClickedPosition = (MouseRightClicked) ? ms.Position : LastMouseState.Position;
 
-        _lastMouseState = ms;
-
-        _lastKeyboadState = keyboardState;
-
-
-        var onscreen = ms.X >= 0 && ms.X < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth
-                                && ms.Y >= 0 && ms.Y < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight
-                                && Globals.Game.IsActive;
-
-
+        LastMouseState = ms;
         MouseRectangle = new(ms.X, ms.Y, 1, 1);
 
     }

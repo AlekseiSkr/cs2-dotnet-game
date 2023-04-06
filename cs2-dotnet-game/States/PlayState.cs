@@ -2,6 +2,7 @@
 using _Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace cs2_dotnet_game;
 
@@ -24,19 +25,18 @@ public class PlayState : State
         _camera = new Camera();
     }
 
+    public static Vector2 PointToVector2(Point point)
+    {
+        return new Vector2(point.X, point.Y);
+    }
 
     private void OnLeftClick()
     {
-        if (InputManager.MouseClicked)
+        if (true)
         {
             var clickedPosition = InputManager.MouseClickedPosition;
             var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
         }
-    }
-
-    public static Vector2 PointToVector2(Point point)
-    {
-        return new Vector2(point.X, point.Y);
     }
 
     private void OnRightClick()
