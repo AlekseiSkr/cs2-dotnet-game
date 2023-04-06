@@ -120,11 +120,13 @@ public class EnemyBaseState : State
         {
             healthPoints -= 35;
         }
+        hp = "HP: " + healthPoints;
         if (healthPoints <= 0)
         {
             await Task.Delay(500);
             _gm.ChangeState(GameStates.GameOver);
         }
+        defend = false;
     }
 
     private async void Attack(object sender, EventArgs e)
@@ -145,11 +147,27 @@ public class EnemyBaseState : State
 
                 ChangeMessages(5);
 
+                if (enemyHP <= 0)
+                {
+                    await Task.Delay(2000);
+                    ChangeMessages(6);
+                    await Task.Delay(2000);
+                    xp += 100;
+                    enemiesKilled++;
+                    enemyHP = 100;
+                    battlePoints = 100;
+                    healthPoints = 100;
+                    _gm.ChangeState(GameStates.Menu);
+                    bp = "BP: " + battlePoints;
+                    hp = "HP: " + healthPoints;
+                    enemyhp = "HP: " + enemyHP;
+                }
+
                 if (battlePoints == 0)
                 {
                     await Task.Delay(2000);
                     ChangeMessages(2);
-                    await Task.Delay(2000);
+                    //await Task.Delay(2000);
                     battlePoints = 10 * staminaPoints;
                     bp = "BP: " + battlePoints;
                     await Task.Delay(200);
@@ -161,6 +179,16 @@ public class EnemyBaseState : State
                 battlePoints -= attackBPCost;
                 bp = "BP: " + battlePoints;
                 ChangeMessages(4);
+                if (battlePoints == 0)
+                {
+                    await Task.Delay(2000);
+                    ChangeMessages(2);
+                    //await Task.Delay(2000);
+                    battlePoints = 10 * staminaPoints;
+                    bp = "BP: " + battlePoints;
+                    await Task.Delay(200);
+                    EnemyAttack();
+                }
             }
         }
         else
@@ -182,16 +210,17 @@ public class EnemyBaseState : State
             UpdateCombat(3);
             defend = true;
             battlePoints -= defendBPCost;
-            if(battlePoints > 0)
+            if (battlePoints > 0)
             {
                 battlePoints = 0;
             }
             bp = "BP: " + battlePoints;
-            ChangeMessages(2);
+            ChangeMessages(7);
 
             await Task.Delay(2000);
             battlePoints += 10 * staminaPoints;
             bp = "BP: " + battlePoints;
+            EnemyAttack();
         }
         else
         {
@@ -200,11 +229,15 @@ public class EnemyBaseState : State
         }
     }
 
-    private void SkipRound(object sender, EventArgs e)
+    private async void SkipRound(object sender, EventArgs e)
     {
         //skip the round
         ChangeMessages(1);
-        UpdateCombat(4);
+        //UpdateCombat(4);
+        battlePoints += 10 * staminaPoints;
+        bp = "BP: " + battlePoints;
+        await Task.Delay(1000);
+        EnemyAttack();
     }
 
     private void Inventory(object sender, EventArgs e)
@@ -270,7 +303,7 @@ public class EnemyBaseState : State
                 break;
         }
 
-        //wait for 3 seconds
+        //wait for 2 seconds
         await Task.Delay(2000);
         //reset the player texture
         playerTexture = Globals.Content.Load<Texture2D>("Player/playerIdle");
@@ -300,7 +333,14 @@ public class EnemyBaseState : State
                 errorBp = "Attack Failed!";
                 break;
             case 5:
-                errorBp = "Attack Successful!";
+                nextTurn = "Attack Successful!";
+                break;
+            case 6:
+                errorBp = "Enemy defeated!";
+                break;
+            case 7:
+                //next turn
+                nextTurn = "Turn over, enemy attacking! You are defending!";
                 break;
             default:
                 errorBp = "";
