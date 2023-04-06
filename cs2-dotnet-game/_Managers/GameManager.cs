@@ -1,4 +1,5 @@
-﻿using _Managers;
+﻿using System;
+using _Managers;
 using _Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,76 +8,79 @@ namespace cs2_dotnet_game;
 
 public class GameManager
 {
-    private readonly Map _map;
-    private readonly Hero _hero;
-    private readonly Camera _camera;
-
-
+   #region Fields
+    //private readonly Map _map;
+    private State _gameState;
+    
+    #endregion
     public GameManager()
     {
-        _map = new Map();
-        Vector2 heroTilePosition = new Vector2(2, 3); // Set the desired tile position for the hero
-        Vector2 heroScreenPosition = _map.MapToScreen((int)heroTilePosition.X, (int)heroTilePosition.Y);
-        _hero = new Hero(Globals.Content.Load<Texture2D>("hero"), heroScreenPosition);
-        _hero.SetBounds(_map.MAP_SIZE, _map.TILE_SIZE);
-        Pathfinder.Init(_map, _hero);
-        _camera = new Camera();
+        SoundManager.Init();
+        GameStateManager.Init(this);
+        ChangeState(GameStates.Menu);
     }
 
-    private void OnLeftClick()
+
+    public void Start(object sender, EventArgs e)
     {
-        if (InputManager.MouseClicked)
-        {
-            var clickedPosition = InputManager.MouseClickedPosition;
-            var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
-        }
+        ChangeState(GameStates.Play);
     }
 
-    public static Vector2 PointToVector2(Point point)
+    public void PlayerBaseState(object sender, EventArgs e)
     {
-        return new Vector2(point.X, point.Y);
+        ChangeState(GameStates.PlayerBase);
     }
 
-    private void OnRightClick()
+    public void TraderState(object sender, EventArgs e)
     {
-        if (InputManager.MouseRightClicked)
-        {
-            Matrix inverseViewMatrix = Matrix.Invert(_camera.Transform);
-            Vector2 worldPosition = Vector2.Transform(PointToVector2(InputManager.RightClickedPosition), inverseViewMatrix);
-            var (mapX, mapY) = _map.ScreenToMap(new Point((int)worldPosition.X, (int)worldPosition.Y));
-
-            if (mapX >= 0 && mapX < _map.MAP_SIZE.X && mapY >= 0 && mapY < _map.MAP_SIZE.Y)
-            {
-                var path = Pathfinder.BFSearch(mapX, mapY);
-                _hero.SetPath(path);
-
-                // Set the target position to the screen position of the clicked tile
-                var targetPosition = _map.MapToScreen(mapX, mapY);
-                _hero.DestinationPosition.Equals(targetPosition);
-            }
-        }
+        ChangeState(GameStates.TraderBase);
     }
 
+    public void BossMansionState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.BossMansion);
+    }
+
+    public void BossState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Boss);
+    }
+
+    public void EnemyState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.EnemyBase);
+    }
+
+    public void TradingState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Trading);
+    }
+
+    public void MenuState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Menu);
+    }
+
+    public void ChangeState(GameStates states)
+    {
+        _gameState = GameStateManager.States[states];
+    }
+
+    public void Quit(object sender, EventArgs e)
+    {
+        System.Environment.Exit(0);
+    }
 
     public void Update()
     {
         InputManager.Update();
-        _map.Update();
-        _hero.Update();
-        OnRightClick();
-        OnLeftClick();
-        _camera.Update(_hero.Position, Globals.WindowSize.X, Globals.WindowSize.Y, _hero.Texture); // Update the camera with the hero's position
+        //_map.Update();
+        _gameState.Update(this);
     }
-
 
     public void Draw()
     {
-        Globals.SpriteBatch.Begin(transformMatrix: _camera.Transform);
-
-        //Globals.SpriteBatch.Begin();
-        _map.Draw();
-        _hero.Draw();
-
-        Globals.SpriteBatch.End();
+        _gameState.Draw(this);
+        //_map.Draw();
     }
 }

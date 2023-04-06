@@ -72,8 +72,8 @@ public static class Pathfinder
         CreateNodeMap();
         Queue<Node> q = new();
 
-        (int startX, int startY) = ScreenToMap(_hero.Position);
-        Debug.WriteLine(ScreenToMap(_hero.Position));
+        (int startX, int startY) = ScreenToMap(_hero._position);
+        Debug.WriteLine(ScreenToMap(_hero._position));
         var start = _nodeMap[startX, startY];
         q.Enqueue(start);
 

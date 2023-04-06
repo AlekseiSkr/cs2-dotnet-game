@@ -1,4 +1,5 @@
 ﻿using _Managers;
+using _Models.Sprites;
 using cs2_dotnet_game;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,13 +18,12 @@ public class Tile : Sprite
     protected bool _keyboardSelected;
     protected bool _mouseSelected;
 
-    public Tile(Texture2D texture, Vector2 position, int mapX, int mapY) : base(texture, position)
+    public Tile(Texture2D texture, Vector2 position) : base(texture, position)
     {
-        _mapX = mapX;
-        _mapY = mapY;
+
     }
 
-    public void Update()
+    public override void Update()
     {
         if (Pathfinder.Ready() && Rectangle.Contains(InputManager.MouseRectangle))
         {
@@ -36,15 +36,16 @@ public class Tile : Sprite
             {
                 // Use map coordinates for the goal position in the BFSearch call
                 Pathfinder.BFSearch(_mapX, _mapY);
-                Color = Color.Blue;
+                _color = Color.Blue;
             }
         }
         //Debug for line drawing, delete on release
         else
         {
-            Color = Path ? Color.Green : Color.White;
-            Color = Blocked ? Color.Red : Color;
+            _color = Path ? Color.Green : Color.White;
+            _color = Blocked ? Color.Red : _color;
         }
-
     }
+
+    public override void Draw(){ }
 }
