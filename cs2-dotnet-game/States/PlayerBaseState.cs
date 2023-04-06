@@ -34,9 +34,9 @@ public class PlayerBaseState : State
         buttonUpdateTier2.OnClick += UpdateBase2Event;
         //buttonUpdateTier2.Disabled = true;
 
-        buttonLeaveBase = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
+        buttonLeaveBase = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         buttonLeaveBase.OnClick += gm.MenuState;
-
+        
 
     }
     
