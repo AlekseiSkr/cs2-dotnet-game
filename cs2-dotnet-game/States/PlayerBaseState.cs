@@ -36,7 +36,6 @@ public class PlayerBaseState : State
 
         buttonLeaveBase = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         buttonLeaveBase.OnClick += gm.MenuState;
-        
 
     }
     
