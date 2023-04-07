@@ -153,6 +153,19 @@ public class EnemyBaseState : State
                     await Task.Delay(2000);
                     _gm.player.xpPoints += 100;
                     _gm.player.enemiesKilled++;
+                    
+                    if(_gm.player.enemiesKilled == 10)
+                    {
+                        _gm.player.keysObtained = 1;
+                    }
+                    if (_gm.player.enemiesKilled == 15)
+                    {
+                        _gm.player.keysObtained = 2;
+                    }
+                    if (_gm.player.enemiesKilled == 20)
+                    {
+                        _gm.player.keysObtained = 3;
+                    }
 
                     int enemyHealth = rnd.Next(100, 201);
                     enemyHP = enemyHealth;
@@ -268,12 +281,18 @@ public class EnemyBaseState : State
 
     private async void Leave(object sender, EventArgs e)
     {
+        buttonLeave.Disabled = true;
+        buttonLeave.OnClick -= Leave;
         await Task.Delay(100);
         //reduce player ex and leave the battle state
         ChangeMessages(3);
         _gm.player.xpPoints -= 100;
-        await Task.Delay(2000);
+        await Task.Delay(500);
         _gm.ChangeState(GameStates.Menu);
+        await Task.Delay(500);
+        buttonLeave.Disabled = false;
+        buttonLeave.OnClick += Leave;
+
     }
     //fight state 0 = player idle, 1 = player attack, 2 = player attack spell, 3 = player defend 4 = player skip round, 5 = player inventory, 6 = enemy idle, 7 = enemy attack, 8 = enemy defeat.
     private async void UpdateCombat(int fightState)
