@@ -44,8 +44,8 @@ public class MenuState : State
 
         //tempo buttons
         Button buttonTrade = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        //buttonTrade.OnClick += gm.TraderState;
-        buttonTrade.OnClick += gm.LoseState;
+        buttonTrade.OnClick += gm.TraderState;
+        //buttonTrade.OnClick += gm.LoseState;
         Button buttonPlayerBase = new(Globals.Content.Load<Texture2D>("backButton"), new(300, 1000));
         buttonPlayerBase.OnClick += gm.PlayerBaseState;
         Button buttonBoss = new(Globals.Content.Load<Texture2D>("backButton"), new(500, 1000));
