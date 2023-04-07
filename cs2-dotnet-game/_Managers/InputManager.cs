@@ -41,6 +41,14 @@ public static class InputManager
         MouseClickedPosition = (MouseClicked) ? ms.Position : LastMouseState.Position;
         RightClickedPosition = (MouseRightClicked) ? ms.Position : LastMouseState.Position;
 
+        //var onscreen = ms.X >= 0 && ms.X < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferWidth
+        //                        && ms.Y >= 0 && ms.Y < Globals.SpriteBatch.GraphicsDevice.PresentationParameters.BackBufferHeight
+        //                        && Globals.Game.IsActive;
+
+        //MouseClicked = (ms.LeftButton == ButtonState.Pressed) && (LastMouseState.LeftButton == ButtonState.Released) && onscreen;
+        //MouseRightClicked = (ms.RightButton == ButtonState.Pressed) && (LastMouseState.RightButton == ButtonState.Released) && onscreen;
+        //LastMouseState = ms;
+
         LastMouseState = ms;
         MouseRectangle = new(ms.X, ms.Y, 1, 1);
 

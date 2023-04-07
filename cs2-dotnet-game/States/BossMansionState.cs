@@ -17,17 +17,17 @@ public class BossMansionState : State
     private readonly Button buttonEnterGate;
 
     //temp
-    private int playerKeys = 1;
+    private int playerKeys = 3;
     public BossMansionState(GameManager gm)
     {
         bossCastle = Globals.Content.Load<Texture2D>("Boss/bossBase");
 
-        buttonLeaveGates = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
+        buttonLeaveGates = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         buttonLeaveGates.OnClick += gm.MenuState;
 
         buttonEnterGate = new(Globals.Content.Load<Texture2D>("Boss/gates"), new(1100, 720));
         //buttonEnterGate.OnClick += gm.BossState;
-        buttonEnterGate.OnClick += gm.TraderState;
+        buttonEnterGate.OnClick += gm.BossState;
     }
     public override void Draw(GameManager gm)
     {
