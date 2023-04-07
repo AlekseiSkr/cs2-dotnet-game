@@ -10,15 +10,9 @@ namespace cs2_dotnet_game;
 
 public class EnemyBaseState : State
 {
-    private int healthPoints = 100;
-    private int battlePoints = 100;
-    private int staminaPoints = 4;
     private int attackBPCost = 40;
     private int defendBPCost = 20;
     private int attackEfficiency = 35;
-
-    private int enemiesKilled = 0;
-    private int keys = 0;
 
     private bool defend = false;
 
@@ -60,10 +54,10 @@ public class EnemyBaseState : State
         buttonInventory.OnClick += Inventory;
         buttonSkipRound.OnClick += SkipRound;
 
-        hp = "HP: " + healthPoints;
-        bp = "BP: " + battlePoints;
-        sp = "SP: " + staminaPoints;
-        enemyhp = "HP: " + enemyHP;
+        hp = "HP: " ;
+        bp = "BP: " ;
+        sp = "SP: " ;
+        enemyhp = "HP: ";
         errorBp = "";
         skip = "";
         nextTurn = "";
@@ -86,6 +80,11 @@ public class EnemyBaseState : State
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), errorBp, new Vector2(400, 200), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), skip, new Vector2(400, 200), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), nextTurn, new Vector2(400, 200), Color.White);
+
+        hp = "HP: " + gm.player.healthPoints;
+        bp = "BP: " + gm.player.battlePoints;
+        sp = "SP: " + gm.player.staminaPoints;
+        enemyhp = "HP: " + enemyHP;
     }
 
     public override void Update(GameManager gm)
@@ -154,7 +153,7 @@ public class EnemyBaseState : State
                     _gm.player.xpPoints += 100;
                     _gm.player.enemiesKilled++;
                     
-                    if(_gm.player.enemiesKilled == 10)
+                    if(_gm.player.enemiesKilled == 1)
                     {
                         _gm.player.keysObtained = 1;
                     }
@@ -271,6 +270,7 @@ public class EnemyBaseState : State
         EnemyAttack();
         await Task.Delay(2500);
         buttonSkipRound.Disabled = false;
+        buttonSkipRound.OnClick += SkipRound;
     }
 
     private void Inventory(object sender, EventArgs e)

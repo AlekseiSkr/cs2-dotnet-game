@@ -24,14 +24,8 @@ public class PlayerBaseState : State
     private String currentBP = "Current BP : 100";
     private String currentSP = "Current SP : 4";
     private String currentXP = "Current XP : 1000";
+    private String currentEnemiesKilled = "";
 
-
-    //temp var till player is implemented
-    private int playerXP = 1000;
-    private int playerHP = 50;
-    private int playerBP = 0;
-    private int playerSP = 4;
-    private int playerMaxHP = 100;
 
     private bool update1 = false;
     private bool update2 = false;
@@ -65,6 +59,7 @@ public class PlayerBaseState : State
         currentBP = "Current BP : " ;
         currentSP = "Current SP : " ;
         currentXP = "Current XP : " ;
+        currentEnemiesKilled = "";
     }
     
     public override void Draw(GameManager gm)
@@ -85,11 +80,13 @@ public class PlayerBaseState : State
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentBP, new Vector2(70, 400), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentSP, new Vector2(70, 440), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentXP, new Vector2(70, 480), Color.White);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentEnemiesKilled, new Vector2(70, 520), Color.White);
 
         currentHP = "Current HP : " + gm.player.healthPoints + "/" + gm.player.maxHealthPoints;
         currentBP = "Current BP : " + gm.player.battlePoints + "/" + gm.player.maxBattlePoints;
         currentSP = "Current SP : " + gm.player.staminaPoints;
         currentXP = "Current XP : " + gm.player.xpPoints;
+        currentEnemiesKilled = "Enemies Killed : " + gm.player.enemiesKilled;
 
     }
     public override void Update(GameManager gm)
@@ -127,11 +124,11 @@ public class PlayerBaseState : State
         update2 = true;
         baseTier = "Current base tier : 3";
         _gm.player.maxHealthPoints = 150;
-        _gm.player.staminaPoints = 5;
+        _gm.player.staminaPoints = 10;
         currentSP = "Current SP : " + _gm.player.staminaPoints;
         currentHP = "Current HP : " + _gm.player.healthPoints + "/" + _gm.player.maxHealthPoints;
 
-        _gm.player.xpPoints -= 500;
+        _gm.player.xpPoints -= 1000;
         currentXP = "Current XP : " + _gm.player.xpPoints;
     }
 

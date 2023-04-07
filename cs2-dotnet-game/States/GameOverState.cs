@@ -23,6 +23,7 @@ public class GameOverState : State
         Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "as the sky turns to dark, you can't help but feel remorse. you have let your ancestors down ... you have failed yourself", new Vector2(500, 100), Color.Black);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "yet, the world would live on to see another sunrise", new Vector2(500, 130), Color.Black);
+        gm.player.healthPoints = 1;
     }
 
     public override void Update(GameManager gm)
