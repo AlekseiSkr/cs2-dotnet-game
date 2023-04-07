@@ -36,6 +36,8 @@ public class PlayerBaseState : State
     private bool update1 = false;
     private bool update2 = false;
 
+    private GameManager _gm;
+
     public PlayerBaseState(GameManager gm)
     {
         backgroundTexture = Globals.Content.Load<Texture2D>("Misc/background1");
@@ -57,10 +59,12 @@ public class PlayerBaseState : State
         buttonSleep = new(Globals.Content.Load<Texture2D>("sleep"), new(130, 700));
         buttonSleep.OnClick += Sleep;
 
-        currentHP = "Current HP : " + playerHP + "/" + playerMaxHP;
-        currentBP = "Current BP : " + playerBP;
-        currentSP = "Current SP : " + playerSP;
-        currentXP = "Current XP : " + playerXP;
+        _gm = gm;
+
+        currentHP = "Current HP : " ;
+        currentBP = "Current BP : " ;
+        currentSP = "Current SP : " ;
+        currentXP = "Current XP : " ;
     }
     
     public override void Draw(GameManager gm)
@@ -82,14 +86,19 @@ public class PlayerBaseState : State
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentSP, new Vector2(70, 440), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), currentXP, new Vector2(70, 480), Color.White);
 
+        currentHP = "Current HP : " + gm.player.healthPoints + "/" + gm.player.maxHealthPoints;
+        currentBP = "Current BP : " + gm.player.battlePoints + "/" + gm.player.maxBattlePoints;
+        currentSP = "Current SP : " + gm.player.staminaPoints;
+        currentXP = "Current XP : " + gm.player.xpPoints;
+
     }
     public override void Update(GameManager gm)
     {
-        if (playerXP >= 500 && !update1)
+        if (gm.player.xpPoints >= 500 && !update1)
         {
             buttonUpdateTier1.Update();
         }
-        if (playerXP >= 1000 && update1 && !update2)
+        if (gm.player.xpPoints >= 1000 && update1 && !update2)
         {
             buttonUpdateTier2.Update();
         }
@@ -103,13 +112,13 @@ public class PlayerBaseState : State
         UpgradeBase(1);
         update1 = true;
         baseTier = "Current base tier : 2";
-        playerMaxHP = 125;
-        playerSP = 5;
-        currentSP = "Current SP : " + playerSP;
-        currentHP = "Current HP : " + playerHP + "/" + playerMaxHP;
+        _gm.player.maxHealthPoints = 125;
+        _gm.player.staminaPoints = 5;
+        currentSP = "Current SP : " + _gm.player.staminaPoints;
+        currentHP = "Current HP : " + _gm.player.healthPoints + "/" + _gm.player.maxHealthPoints;
 
-        playerXP -= 500;
-        currentXP = "Current XP : " + playerXP;
+        _gm.player.xpPoints -= 500;
+        currentXP = "Current XP : " + _gm.player.xpPoints;
     }
     
     private void UpdateBase2Event(object sender, EventArgs e)
@@ -117,13 +126,13 @@ public class PlayerBaseState : State
         UpgradeBase(2);
         update2 = true;
         baseTier = "Current base tier : 3";
-        playerMaxHP = 150;
-        playerSP = 10;
-        currentSP = "Current SP : " + playerSP;
-        currentHP = "Current HP : " + playerHP + "/" + playerMaxHP;
+        _gm.player.maxHealthPoints = 150;
+        _gm.player.staminaPoints = 5;
+        currentSP = "Current SP : " + _gm.player.staminaPoints;
+        currentHP = "Current HP : " + _gm.player.healthPoints + "/" + _gm.player.maxHealthPoints;
 
-        playerXP -= 1000;
-        currentXP = "Current XP : " + playerXP;
+        _gm.player.xpPoints -= 500;
+        currentXP = "Current XP : " + _gm.player.xpPoints;
     }
 
     private void UpgradeBase(int upgrade)
@@ -142,9 +151,9 @@ public class PlayerBaseState : State
     private void Sleep(object sender, EventArgs e)
     {
         //set hp and bp to max
-        playerHP = playerMaxHP;
-        playerBP = 100;
-        currentHP = "Current HP : " + playerHP + "/" + playerMaxHP;
-        currentBP = "Current BP : " + playerBP;
+        _gm.player.healthPoints = _gm.player.maxHealthPoints;
+        _gm.player.battlePoints = _gm.player.maxBattlePoints;
+        currentHP = "Current HP : " + _gm.player.battlePoints + "/" + _gm.player.maxBattlePoints;
+        currentHP = "Current HP : " + _gm.player.healthPoints + "/" + _gm.player.maxHealthPoints;
     }
 }

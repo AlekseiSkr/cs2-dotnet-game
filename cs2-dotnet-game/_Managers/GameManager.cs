@@ -12,6 +12,8 @@ public class GameManager
    #region Fields
     //private readonly Map _map;
     private State _gameState;
+
+    public PlayerStats player;
     public Matrix? CurrentStateTransformationMatrix
     {
         get
@@ -31,6 +33,8 @@ public class GameManager
         SoundManager.Init();
         GameStateManager.Init(this);
         ChangeState(GameStates.Menu);
+        player = new PlayerStats();
+        //player.keysObtained = 3;
     }
 
 
