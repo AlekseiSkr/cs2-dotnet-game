@@ -72,7 +72,7 @@ public class Game1 : Game
 
 
         Globals.CenterScreen = _centerScreen;
-        Globals.DialogFont = Content.Load<SpriteFont>("dialog");
+        //Globals.DialogFont = Content.Load<SpriteFont>("dialog");
 
         InputManager.MouseControl = new _Managers.MouseControl();
 

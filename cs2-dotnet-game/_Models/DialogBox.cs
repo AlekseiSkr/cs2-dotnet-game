@@ -16,7 +16,9 @@ public class DialogBox
     private readonly Texture2D _borderTexture;
     private List<string> _pages;
     private const float DialogBoxMargin = 24f;
-    private Vector2 _characterSize = Globals.DialogFont.MeasureString(new StringBuilder("W", 1));
+    private Vector2 _characterSize = _font.MeasureString(new StringBuilder("W", 1));
+    //private Vector2 _characterSize = new Vector2(0,1);
+    public static SpriteFont _font = Globals.Content.Load<SpriteFont>("Fonts/Font");
     private int MaxCharsPerLine => (int) Math.Floor((Size.X - DialogBoxMargin) / _characterSize.X);
     private int MaxLines => (int) Math.Floor((Size.Y - DialogBoxMargin) / _characterSize.Y) - 1;
     private int _currentPage;
@@ -168,7 +170,7 @@ public class DialogBox
 
 
             // Draw the current page onto the dialog box
-            Globals.SpriteBatch.DrawString(Globals.DialogFont, _pages[_currentPage], TextPosition, DialogColor);
+            Globals.SpriteBatch.DrawString(_font, _pages[_currentPage], TextPosition, DialogColor);
 
             // Draw a blinking indicator to guide the player through to the next page
             // This stops blinking on the last page
@@ -178,7 +180,7 @@ public class DialogBox
                 /*var indicatorPosition = new Vector2(TextRectangle.X + TextRectangle.Width - (_characterSize.X) - 4,
                     TextRectangle.Y + TextRectangle.Height - (_characterSize.Y));*/
 
-                Globals.SpriteBatch.DrawString(Globals.DialogFont, ">", new Vector2(1400, 1000), Color.Red);
+                Globals.SpriteBatch.DrawString(_font, ">", new Vector2(1400, 1000), Color.Red);
             }
         }
     }
