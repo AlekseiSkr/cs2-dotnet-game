@@ -23,24 +23,15 @@ public class Game1 : Game
         Globals.Game = this;
         Globals.Bounds = new(1920, 1080);
         // TODO: Add your initialization logic here
+
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
-        _graphics.IsFullScreen = true;
+        _graphics.IsFullScreen = false;
+        _graphics.HardwareModeSwitch = true;
         _graphics.ApplyChanges();
         Window.Title = "C#2 Resit: Last Elves";
-
         Globals.Content = Content;
-
         base.Initialize();
-    }
-
-    protected override void LoadContent()
-    {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        Globals.SpriteBatch = _spriteBatch;
-        Globals.Content = Content;
-
-        _gameManager = new();
     }
 
     protected override void Update(GameTime gameTime)
@@ -55,14 +46,34 @@ public class Game1 : Game
         base.Update(gameTime);
     }
 
+    protected override void LoadContent()
+    {
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        Globals.SpriteBatch = _spriteBatch;
+        Globals.Content = Content;
+
+        _gameManager = new();
+    }
+
     protected override void Draw(GameTime gameTime)
     {
+        
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        Matrix? transformMatrix = _gameManager.CurrentStateTransformationMatrix;
+        if (transformMatrix.HasValue)
+        {
+            _spriteBatch.Begin(transformMatrix: transformMatrix.Value);
+        }
+        else
+        {
+            _spriteBatch.Begin();
+        }
         _gameManager.Draw();
         _spriteBatch.End();
 
         base.Draw(gameTime);
+
+
     }
 }

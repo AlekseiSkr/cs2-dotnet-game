@@ -1,18 +1,32 @@
 ﻿using System;
+using _Managers;
+using _Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace cs2_dotnet_game;
 
 public class GameManager
 {
-    #region Fields
+   #region Fields
     //private readonly Map _map;
-    public Map _map;
     private State _gameState;
-    
+    public Matrix? CurrentStateTransformationMatrix
+    {
+        get
+        {
+            if (_gameState != null)
+            {
+                return _gameState.TransformationMatrix;
+            }
+
+            return null;
+        }
+    }
+
     #endregion
     public GameManager()
     {
-        _map = new Map();
         SoundManager.Init();
         GameStateManager.Init(this);
         ChangeState(GameStates.Menu);
@@ -72,13 +86,11 @@ public class GameManager
     public void Update()
     {
         InputManager.Update();
-        //_map.Update();
         _gameState.Update(this);
     }
 
     public void Draw()
     {
         _gameState.Draw(this);
-        //_map.Draw();
     }
 }

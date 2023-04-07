@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 public abstract class State
 {
     //1792, 1008
+    public Matrix? TransformationMatrix { get; protected set; } = null;
     protected int screenWidth = 1792;
     protected int screenHeight = 1008;
     protected int imageWidth = 800;
