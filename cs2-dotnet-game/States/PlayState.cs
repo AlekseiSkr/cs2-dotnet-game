@@ -1,4 +1,4 @@
-﻿using _Managers;
+using _Managers;
 using _Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
