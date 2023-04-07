@@ -1,4 +1,5 @@
 ﻿
+using cs2_dotnet_game.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,8 @@ public static class GameStateManager
         States.Add(GameStates.Trading, new TradingState(gm));
         States.Add(GameStates.Win, new WinState());
         States.Add(GameStates.GameOver, new GameOverState(gm));
+        States.Add(GameStates.Splash, new LoadingState(gm));
+        States.Add(GameStates.DialogBox, new DialogBoxState(gm));
+        States.Add(GameStates.Inventory, new InventoryState(gm));
     }
 }

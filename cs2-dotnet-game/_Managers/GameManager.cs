@@ -30,7 +30,8 @@ public class GameManager
     {
         SoundManager.Init();
         GameStateManager.Init(this);
-        ChangeState(GameStates.Menu);
+        ChangeState(GameStates.Splash);
+        //ChangeState(GameStates.Menu);
     }
 
 
@@ -44,6 +45,13 @@ public class GameManager
         await Task.Delay(100);
         ChangeState(GameStates.PlayerBase);
     }
+
+    public async void DialogbBx(object sender, EventArgs e)
+    {
+        await Task.Delay(100);
+        ChangeState(GameStates.DialogBox);
+    }
+
 
     public async void TraderState(object sender, EventArgs e)
     {
