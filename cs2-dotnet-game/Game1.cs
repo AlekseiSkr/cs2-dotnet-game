@@ -35,7 +35,7 @@ public class Game1 : Game
 
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
-        _graphics.IsFullScreen = true;
+        _graphics.IsFullScreen = false;
         _graphics.HardwareModeSwitch = true;
         _graphics.ApplyChanges();
         Window.Title = "C#2 Resit: Last Elves";
@@ -51,15 +51,15 @@ public class Game1 : Game
 
         Globals.Update(gameTime);
 
-        InputManager.MouseControl.Update();
+        //InputManager.MouseControl.Update();
         _gameManager.Update();
 
-        if (Globals.DragAndDropPacket != null)
+/*        if (Globals.DragAndDropPacket != null)
         {
             Globals.DragAndDropPacket.Update();
         }
 
-        InputManager.MouseControl.UpdateOld();
+        InputManager.MouseControl.UpdateOld();*/
 
         base.Update(gameTime);
     }
@@ -96,10 +96,10 @@ public class Game1 : Game
             _spriteBatch.Begin();
         }
         _gameManager.Draw();
-        if (Globals.DragAndDropPacket != null)
+/*        if (Globals.DragAndDropPacket != null)
         {
             Globals.DragAndDropPacket.Draw();
-        }
+        }*/
         _spriteBatch.End();
 
         base.Draw(gameTime);

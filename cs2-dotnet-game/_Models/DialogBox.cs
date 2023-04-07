@@ -18,7 +18,7 @@ public class DialogBox
     private const float DialogBoxMargin = 24f;
     private Vector2 _characterSize = _font.MeasureString(new StringBuilder("W", 1));
     //private Vector2 _characterSize = new Vector2(0,1);
-    public static SpriteFont _font = Globals.Content.Load<SpriteFont>("Fonts/Font");
+    public static SpriteFont _font = Globals.Content.Load<SpriteFont>("Prospero");
     private int MaxCharsPerLine => (int) Math.Floor((Size.X - DialogBoxMargin) / _characterSize.X);
     private int MaxLines => (int) Math.Floor((Size.Y - DialogBoxMargin) / _characterSize.Y) - 1;
     private int _currentPage;
