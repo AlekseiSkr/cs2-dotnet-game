@@ -131,6 +131,8 @@ public class EnemyBaseState : State
 
     private async void Attack(object sender, EventArgs e)
     {
+        buttonAttack.Disabled = true;
+        buttonAttack.OnClick -= Attack;
         if (battlePoints >= attackBPCost)
         {
             //attack the enemy
@@ -196,14 +198,21 @@ public class EnemyBaseState : State
             //not enough battle points
             ChangeMessages(0);
         }
+        await Task.Delay(2500);
+        buttonAttack.Disabled = false;
+        buttonAttack.OnClick += Attack;
     }
-    private void AttackSpell(object sender, EventArgs e)
+    private async void AttackSpell(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         UpdateCombat(2);
     }
 
     private async void Defend(object sender, EventArgs e)
     {
+        buttonDefend.Disabled = true;
+        buttonDefend.OnClick -= Defend;
+        await Task.Delay(500);
         //defend against the enemy
         if (battlePoints >= defendBPCost)
         {
@@ -227,10 +236,15 @@ public class EnemyBaseState : State
             //not enough battle points
             ChangeMessages(0);
         }
+        await Task.Delay(2500);
+        buttonDefend.Disabled = false;
+        buttonDefend.OnClick += Defend;
     }
 
     private async void SkipRound(object sender, EventArgs e)
     {
+        buttonSkipRound.Disabled = true;
+        buttonSkipRound.OnClick -= SkipRound;
         //skip the round
         ChangeMessages(1);
         //UpdateCombat(4);
@@ -238,6 +252,8 @@ public class EnemyBaseState : State
         bp = "BP: " + battlePoints;
         await Task.Delay(1000);
         EnemyAttack();
+        await Task.Delay(2500);
+        buttonSkipRound.Disabled = false;
     }
 
     private void Inventory(object sender, EventArgs e)
@@ -248,6 +264,7 @@ public class EnemyBaseState : State
 
     private async void Leave(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         //reduce player ex and leave the battle state
         ChangeMessages(3);
         xp -= 100; //change with real one
