@@ -25,7 +25,7 @@ namespace cs2_dotnet_game.States
         public override void Update(GameManager gm)
         {
             _dialogBox.Update();
-            if (InputManager.KeyState.IsKeyDown(Keys.O))
+/*            if (InputManager.KeyState.IsKeyDown(Keys.O))
             {
                 if (!_dialogBox.Active)
                 {
@@ -36,9 +36,9 @@ namespace cs2_dotnet_game.States
                     };
                     _dialogBox.Initialize();
                 }
-            }
+            }*/
 
-            if (InputManager.KeyState.IsKeyDown(Keys.F))
+            if (InputManager.KeyState.IsKeyDown(Keys.F) || !_dialogBox.Active)
             {
                 gm.ChangeState(GameStates.Play);
             }
