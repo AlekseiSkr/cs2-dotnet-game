@@ -19,9 +19,6 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        playerItems.Add("Sword");
-        playerItems.Add("Shield");
-        playerItems.Add("Potion");
     }
 
     protected override void Initialize()
@@ -57,6 +54,12 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         Globals.SpriteBatch = _spriteBatch;
         Globals.Content = Content;
+
+
+        Globals.CenterScreen = _centerScreen;
+        //Globals.DialogFont = Content.Load<SpriteFont>("dialog");
+
+        InputManager.MouseControl = new _Managers.MouseControl();
 
         _gameManager = new();
     }
