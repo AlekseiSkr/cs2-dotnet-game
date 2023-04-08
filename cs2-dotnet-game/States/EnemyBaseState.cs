@@ -149,6 +149,7 @@ public class EnemyBaseState : State
                 {
                     await Task.Delay(2000);
                     ChangeMessages(6);
+                    UpdateCombat(8);
                     await Task.Delay(2000);
                     _gm.player.xpPoints += 100;
                     _gm.player.enemiesKilled++;
