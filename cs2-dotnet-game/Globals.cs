@@ -15,7 +15,7 @@ public static class Globals
     public static Point WindowSize { get; set; }
     public static Point Bounds { get; set; }    
     public static Game Game { get; set; }
-    public static SpriteFont DialogFont { get; set; }
+   // public static SpriteFont DialogFont { get; set; }
     public static Vector2 CenterScreen { get; set; }
 
     public static DragAndDropPacket DragAndDropPacket;

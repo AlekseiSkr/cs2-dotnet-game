@@ -24,7 +24,7 @@ public class LoadingState : State
     public LoadingState(GameManager gm) 
     {
         _time = 0.0f;
-        _splashImage = Globals.Content.Load<Texture2D>("Menu/splashImage");
+        _splashImage = Globals.Content.Load<Texture2D>("Menu/Splash2");
         _timer = new(15000);
         var back = Globals.Content.Load<Texture2D>("Health/back");
         var front = Globals.Content.Load<Texture2D>("Health/front");

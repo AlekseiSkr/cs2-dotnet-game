@@ -254,6 +254,7 @@ public class EnemyBaseState : State
         EnemyAttack();
         await Task.Delay(2500);
         buttonSkipRound.Disabled = false;
+        buttonSkipRound.OnClick += SkipRound;
     }
 
     private void Inventory(object sender, EventArgs e)
