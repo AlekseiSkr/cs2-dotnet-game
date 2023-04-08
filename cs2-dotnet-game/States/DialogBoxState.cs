@@ -10,7 +10,7 @@ namespace cs2_dotnet_game.States
         {
             _dialogBox = new DialogBox
             {
-                Text = "Press Enter to proceed and P to get back.\n" +
+                Text = "Press Enter to proceed, P to get back, and F to enter the game.\n" +
                    "In the world of Arvandor, the ancient elves have long lived in peace and harmony with nature. But a powerful curse has befallen their land, corrupting the once pristine forests and turning them into twisted, dangerous places.\n" +
                    "The kingdom of Thundertree, one of the 4 major elven kingdom who makes up the world of Arvandor, has been in turmoil for years. A dark force has been plaguing the land, corrupting the once peaceful people and turning them into mindless, violent beasts. The king, desperate to save his people, has put out a call for adventurers to come to his aid.\n" +
                    "You are Zavix, the great Archmage of unknown age. It is known that you took part in the 2nd demon wars, but there is no record that mention you being in the first demon wars. You have been hailed as a hero, and anytime Arvandor is truely in peril you will always be there to help.\n" +
