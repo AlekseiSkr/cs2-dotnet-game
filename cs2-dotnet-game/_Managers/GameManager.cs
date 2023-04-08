@@ -49,6 +49,13 @@ public class GameManager
         ChangeState(GameStates.PlayerBase);
     }
 
+    public async void DialogbBx(object sender, EventArgs e)
+    {
+        await Task.Delay(100);
+        ChangeState(GameStates.DialogBox);
+    }
+
+
     public async void TraderState(object sender, EventArgs e)
     {
         await Task.Delay(100);

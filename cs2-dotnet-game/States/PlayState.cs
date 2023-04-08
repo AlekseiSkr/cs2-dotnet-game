@@ -78,6 +78,11 @@ public class PlayState : State
         _camera.Update(_hero._position, Globals.Bounds.X, Globals.Bounds.Y, _hero._texture);
         TransformationMatrix = _camera.Transform;
         buttonLeave.Update();
+
+        if (InputManager.KeyState.IsKeyDown(Keys.I))
+        {
+            gm.ChangeState(GameStates.Inventory);
+        }
     }
 
 
