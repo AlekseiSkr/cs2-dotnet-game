@@ -1,23 +1,26 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace cs2_dotnet_game.States
 {
     public class DialogBoxState : State
     {
         private DialogBox _dialogBox;
+        private Texture2D backgroundTexture;
 
         public DialogBoxState(GameManager gm)
         {
+            backgroundTexture = Globals.Content.Load<Texture2D>("intro");
             _dialogBox = new DialogBox
             {
-                Text = "Press Enter to proceed, P to get back, and F to enter the game.\n" +
-                   "In the world of Arvandor, the ancient elves have long lived in peace and harmony with nature. But a powerful curse has befallen their land, corrupting the once pristine forests and turning them into twisted, dangerous places.\n" +
-                   "The kingdom of Thundertree, one of the 4 major elven kingdom who makes up the world of Arvandor, has been in turmoil for years. A dark force has been plaguing the land, corrupting the once peaceful people and turning them into mindless, violent beasts. The king, desperate to save his people, has put out a call for adventurers to come to his aid.\n" +
-                   "You are Zavix, the great Archmage of unknown age. It is known that you took part in the 2nd demon wars, but there is no record that mention you being in the first demon wars. You have been hailed as a hero, and anytime Arvandor is truely in peril you will always be there to help.\n" +
-                   "You answering the call for help from the king, arrived in the city of Silvyrion, the final elven city of the kingdom of Thundertree to find a land on the brink of destruction. As you investigate, you discover that an evil sorcerer has been using a powerful magical artifact to control the minds of the creatures of the forest and bend them to his will.\n" +
-                   "To stop the sorcerer, you must first find the artifact - a powerful amulet that is said to be hidden deep within a dungeon beneath the cursed forest. But the dungeon is filled with traps, puzzles, and deadly creatures, and the sorcerer's minions will do anything to stop you from finding the amulet.\n" +
-                   "Once you have the amulet, you must face the wizard in a final showdown. But the wizard is no ordinary foe - he is a master of the dark arts, and he has many tricks up his sleeve. You'll need to use all of your skills and wits to defeat him, break the curse and finally restore peace to Thundertree.\n" +
-                   "As you journey through the land, you'll meet a variety of other side items and characters, some of whom may join your party and help you on your quest. You'll explore ancient ruins, battle fierce monsters, and unravel the mysteries of the wizard's power. And at the end of it all, you'll be hailed as heroes - the saviors of elves of Thundertree and their home of Arvandor."
+                Text = "Welcome to 'Last Elves'! Press Enter to proceed, P to get back, and F to enter the game.\n" +
+                   "In the magical realm of Stenden, the ancient elves have long lived in peace and harmony with nature. But a powerful curse has befallen their land, corrupting the once pristine forests and turning them into twisted, dangerous places. The world itself became a desolate wasteland.\n" +
+                   "Facing the new reality, the elven kingdoms tried to come together and save their lands. Unknown to them however, the curse had been placed by a powerful yet corrupt wizard, leader of the orks, known only as the Stalker. One by one, the kingdoms fell into the darkness, or were twisted into becoming hideous orks. Now, all but one of the once mighty elves is still roaming the lands, and where great forests of green once stood, dark, blasphemous industrial plants toil away into the ages.\n" +
+                   "You are the Nameless One, the great Archmage of an unknown age and a great inventor, the last surviving elf. You have swore a deadly oath, to avenge your people and cleanse the land of corruption and orks. Your arch nemesis, the Stalker, must be defeated.\n" +
+                   "To stop the Stalker and avenge your people, you must first destroy his hordes of orks - powerful but not particularly bright, 25 of his legions march and terrorise what is left of the once fair land. Moreover, the Stalker's fortress is tightly locked behind mighty gates, that can be opened with 3 keys. These keys are safeguarded by his ork chieftains.\n" +
+                   "Once you have weakened his influence, you must face the Stalker in a final showdown. But be wary, for he is no ordinary foe - he is a master of corruption, and he has many tricks up his sleeve. You'll need to use all of your skills and wits to defeat him, break the curse and finally be at peace.\n" +
+                   "As you journey through the land, you'll meet a variety of side items and characters, some of whom may help you on your quest. You will have access to your safehouse at all times - far away from any inquisitive foes. It is from here you can rest, or spend the knowledge and experience gained battling the legion to upgrade your strength. Go now, and live up to the name of your ancestors! Good luck, hero."
             };
             _dialogBox.Initialize();
         }
@@ -46,6 +49,7 @@ namespace cs2_dotnet_game.States
 
         public override void Draw(GameManager gm)
         {
+            Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
             _dialogBox.Draw();
         }
     }

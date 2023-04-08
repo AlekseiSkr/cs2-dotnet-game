@@ -22,9 +22,6 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        playerItems.Add("Sword");
-        playerItems.Add("Shield");
-        playerItems.Add("Potion");
     }
 
     protected override void Initialize()
@@ -35,7 +32,7 @@ public class Game1 : Game
 
         _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
         _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
-        _graphics.IsFullScreen = false;
+        _graphics.IsFullScreen = true;
         _graphics.HardwareModeSwitch = true;
         _graphics.ApplyChanges();
         Window.Title = "C#2 Resit: Last Elves";
