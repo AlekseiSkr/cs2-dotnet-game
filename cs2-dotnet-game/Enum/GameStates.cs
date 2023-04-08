@@ -10,9 +10,6 @@ public enum GameStates
     EnemyBase,
     BossMansion,
     Boss,
-    Splash,
-    DialogBox,
-    Inventory,
     Win,
     GameOver
 }

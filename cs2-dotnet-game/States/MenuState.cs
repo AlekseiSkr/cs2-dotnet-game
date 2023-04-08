@@ -32,7 +32,7 @@ public class MenuState : State
         {
             Text = "Exit Game",
         };
-        newGame.OnClick += gm.DialogbBx;
+        newGame.OnClick += gm.Start;
         //IMPORTANT: IMPLEMENT SAVE WHEN THIS IS CALLED
         exitGame.OnClick += gm.Quit;
         AddButton(newGame);
