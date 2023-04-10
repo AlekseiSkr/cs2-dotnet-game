@@ -30,7 +30,6 @@ public class Tile : Sprite
         {
             if (InputManager.MouseClicked)
             {
-                Blocked = !Blocked;
             }
 
             if (InputManager.MouseRightClicked)

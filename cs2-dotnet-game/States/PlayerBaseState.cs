@@ -48,7 +48,7 @@ public class PlayerBaseState : State
         //buttonUpdateTier2.Disabled = true;
 
         buttonLeaveBase = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveBase.OnClick += gm.MenuState;
+        buttonLeaveBase.OnClick += gm.Start;
 
         buttonSleep = new(Globals.Content.Load<Texture2D>("sleep"), new(130, 700));
         buttonSleep.OnClick += Sleep;

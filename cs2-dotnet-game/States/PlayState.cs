@@ -4,6 +4,7 @@ using _Models.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading.Tasks;
 
 namespace cs2_dotnet_game;
 
@@ -13,6 +14,7 @@ public class PlayState : State
     private readonly Map _map;
     private readonly Hero _hero;
     private readonly Camera _camera;
+    private bool checkFinished;
 
     private readonly Texture2D backgroundTexture;
     private readonly Button buttonLeave;
@@ -24,13 +26,11 @@ public class PlayState : State
         _map = new Map();
         Vector2 heroTilePosition = new Vector2(2, 3); // Set the start tile for the hero
         Vector2 heroScreenPosition = _map.MapToScreen((int)heroTilePosition.X, (int)heroTilePosition.Y);
-        _hero = new Hero(Globals.Content.Load<Texture2D>("hero"), heroScreenPosition);
+        _hero = new Hero(Globals.Content.Load<Texture2D>("hero1"), heroScreenPosition);
         _hero.SetBounds(_map.MAP_SIZE, _map.TILE_SIZE);
         Pathfinder.Init(_map, _hero);
         _camera = new Camera();
-
-        buttonLeave = new(Globals.Content.Load<Texture2D>("backButton"), new(2, 3));
-        buttonLeave.OnClick += gm.MenuState;
+        checkFinished = true;
     }
 
     public static Vector2 PointToVector2(Point point)
@@ -38,14 +38,10 @@ public class PlayState : State
         return new Vector2(point.X, point.Y);
     }
 
-    //private void OnLeftClick()
-    //{
-    //    if (true)
-    //    {
-    //        var clickedPosition = InputManager.MouseClickedPosition;
-    //        var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
-    //    }
-    //}
+    public static Point Vector2ToPoint(Vector2 vector2)
+    {
+        return new Point((int)vector2.X, (int)vector2.Y);
+    }
 
     private void OnRightClick()
     {
@@ -68,32 +64,42 @@ public class PlayState : State
     }
 
 
-    public override void Update(GameManager gm)
+    public async override void Update(GameManager gm)
     {
-        
         InputManager.Update();
         _map.Update();
         _hero.Update();
         OnRightClick();
-        var (mapX, mapY) = _map.ScreenToMapPub(_hero._position);
+
+        // Update special location cooldown timer
+       
+
+        var (mapX, mapY) = _map.ScreenToMap(Vector2ToPoint(_hero._position));
         var collidedTile = _map._tiles[mapX, mapY];
 
-        if (collidedTile is EnemyTower)
+        // Check for collision with special tiles if cooldown timer has expired and the hero has finished moving
+        if (_hero.MoveDone && checkFinished)
         {
-            gm.ChangeState(GameStates.EnemyBase);
-        }
-        else if (collidedTile is PlayerBase)
-        {
-            gm.ChangeState(GameStates.PlayerBase);
-        }
-        else if (collidedTile is TraderBase)
-        {
-            gm.ChangeState(GameStates.TraderBase);
+
+            if (collidedTile is EnemyTower)
+            {
+                checkFinished = false;
+                GoToState(gm, GameStates.EnemyBase);
+            }
+            else if (collidedTile is PlayerBase)
+            {
+                checkFinished = false;
+                GoToState(gm, GameStates.PlayerBase);
+            }
+            else if (collidedTile is TraderBase)
+            {
+                checkFinished = false;
+                GoToState(gm, GameStates.TraderBase);
+            }
         }
 
         _camera.Update(_hero._position, Globals.Bounds.X, Globals.Bounds.Y, _hero._texture);
         TransformationMatrix = _camera.Transform;
-        buttonLeave.Update();
 
         if (InputManager.KeyState.IsKeyDown(Keys.I))
         {
@@ -105,10 +111,17 @@ public class PlayState : State
     public override void Draw(GameManager gm)
     {
         Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(-3000, -1000, 10000, 5000), Color.White);
-        buttonLeave.Draw();
 
         _map.Draw();
         _hero.Draw();
+    }
+
+
+    private async void GoToState(GameManager gm, GameStates state)
+    {
+        await Task.Delay(5000);
+        gm.ChangeState(state);
+        checkFinished = true;
     }
 
 }

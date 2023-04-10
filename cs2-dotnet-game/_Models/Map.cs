@@ -14,7 +14,7 @@ public class Map
     public readonly Vector2 MAP_OFFSET = new(2f, 2);
     public readonly Tile[,] _tiles;
     //private Tile _lastMouseSelected;
-    public (int x, int y) ScreenToMapPub(Vector2 pos) => ((int)pos.X / TILE_SIZE.X, (int)pos.Y / TILE_SIZE.Y);
+    //public (int x, int y) ScreenToMapPub(Vector2 pos) => ((int)pos.X / TILE_SIZE.X, (int)pos.Y / TILE_SIZE.Y);
 
     public Map()
     {
@@ -67,7 +67,7 @@ public class Map
         while (enemyTowerCount > 0 || playerBaseCount > 0 || traderBaseCount > 0 || mountainCount > 0)
         {
             int x = random.Next(0, MAP_SIZE.X - 1);
-            int y = random.Next(0, MAP_SIZE.Y - 1);
+            int y = random.Next(0, MAP_SIZE.X - 1);
 
             if (_tiles[x, y] == null) // Check if a tile is already placed
             {
@@ -112,13 +112,17 @@ public class Map
         var y = -cursor.X + 2 * cursor.Y + TILE_SIZE.X / 2;
         int mapY = y < 0 ? -1 : (int)(y / TILE_SIZE.X);
 
+        // Clamp the mapX and mapY values to the valid map range
+        mapX = Math.Clamp(mapX, 0, MAP_SIZE.X - 1);
+        mapY = Math.Clamp(mapY, 0, MAP_SIZE.Y - 1);
+
         return new(mapX, mapY);
     }
 
     public Tile CheckSpecialTileReached(Hero hero)
     {
         Point heroMapPos = ScreenToMap(new Point((int)hero._position.X, (int)hero._position.Y));
-        Tile specialTile = _tiles[heroMapPos.X, heroMapPos.Y];
+        Tile specialTile = _tiles[heroMapPos.X - hero._texture.Width, heroMapPos.Y - hero._texture.Height /2 ];
 
         if (specialTile is EnemyTower || specialTile is PlayerBase || specialTile is TraderBase)
         {
@@ -147,3 +151,4 @@ public class Map
         }
     }
 }
+ 

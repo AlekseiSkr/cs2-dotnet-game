@@ -38,7 +38,7 @@ public class TraderState : State
         buttonTrade.OnClick += gm.TradingState;
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveTrader.OnClick += gm.MenuState;
+        buttonLeaveTrader.OnClick += gm.Start;
 
         traderMenu = new TraderMenu();
 
