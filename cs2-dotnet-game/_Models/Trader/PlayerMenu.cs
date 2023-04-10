@@ -15,8 +15,10 @@ namespace cs2_dotnet_game._Models.Trader
         private bool _activate;
 
         private Texture2D _background;
-        private Rectangle _backgroundRectangle;
-        public PlayerMenu()
+        public Rectangle _backgroundRectangle;
+        private GameManager gm;
+        public bool Checked;
+        public PlayerMenu(GameManager gameManager)
         {
             _menuButton = new(Globals.Content.Load<Texture2D>("Menu/simple_button"), new Vector2(Globals.ScreenWidth - 50, Globals.ScreenHeight - 40))
             {
@@ -36,7 +38,21 @@ namespace cs2_dotnet_game._Models.Trader
                 _inventorySlots.Add(new InventorySlot(new Vector2(850, 0), new Vector2(40, 40)));
             }
 
+            gm = gameManager;
+            Checked = gameManager.Checked;
 
+        }
+
+        public void checkItem()
+        {
+            if (!Checked)
+            {
+                foreach (var item in gm.player.items)
+                {
+                    addItem(item);
+                }
+                Checked = true;
+            }
         }
 
         public async void Activate(object sender, EventArgs e)
@@ -65,10 +81,16 @@ namespace cs2_dotnet_game._Models.Trader
                 {
                     Vector2 tempVec = new Vector2(40 + 54 * (int)(i % 6), 300 + 54 * (int)(i / 6));
                     Vector2 topLeft = new(360, 100);
-                    _inventorySlots[i].Update(topLeft + tempVec);
+                    _inventorySlots[i].Update2(topLeft + tempVec);
+                    if (_inventorySlots[i]._item != null)
+                    {
+                        topLeft = new(1210, 100);
+                        _inventorySlots[i]._item.Update(topLeft + tempVec);
+                    }
                 }
             }
             _menuButton.Update();
+            checkItem();
         }
 
         public void Draw()
@@ -83,7 +105,12 @@ namespace cs2_dotnet_game._Models.Trader
                 {
                     Vector2 tempVec = new Vector2(40 + 54 * (int)(i % 6), 300 + 54 * (int)(i / 6));
                     Vector2 topLeft = new(360, 100);
-                    _inventorySlots[i].Draw(topLeft + tempVec);
+                    _inventorySlots[i].Draw2(topLeft + tempVec);
+                    if (_inventorySlots[i]._item != null)
+                    { 
+                       topLeft = new(1210, 100);
+                        _inventorySlots[i]._item.Draw(topLeft + tempVec);
+                    }
                 }
             }
             _menuButton.Draw();

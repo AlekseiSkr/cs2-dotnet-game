@@ -32,6 +32,10 @@ public class TraderState : State
     private List<String> traderInventory = new();
     private GameManager _gameManager;
 
+    private string message;
+
+    private int checkItem1;
+
     public TraderState(GameManager gm)
     {
         backgroundTexture = Globals.Content.Load<Texture2D>("Misc/background2");
@@ -42,10 +46,10 @@ public class TraderState : State
         buttonTrade.OnClick += Buy;
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveTrader.OnClick += gm.MenuState;
+        buttonLeaveTrader.OnClick += Leaving;
 
         traderMenu = new TraderMenu();
-        _playerMenu = new PlayerMenu();
+        _playerMenu = new PlayerMenu(gm);
 
 
         //int inventoryWidth = screenWidth / 2 - 20;
@@ -54,15 +58,67 @@ public class TraderState : State
         //traderInventoryRectangle = new Rectangle(screenWidth / 2 + 10, 10, inventoryWidth, inventoryHeight);
         _gameManager = gm;
 
+        message = "";
+        checkItem1 = 0;
     }
 
-    public async void Buy(object sender, EventArgs e)
+    public void Leaving(object sender, EventArgs e)
     {
+        _playerMenu.Checked = false;
+        _gameManager.ChangeState(GameStates.Menu);
+    }
+
+    public void Buy(object sender, EventArgs e)
+    {
+        if (_gameManager.player.xpPoints < 20)
+        {
+            message = "Not enough xp to buy items!";
+            return;
+        }
+
         if (traderMenu.selectedItem != null)
         {
             addItem(traderMenu.selectedItem);
             _gameManager.player.items.Add(traderMenu.selectedItem);
             _gameManager.Checked = false;
+            _gameManager.player.xpPoints -= 20;
+        }
+    }
+
+    public void buy2()
+    {
+        int i = 0;
+        foreach (var item in _playerMenu._inventorySlots)
+        {
+            if (item._item != null)
+            {
+                i++;
+            }
+        }
+
+        if (i != checkItem1 && _playerMenu._backgroundRectangle.Contains(InputManager.MouseRectangle))
+        {
+            if (_gameManager.player.xpPoints < 20)
+            {
+                message = "Not enough xp to buy items!";
+                InventorySlot slot = null;
+                foreach (var j in _playerMenu._inventorySlots)
+                {
+                    if (j._item != null)
+                    {
+                        slot = j;
+                    }
+                }
+                Item item = slot._item;
+                slot._item = null;
+                item.slot = null;
+
+                return;
+            }
+            else
+            {
+                _gameManager.player.xpPoints -= 20;
+            }
         }
     }
 
@@ -89,6 +145,8 @@ public class TraderState : State
 
         traderMenu.Draw();
         _playerMenu.Draw();
+
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), message, new Vector2(800, 50), Color.Purple);
     }
 
     public override void Update(GameManager gm)
@@ -99,5 +157,6 @@ public class TraderState : State
 
         traderMenu.Update();
         _playerMenu.Update();
+        buy2();
     }
 }
