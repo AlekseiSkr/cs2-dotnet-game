@@ -10,22 +10,13 @@ namespace cs2_dotnet_game;
 
 public class EnemyBaseState : State
 {
-    private int healthPoints = 100;
-    private int battlePoints = 100;
-    private int staminaPoints = 4;
-    private int xp = 500;
     private int attackBPCost = 40;
     private int defendBPCost = 20;
     private int attackEfficiency = 35;
 
-    private int enemiesKilled = 0;
-    private int keys = 0;
-
     private bool defend = false;
 
     private int enemyHP = 100;
-    private int enemyBP = 50;
-    private int enemySP = 5;
 
     private readonly Button buttonLeave;
     private readonly Button buttonAttack;
@@ -63,10 +54,10 @@ public class EnemyBaseState : State
         buttonInventory.OnClick += Inventory;
         buttonSkipRound.OnClick += SkipRound;
 
-        hp = "HP: " + healthPoints;
-        bp = "BP: " + battlePoints;
-        sp = "SP: " + staminaPoints;
-        enemyhp = "HP: " + enemyHP;
+        hp = "HP: ";
+        bp = "BP: ";
+        sp = "SP: ";
+        enemyhp = "HP: ";
         errorBp = "";
         skip = "";
         nextTurn = "";
@@ -89,6 +80,11 @@ public class EnemyBaseState : State
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), errorBp, new Vector2(400, 200), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), skip, new Vector2(400, 200), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), nextTurn, new Vector2(400, 200), Color.White);
+
+        hp = "HP: " + gm.player.healthPoints;
+        bp = "BP: " + gm.player.battlePoints;
+        sp = "SP: " + gm.player.staminaPoints;
+        enemyhp = "HP: " + enemyHP;
     }
 
     public override void Update(GameManager gm)
@@ -114,16 +110,16 @@ public class EnemyBaseState : State
         UpdateCombat(7);
         if (defend)
         {
-            healthPoints -= (attackEfficiency / 2);
+            _gm.player.healthPoints -= (attackEfficiency / 2);
         }
         else
         {
-            healthPoints -= 35;
+            _gm.player.healthPoints -= 35;
         }
-        hp = "HP: " + healthPoints;
-        if (healthPoints <= 0)
+        hp = "HP: " + _gm.player.healthPoints;
+        if (_gm.player.healthPoints <= 0)
         {
-            await Task.Delay(500);
+            await Task.Delay(1000);
             _gm.ChangeState(GameStates.GameOver);
         }
         defend = false;
@@ -133,7 +129,7 @@ public class EnemyBaseState : State
     {
         buttonAttack.Disabled = true;
         buttonAttack.OnClick -= Attack;
-        if (battlePoints >= attackBPCost)
+        if (_gm.player.battlePoints >= attackBPCost)
         {
             //attack the enemy
             //80% chance of success
@@ -142,8 +138,8 @@ public class EnemyBaseState : State
             if (number < 80)
             {
                 UpdateCombat(1);
-                battlePoints -= attackBPCost;
-                bp = "BP: " + battlePoints;
+                _gm.player.battlePoints -= attackBPCost;
+                bp = "BP: " + _gm.player.battlePoints;
                 enemyHP -= attackEfficiency;
                 enemyhp = "HP: " + enemyHP;
 
@@ -153,41 +149,58 @@ public class EnemyBaseState : State
                 {
                     await Task.Delay(2000);
                     ChangeMessages(6);
+                    UpdateCombat(8);
                     await Task.Delay(2000);
-                    xp += 100;
-                    enemiesKilled++;
-                    enemyHP = 100;
-                    battlePoints = 100;
-                    healthPoints = 100;
+                    _gm.player.xpPoints += 100;
+                    _gm.player.enemiesKilled++;
+
+                    if (_gm.player.enemiesKilled == 1)
+                    {
+                        _gm.player.keysObtained = 1;
+                    }
+                    if (_gm.player.enemiesKilled == 15)
+                    {
+                        _gm.player.keysObtained = 2;
+                    }
+                    if (_gm.player.enemiesKilled == 20)
+                    {
+                        _gm.player.keysObtained = 3;
+                    }
+
+                    int enemyHealth = rnd.Next(100, 201);
+                    enemyHP = enemyHealth;
+
+                    _gm.player.battlePoints = _gm.player.maxBattlePoints;
+                    _gm.player.healthPoints = _gm.player.maxHealthPoints;
                     _gm.ChangeState(GameStates.Menu);
-                    bp = "BP: " + battlePoints;
-                    hp = "HP: " + healthPoints;
+                    bp = "BP: " + _gm.player.battlePoints;
+                    hp = "HP: " + _gm.player.healthPoints;
                     enemyhp = "HP: " + enemyHP;
                 }
 
-                if (battlePoints == 0)
+                if (_gm.player.battlePoints == 0)
                 {
                     await Task.Delay(2000);
                     ChangeMessages(2);
                     //await Task.Delay(2000);
-                    battlePoints = 10 * staminaPoints;
-                    bp = "BP: " + battlePoints;
+                    _gm.player.battlePoints = 10 * _gm.player.staminaPoints;
+                    bp = "BP: " + _gm.player.battlePoints;
                     await Task.Delay(200);
                     EnemyAttack();
                 }
             }
             else
             {
-                battlePoints -= attackBPCost;
-                bp = "BP: " + battlePoints;
+                _gm.player.battlePoints -= attackBPCost;
+                bp = "BP: " + _gm.player.battlePoints;
                 ChangeMessages(4);
-                if (battlePoints == 0)
+                if (_gm.player.battlePoints == 0)
                 {
                     await Task.Delay(2000);
                     ChangeMessages(2);
                     //await Task.Delay(2000);
-                    battlePoints = 10 * staminaPoints;
-                    bp = "BP: " + battlePoints;
+                    _gm.player.battlePoints = 10 * _gm.player.staminaPoints;
+                    bp = "BP: " + _gm.player.battlePoints;
                     await Task.Delay(200);
                     EnemyAttack();
                 }
@@ -214,21 +227,21 @@ public class EnemyBaseState : State
         buttonDefend.OnClick -= Defend;
         await Task.Delay(500);
         //defend against the enemy
-        if (battlePoints >= defendBPCost)
+        if (_gm.player.battlePoints >= defendBPCost)
         {
             UpdateCombat(3);
             defend = true;
-            battlePoints -= defendBPCost;
-            if (battlePoints > 0)
+            _gm.player.battlePoints -= defendBPCost;
+            if (_gm.player.battlePoints > 0)
             {
-                battlePoints = 0;
+                _gm.player.battlePoints = 0;
             }
-            bp = "BP: " + battlePoints;
+            bp = "BP: " + _gm.player.battlePoints;
             ChangeMessages(7);
 
             await Task.Delay(2000);
-            battlePoints += 10 * staminaPoints;
-            bp = "BP: " + battlePoints;
+            _gm.player.battlePoints += 10 * _gm.player.staminaPoints;
+            bp = "BP: " + _gm.player.battlePoints;
             EnemyAttack();
         }
         else
@@ -248,8 +261,12 @@ public class EnemyBaseState : State
         //skip the round
         ChangeMessages(1);
         //UpdateCombat(4);
-        battlePoints += 10 * staminaPoints;
-        bp = "BP: " + battlePoints;
+        _gm.player.battlePoints += 10 * _gm.player.staminaPoints;
+        if (_gm.player.battlePoints > _gm.player.maxBattlePoints)
+        {
+            _gm.player.battlePoints = 100;
+        }
+        bp = "BP: " + _gm.player.battlePoints;
         await Task.Delay(1000);
         EnemyAttack();
         await Task.Delay(2500);
@@ -265,12 +282,18 @@ public class EnemyBaseState : State
 
     private async void Leave(object sender, EventArgs e)
     {
+        buttonLeave.Disabled = true;
+        buttonLeave.OnClick -= Leave;
         await Task.Delay(100);
         //reduce player ex and leave the battle state
         ChangeMessages(3);
-        xp -= 100; //change with real one
-        await Task.Delay(2000);
+        _gm.player.xpPoints -= 100;
+        await Task.Delay(500);
         _gm.ChangeState(GameStates.Menu);
+        await Task.Delay(500);
+        buttonLeave.Disabled = false;
+        buttonLeave.OnClick += Leave;
+
     }
     //fight state 0 = player idle, 1 = player attack, 2 = player attack spell, 3 = player defend 4 = player skip round, 5 = player inventory, 6 = enemy idle, 7 = enemy attack, 8 = enemy defeat.
     private async void UpdateCombat(int fightState)
