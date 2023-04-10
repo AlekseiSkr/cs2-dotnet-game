@@ -36,6 +36,7 @@ public class GameManager
         //ChangeState(GameStates.Menu);
         player = new PlayerStats();
         //player.keysObtained = 3;
+        player.xpPoints = 300;
         Checked= false;
     }
 
