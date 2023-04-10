@@ -24,6 +24,9 @@ namespace cs2_dotnet_game._Models.Trader
 
         public Item selectedItem;
 
+        public string[] itemName = { "Pearl", "Armor", "Sword", "Axe", "Bag", "Boots", "Bow", "Bowstring", "BurningSword", "Charm", "Clover", "Cowl", "Gloves",
+                "Helm", "Hourglass", "Lootbag", "Necklace", "Orb", "Ring", "Shield", "Spyglass", "Statue", "Sword", "Tome", "Vial" };
+
         public TraderMenu()
         {
             _background = Globals.Content.Load<Texture2D>("Health/solid");
@@ -46,8 +49,6 @@ namespace cs2_dotnet_game._Models.Trader
 
             active = false;
 
-            string[] itemName = { "Pearl", "Armor", "Sword", "Axe", "Bag", "Boots", "Bow", "Bowstring", "BurningSword", "Charm", "Clover", "Cowl", "Gloves", 
-                "Helm", "Hourglass", "Lootbag", "Necklace", "Orb", "Ring", "Shield", "Spyglass", "Statue", "Sword", "Tome", "Vial" };
 
 
             for (int i = 0; i < itemName.Length; i++)
@@ -57,7 +58,21 @@ namespace cs2_dotnet_game._Models.Trader
                 addItem(item);
             }
         }
+        
 
+        public void permanentItem()
+        {
+            for(int i = 0; i < itemName.Length; i++)
+            {
+                if (_inventorySlots[i]._item == null)
+                {
+                    var item = new Item(Globals.Content.Load<Texture2D>("Item/" + itemName[i].ToString()), new Vector2(0, 0), new Vector2(32, 32), new Vector2(1, 1), Color.White, false, 200, Tier.Common);
+
+                    addItem(item);
+                }
+            }
+
+        }
         public InventorySlot addItem(Item item)
         {
             foreach (var slot in _inventorySlots)
@@ -101,7 +116,7 @@ namespace cs2_dotnet_game._Models.Trader
                 {
                     Vector2 tempVec = new Vector2(40 + 54 * (int)(i % 6), 300 + 54 * (int)(i / 6));
                     Vector2 topLeft = new(375, 100);
-                    _inventorySlots[i].Update3(topLeft + tempVec);
+                    _inventorySlots[i].Update(topLeft + tempVec);
 
                     if (_inventorySlots[i].Hover(new Vector2(InputManager.MouseControl.newMousePos.X, InputManager.MouseControl.newMousePos.Y))&& InputManager.MouseControl.LeftClickRelease())
                     {
@@ -109,6 +124,7 @@ namespace cs2_dotnet_game._Models.Trader
                     }
                 }
                 selectItem();
+                permanentItem();
             }
 
             _traderInventoryButton.Update();

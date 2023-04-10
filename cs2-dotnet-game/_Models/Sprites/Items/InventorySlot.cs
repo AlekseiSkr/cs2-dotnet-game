@@ -60,18 +60,6 @@ namespace cs2_dotnet_game._Models.Sprites.Items
             }
         }
 
-        public void Update3(Vector2 offset)
-        {
-            if (_item != null)
-            {
-                _item.Update(offset);
-            }
-            if (Globals.DragAndDropPacket != null && Globals.DragAndDropPacket._type == Enum.ObjectType.InventoryItem && Globals.DragAndDropPacket.IsDropped() && Hover(offset))
-            {
-                TransferItem2((Item)Globals.DragAndDropPacket._item);
-            }
-        }
-
         public virtual void TransferItem(Item item)
         {
             if (item != null)
@@ -85,21 +73,6 @@ namespace cs2_dotnet_game._Models.Sprites.Items
 
                 oldSlot._item = currenItem;
                 oldItem = currenItem;
-            }
-        }
-
-        public virtual void TransferItem2(Item item)
-        {
-            if (item != null)
-            {
-                Item oldItem = item;
-                InventorySlot oldSlot = item.slot;
-
-                _item = item;
-                item.slot = this;
-
-                oldItem.slot = oldSlot;
-                oldSlot._item = item;
             }
         }
 
