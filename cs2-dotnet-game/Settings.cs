@@ -8,8 +8,7 @@ public class Settings
 {
     private const string SAVE_SETTINGS_PATH = "settings.json";
 
-    public int Volume { get; set; }
-    public string Language { get; set; }
+    public float Volume { get; set; }
 
     public void SaveSettings()
     {

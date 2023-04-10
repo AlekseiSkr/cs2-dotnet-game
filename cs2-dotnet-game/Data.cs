@@ -8,7 +8,7 @@ public class Data
 {
     private const string SAVE_GAME_PATH = "stats.json";
 
-    public Player player {  get; set; }
+    public PlayerStats player {  get; set; }
 
     public void SaveGame()
     {
