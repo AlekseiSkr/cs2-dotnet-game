@@ -39,8 +39,6 @@ public class MenuState : State
         AddButton(loadGame);
         AddButton(optionGame);
         AddButton(exitGame);
-        AddButton(SoundManager.SoundButton);
-        AddButton(SoundManager.MusicButton);
 
         //tempo buttons
         Button buttonTrade = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));

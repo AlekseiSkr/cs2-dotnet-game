@@ -73,9 +73,7 @@ public class Game1 : Game
         
         Texture2D texture = Content.Load<Texture2D>("backButton");
         Vector2 position = new Vector2(0, 0);
-        Item item1 = new Item(texture, position, true, 100, _Models.Enums.Tier.Common);
-        Item item2 = new Item(texture, position, true, 66, _Models.Enums.Tier.Legendary);
-        List<Item> items = new List<Item>() { item1, item2 };
+        List<Item> items = new List<Item>();
         player = new Player(texture, position, "Vlad", 100, 100, 100, 100, 100, items, 100, 100, 100, 100, 100, 1);
         Data data = new Data()
         {
@@ -84,6 +82,8 @@ public class Game1 : Game
         data.SaveGame();
 
         data = Data.LoadGame();
+
+        player = data.player;
 
         settings = new Settings()
         {
