@@ -154,6 +154,7 @@ public class EnemyBaseState : State
                 _gm.player.battlePoints -= attackBPCost;
                 bp = "BP: " + _gm.player.battlePoints;
                 enemyHP -= attackEfficiency + _gm.player.cricAttack;
+                _gm.player.cricAttack -= 15;
                 enemyhp = "HP: " + enemyHP;
 
                 ChangeMessages(5);

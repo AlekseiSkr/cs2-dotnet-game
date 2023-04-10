@@ -67,7 +67,7 @@ namespace cs2_dotnet_game._Models
             {
                 if (selectedItem.isMelee)
                 {
-                    gm.player.cricAttack += 2;
+                    gm.player.cricAttack += 15;
                 }
                 else
                 {
