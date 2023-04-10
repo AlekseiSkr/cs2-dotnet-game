@@ -5,7 +5,8 @@ using System;
 
 namespace cs2_dotnet_game;
 public static class SoundManager
-{   
+{
+    public static float volume;
     private static Song _music;
     public static MenuButton vol0 { get; private set; }
     public static MenuButton vol25 { get; private set; }
@@ -21,7 +22,7 @@ public static class SoundManager
         var y = Globals.Bounds.Y / 2;
 
         MediaPlayer.IsRepeating = true;
-        MediaPlayer.Volume = 0.0f;
+        volume = MediaPlayer.Volume = 0.0f;
         //MediaPlayer.Play(_music);
         vol0 = new(Globals.Content.Load<Texture2D>("Menu/Button"), new(x - 100, y))
         {
@@ -52,7 +53,7 @@ public static class SoundManager
 
     public static void Select0Volume(Object sender, EventArgs e)
     {
-        MediaPlayer.Volume = 0f;
+        volume = MediaPlayer.Volume = 0f;
         vol0.Disabled = true;
         vol25.Disabled = false;
         vol50.Disabled = false;
@@ -62,7 +63,7 @@ public static class SoundManager
 
     public static void Select25Volume(Object sender, EventArgs e)
     {
-        MediaPlayer.Volume = 0.25f;
+        volume = MediaPlayer.Volume = 0.25f;
         vol0.Disabled = false;
         vol25.Disabled = true;
         vol50.Disabled = false;
@@ -72,7 +73,7 @@ public static class SoundManager
 
     public static void Select50Volume(Object sender, EventArgs e)
     {
-        MediaPlayer.Volume = 0.50f;
+        volume = MediaPlayer.Volume = 0.50f;
         vol0.Disabled = false;
         vol25.Disabled = false;
         vol50.Disabled = true;
@@ -82,7 +83,7 @@ public static class SoundManager
 
     public static void Select75Volume(Object sender, EventArgs e)
     {
-        MediaPlayer.Volume = 0.75f;
+        volume = MediaPlayer.Volume = 0.75f;
         vol0.Disabled = false;
         vol25.Disabled = false;
         vol50.Disabled = false;
@@ -92,7 +93,7 @@ public static class SoundManager
 
     public static void Select100Volume(Object sender, EventArgs e)
     {
-        MediaPlayer.Volume = 1f;
+        volume = MediaPlayer.Volume = 1f;
         vol0.Disabled = false;
         vol25.Disabled = false;
         vol50.Disabled = false;

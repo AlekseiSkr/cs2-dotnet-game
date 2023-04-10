@@ -36,6 +36,7 @@ public class MenuState : State
         //IMPORTANT: IMPLEMENT SAVE WHEN THIS IS CALLED
         exitGame.OnClick += gm.Quit;
         optionGame.OnClick += gm.Options;
+        loadGame.OnClick += gm.Load;
         AddButton(newGame);
         AddButton(loadGame);
         AddButton(optionGame);

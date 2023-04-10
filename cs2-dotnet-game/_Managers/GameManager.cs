@@ -92,6 +92,11 @@ public class GameManager
     public async void MenuState(object sender, EventArgs e)
     {
         await Task.Delay(100);
+        Settings settings = new Settings()
+        {
+            Volume = SoundManager.volume
+        };
+        settings.SaveSettings();
         ChangeState(GameStates.Menu);
     }
 
@@ -112,12 +117,23 @@ public class GameManager
 
     public void Quit(object sender, EventArgs e)
     {
+        Data data = new Data()
+        {
+            player = this.player
+        };
+        data.SaveGame();
+
         System.Environment.Exit(0);
     }
 
     public void Options(object sender, EventArgs e)
     {
         ChangeState(GameStates.Options);
+    }
+
+    public void Load(object sender, EventArgs e)
+    {
+        this.player = Data.LoadGame().player;
     }
 
     public void Update()

@@ -1,4 +1,5 @@
 ﻿using _Models.Sprites.Items;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,21 @@ public class PlayerStats
         enemiesKilled = 0;
         keysObtained = 0;
         cricAttack = 0;
+    }
+    [JsonConstructor]
+    public PlayerStats(string name, int healthPoints, int maxHealthPoints, int battlePoints, int maxBattlePoints, int staminaPoints, int xpPoints, int attackEfficiency, int enemiesKilled, int keysObtained, int cricAttack, List<Item> items)
+    {
+        this.name = name;
+        this.healthPoints = healthPoints;
+        this.maxHealthPoints = maxHealthPoints;
+        this.battlePoints = battlePoints;
+        this.maxBattlePoints = maxBattlePoints;
+        this.staminaPoints = staminaPoints;
+        this.xpPoints = xpPoints;
+        this.attackEfficiency = attackEfficiency;
+        this.enemiesKilled = enemiesKilled;
+        this.keysObtained = keysObtained;
+        this.cricAttack = cricAttack;
+        this.items = items;
     }
 }
