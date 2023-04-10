@@ -14,5 +14,6 @@ public enum GameStates
     DialogBox,
     Inventory,
     Win,
+    Options,
     GameOver
 }
