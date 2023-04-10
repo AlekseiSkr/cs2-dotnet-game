@@ -65,12 +65,19 @@ namespace cs2_dotnet_game._Models
         {
             if (selectedItem != null)
             {
-                gm.player.healthPoints += 10;
+                if (selectedItem.isMelee)
+                {
+                    gm.player.cricAttack += 2;
+                }
+                else
+                {
+                    gm.player.healthPoints += 20;
+                }
                 if (gm.player.healthPoints >= 100) gm.player.healthPoints = 100; 
                 discardItem();
 
-                selectedItem = null;
                 gm.player.items.Remove(selectedItem);
+                selectedItem = null;
                 gm.Checked= false;
             }
         }

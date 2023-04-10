@@ -68,7 +68,6 @@ public class EnemyBaseState : State
         skip = "";
         nextTurn = "";
 
-
         _inventory = new FightInventoryMenu(gm);
     }
     public override void Draw(GameManager gm)
@@ -154,7 +153,7 @@ public class EnemyBaseState : State
                 UpdateCombat(1);
                 _gm.player.battlePoints -= attackBPCost;
                 bp = "BP: " + _gm.player.battlePoints;
-                enemyHP -= attackEfficiency;
+                enemyHP -= attackEfficiency + _gm.player.cricAttack;
                 enemyhp = "HP: " + enemyHP;
 
                 ChangeMessages(5);

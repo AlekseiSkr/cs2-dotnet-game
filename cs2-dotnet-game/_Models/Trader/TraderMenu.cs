@@ -55,6 +55,11 @@ namespace cs2_dotnet_game._Models.Trader
             {
                 var item = new Item(Globals.Content.Load<Texture2D>("Item/" + itemName[i].ToString()), new Vector2(0, 0), new Vector2(32, 32), new Vector2(1, 1), Color.White, false, 200, Tier.Common);
 
+                if(itemName[i].ToString() == "Bow" || itemName[i].ToString() == "BurningSword" || itemName[i].ToString() == "Sword")
+                {
+                    item.isMelee = true;
+                }
+
                 addItem(item);
             }
         }

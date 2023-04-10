@@ -64,7 +64,6 @@ public class TraderState : State
 
     public void Leaving(object sender, EventArgs e)
     {
-        _playerMenu.Checked = false;
         _gameManager.ChangeState(GameStates.Menu);
     }
 
@@ -81,7 +80,7 @@ public class TraderState : State
             addItem(traderMenu.selectedItem);
             _gameManager.player.items.Add(traderMenu.selectedItem);
             _gameManager.Checked = false;
-            _gameManager.player.xpPoints -= 20;
+            _gameManager.player.xpPoints -= 30;
         }
     }
 
@@ -90,7 +89,7 @@ public class TraderState : State
 
         if (Globals.DragAndDropPacket != null && checkItem1 != _playerMenu.getHowManyItem() && Globals.DragAndDropPacket._type == Enum.ObjectType.InventoryItem && Globals.DragAndDropPacket.IsDropped() && _playerMenu._backgroundRectangle.Contains(InputManager.MouseRectangle))
         {
-            if (_gameManager.player.xpPoints < 20)
+            if (_gameManager.player.xpPoints < 30)
             {
                 message = "Not enough xp to buy items!";
                 InventorySlot slot = null;
@@ -108,7 +107,8 @@ public class TraderState : State
             }
             else
             {
-                _gameManager.player.xpPoints -= 20;
+                _gameManager.player.items.Add((Item)Globals.DragAndDropPacket._item);
+                _gameManager.player.xpPoints -= 30;
             }
         }
     }

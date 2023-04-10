@@ -19,6 +19,8 @@ public class PlayerStats
     public int enemiesKilled { get; set; }
     public int keysObtained { get; set; }
 
+    public int cricAttack { get; set; }
+
     public List<Item> items { get; set; } = new List<Item>();
 
     public PlayerStats()
@@ -33,5 +35,6 @@ public class PlayerStats
         attackEfficiency = 35;
         enemiesKilled = 0;
         keysObtained = 0;
+        cricAttack = 0;
     }
 }
