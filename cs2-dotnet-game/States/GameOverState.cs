@@ -34,8 +34,9 @@ public class GameOverState : State
 
         if (check)
         {
-            ReturnToMenu();
             check = false;
+            ReturnToMenu();
+            
         }
 
     }
@@ -49,6 +50,7 @@ public class GameOverState : State
     {
         await Task.Delay(10000);
         _gm.ChangeState(GameStates.Menu);
+        check = true;
     }
 }
 
