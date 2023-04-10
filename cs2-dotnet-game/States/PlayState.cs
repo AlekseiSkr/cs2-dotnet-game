@@ -1,5 +1,6 @@
 ﻿using _Managers;
 using _Models;
+using _Models.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,14 +31,14 @@ public class PlayState : State
         return new Vector2(point.X, point.Y);
     }
 
-    private void OnLeftClick()
-    {
-        if (true)
-        {
-            var clickedPosition = InputManager.MouseClickedPosition;
-            var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
-        }
-    }
+    //private void OnLeftClick()
+    //{
+    //    if (true)
+    //    {
+    //        var clickedPosition = InputManager.MouseClickedPosition;
+    //        var (mapX, mapY) = _map.ScreenToMap(clickedPosition);
+    //    }
+    //}
 
     private void OnRightClick()
     {
@@ -66,7 +67,22 @@ public class PlayState : State
         _map.Update();
         _hero.Update();
         OnRightClick();
-        OnLeftClick();
+        var (mapX, mapY) = _map.ScreenToMapPub(_hero._position);
+        var collidedTile = _map._tiles[mapX, mapY];
+
+        if (collidedTile is EnemyTower)
+        {
+            gm.ChangeState(GameStates.EnemyBase);
+        }
+        else if (collidedTile is PlayerBase)
+        {
+            gm.ChangeState(GameStates.PlayerBase);
+        }
+        else if (collidedTile is TraderBase)
+        {
+            gm.ChangeState(GameStates.TraderBase);
+        }
+
         _camera.Update(_hero._position, Globals.Bounds.X, Globals.Bounds.Y, _hero._texture);
         TransformationMatrix = _camera.Transform;
     }
