@@ -26,7 +26,7 @@ public class Button : ButtonSprite
         {
             color = Color.DarkGray;
 
-            if (InputManager.MouseClicked)
+            if (InputManager.MouseControl.LeftClickRelease())
             {
                 OnClick?.Invoke(this, EventArgs.Empty);
             }

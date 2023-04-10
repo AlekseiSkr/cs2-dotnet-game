@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using cs2_dotnet_game._Models;
+using cs2_dotnet_game._Models.Sprites.Items;
+using cs2_dotnet_game._Models.Trader;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -31,6 +34,9 @@ public class EnemyBaseState : State
     private GameManager _gm;
     private String hp, bp, sp, enemyhp, errorBp, skip, nextTurn;
 
+    // For inventory
+    private FightInventoryMenu _inventory;
+
 
     public EnemyBaseState(GameManager gm)
     {
@@ -61,6 +67,8 @@ public class EnemyBaseState : State
         errorBp = "";
         skip = "";
         nextTurn = "";
+
+        _inventory = new FightInventoryMenu(gm);
     }
     public override void Draw(GameManager gm)
     {
@@ -85,6 +93,8 @@ public class EnemyBaseState : State
         bp = "BP: " + gm.player.battlePoints;
         sp = "SP: " + gm.player.staminaPoints;
         enemyhp = "HP: " + enemyHP;
+        
+        _inventory.Draw();
     }
 
     public override void Update(GameManager gm)
@@ -94,6 +104,8 @@ public class EnemyBaseState : State
         buttonDefend.Update();
         buttonSkipRound.Update();
         buttonInventory.Update();
+
+        _inventory.Update();
     }
 
     private String GetBackground()
@@ -140,6 +152,8 @@ public class EnemyBaseState : State
                 UpdateCombat(1);
                 _gm.player.battlePoints -= attackBPCost;
                 bp = "BP: " + _gm.player.battlePoints;
+                enemyHP -= attackEfficiency + _gm.player.cricAttack;
+                _gm.player.cricAttack -= 15;
                 enemyHP -= attackEfficiency;
                 enemyhp = "HP: " + enemyHP;
 
@@ -277,6 +291,7 @@ public class EnemyBaseState : State
     private void Inventory(object sender, EventArgs e)
     {
         //open the inventory
+        _inventory.Active = !_inventory.Active;
         UpdateCombat(0);
     }
 
@@ -289,6 +304,7 @@ public class EnemyBaseState : State
         ChangeMessages(3);
         _gm.player.xpPoints -= 100;
         await Task.Delay(500);
+        _inventory.Checked = false;
         _gm.ChangeState(GameStates.Play);
         await Task.Delay(500);
         buttonLeave.Disabled = false;

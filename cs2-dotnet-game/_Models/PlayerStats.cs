@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _Models.Sprites.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,10 @@ public class PlayerStats
     public int enemiesKilled { get; set; }
     public int keysObtained { get; set; }
 
+    public int cricAttack { get; set; }
+
+    public List<Item> items { get; set; } = new List<Item>();
+
     public PlayerStats()
     {
         name = "Player";
@@ -26,9 +31,8 @@ public class PlayerStats
         battlePoints = 100;
         maxBattlePoints = 100;
         staminaPoints = 4;
-        xpPoints = 0;
-        attackEfficiency = 35;
         enemiesKilled = 0;
         keysObtained = 0;
+        cricAttack = 0;
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _Models.Sprites.Items;
+using cs2_dotnet_game._Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -43,7 +45,7 @@ public class Game1 : Game
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+            _gameManager.ChangeState(GameStates.Menu);
 
 
         Globals.Update(gameTime);
@@ -75,7 +77,6 @@ public class Game1 : Game
 
         _gameManager = new();
         Globals.DragAndDropPacket = new _Models.Sprites.DragAndDropPacket(new Vector2(40, 40));
-
     }
 
     protected override void Draw(GameTime gameTime)
