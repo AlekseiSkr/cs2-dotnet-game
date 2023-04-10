@@ -20,7 +20,10 @@ public class Settings
     public static Settings LoadSettings()
     {
         if (!File.Exists(SAVE_SETTINGS_PATH))
-            return null;
+            return new Settings()
+            {
+                Volume = 1.0f
+            };
         var fileContents = File.ReadAllText(SAVE_SETTINGS_PATH);
         return JsonConvert.DeserializeObject<Settings>(fileContents);
     }
