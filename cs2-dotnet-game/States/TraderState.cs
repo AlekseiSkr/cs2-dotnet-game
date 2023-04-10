@@ -87,16 +87,8 @@ public class TraderState : State
 
     public void buy2()
     {
-        int i = 0;
-        foreach (var item in _playerMenu._inventorySlots)
-        {
-            if (item._item != null)
-            {
-                i++;
-            }
-        }
 
-        if (i != checkItem1 && _playerMenu._backgroundRectangle.Contains(InputManager.MouseRectangle))
+        if (Globals.DragAndDropPacket != null && checkItem1 != _playerMenu.getHowManyItem() && Globals.DragAndDropPacket._type == Enum.ObjectType.InventoryItem && Globals.DragAndDropPacket.IsDropped() && _playerMenu._backgroundRectangle.Contains(InputManager.MouseRectangle))
         {
             if (_gameManager.player.xpPoints < 20)
             {
@@ -112,8 +104,7 @@ public class TraderState : State
                 Item item = slot._item;
                 slot._item = null;
                 item.slot = null;
-
-                return;
+                checkItem1 = _playerMenu.getHowManyItem();
             }
             else
             {
@@ -153,7 +144,6 @@ public class TraderState : State
     {
         buttonTrade.Update();
         buttonLeaveTrader.Update();
-
 
         traderMenu.Update();
         _playerMenu.Update();

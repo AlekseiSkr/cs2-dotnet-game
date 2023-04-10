@@ -30,7 +30,7 @@ namespace cs2_dotnet_game._Models.Trader
 
             _inventorySlots= new List<InventorySlot>();
 
-            for (int i = 0; i < 42; i++)
+            for (int i = 0; i < 25; i++)
             {
                 _inventorySlots.Add(new InventorySlot(new Vector2(0, 0), new Vector2(40, 40)));
             }
@@ -72,7 +72,7 @@ namespace cs2_dotnet_game._Models.Trader
             return null;
         }
 
-        public async void Activate(object sender, EventArgs e)
+        public void Activate(object sender, EventArgs e)
         {
             active = ! active;
         }
@@ -101,7 +101,7 @@ namespace cs2_dotnet_game._Models.Trader
                 {
                     Vector2 tempVec = new Vector2(40 + 54 * (int)(i % 6), 300 + 54 * (int)(i / 6));
                     Vector2 topLeft = new(375, 100);
-                    _inventorySlots[i].Update(topLeft + tempVec);
+                    _inventorySlots[i].Update3(topLeft + tempVec);
 
                     if (_inventorySlots[i].Hover(new Vector2(InputManager.MouseControl.newMousePos.X, InputManager.MouseControl.newMousePos.Y))&& InputManager.MouseControl.LeftClickRelease())
                     {
@@ -112,7 +112,6 @@ namespace cs2_dotnet_game._Models.Trader
             }
 
             _traderInventoryButton.Update();
-
         }
 
         public void Draw()

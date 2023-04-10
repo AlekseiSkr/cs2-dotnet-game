@@ -43,6 +43,19 @@ namespace cs2_dotnet_game._Models.Trader
 
         }
 
+        public int getHowManyItem()
+        {
+            int i = 0;
+            foreach(var item in _inventorySlots)
+            {
+                if (item._item != null)
+                {
+                    i++;
+                }
+            }
+            return i;
+        }
+
         public void checkItem()
         {
             if (!Checked)
