@@ -10,7 +10,7 @@ public class PlayState : State
 {
 
     private readonly Map _map;
-    private readonly Hero _hero;
+    public Hero _hero;
     private readonly Camera _camera;
 
     private readonly Texture2D backgroundTexture;

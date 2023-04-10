@@ -13,6 +13,7 @@ public class GameManager
     //private readonly Map _map;
     public PlayerStats player;
     private State _gameState;
+    public bool Checked;
     public Matrix? CurrentStateTransformationMatrix
     {
         get
@@ -35,6 +36,7 @@ public class GameManager
         //ChangeState(GameStates.Menu);
         player = new PlayerStats();
         //player.keysObtained = 3;
+        Checked= false;
     }
 
 

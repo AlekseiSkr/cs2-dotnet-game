@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _Models.Sprites.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ public class PlayerStats
     public int attackEfficiency { get; set; }
     public int enemiesKilled { get; set; }
     public int keysObtained { get; set; }
+
+    public List<Item> items { get; set; } = new List<Item>();
 
     public PlayerStats()
     {

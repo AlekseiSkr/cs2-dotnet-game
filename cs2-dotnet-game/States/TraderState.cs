@@ -1,4 +1,6 @@
 ﻿using _Models.Sprites;
+using _Models.Sprites.Items;
+using cs2_dotnet_game._Models;
 using cs2_dotnet_game._Models.Sprites.Items;
 using cs2_dotnet_game._Models.Trader;
 using Microsoft.Xna.Framework;
@@ -21,12 +23,14 @@ public class TraderState : State
     private readonly Button buttonLeaveTrader;
 
     private TraderMenu traderMenu;
+    private PlayerMenu _playerMenu;
 
 
     //temp var till player & trader is implemented
     private int playerXP = 1000;
     private List<String> playerInventory = new();
     private List<String> traderInventory = new();
+    private GameManager _gameManager;
 
     public TraderState(GameManager gm)
     {
@@ -35,20 +39,46 @@ public class TraderState : State
         traderTexture = Globals.Content.Load<Texture2D>("Trader/traderGuns");
 
         buttonTrade = new(Globals.Content.Load<Texture2D>("Trader/tradeButton"), new(100, 500));
-        buttonTrade.OnClick += gm.TradingState;
+        buttonTrade.OnClick += Buy;
 
         buttonLeaveTrader = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         buttonLeaveTrader.OnClick += gm.MenuState;
 
         traderMenu = new TraderMenu();
+        _playerMenu = new PlayerMenu();
 
 
         //int inventoryWidth = screenWidth / 2 - 20;
         //int inventoryHeight = screenHeight - 40;
         //playerInventoryRectangle = new Rectangle(10, 10, inventoryWidth, inventoryHeight);
         //traderInventoryRectangle = new Rectangle(screenWidth / 2 + 10, 10, inventoryWidth, inventoryHeight);
+        _gameManager = gm;
 
     }
+
+    public async void Buy(object sender, EventArgs e)
+    {
+        if (traderMenu.selectedItem != null)
+        {
+            addItem(traderMenu.selectedItem);
+            _gameManager.player.items.Add(traderMenu.selectedItem);
+            _gameManager.Checked = false;
+        }
+    }
+
+    public InventorySlot addItem(Item item)
+    {
+        foreach (var slot in _playerMenu._inventorySlots)
+        {
+            if (slot._item == null)
+            {
+                slot.addItem(item);
+                return slot;
+            }
+        }
+        return null;
+    }
+
     public override void Draw(GameManager gm)
     {
         Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
@@ -58,6 +88,7 @@ public class TraderState : State
 
 
         traderMenu.Draw();
+        _playerMenu.Draw();
     }
 
     public override void Update(GameManager gm)
@@ -67,5 +98,6 @@ public class TraderState : State
 
 
         traderMenu.Update();
+        _playerMenu.Update();
     }
 }

@@ -16,7 +16,7 @@ namespace cs2_dotnet_game._Models.Sprites.Items
         #region Methods
         public InventorySlot(Vector2 position, Vector2 dimension) : base(Globals.Content.Load<Texture2D>("Health/solid"), position, dimension, new Vector2(1, 1), Color.Gray)
         {
-
+            _item = null;
         }
 
         public override void Draw(Vector2 offset)
