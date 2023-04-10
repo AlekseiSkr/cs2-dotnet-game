@@ -1,4 +1,4 @@
-﻿using _Managers;
+using _Managers;
 using _Models;
 using _Models.Tiles;
 using Microsoft.Xna.Framework;
@@ -14,9 +14,13 @@ public class PlayState : State
     private readonly Hero _hero;
     private readonly Camera _camera;
 
+    private readonly Texture2D backgroundTexture;
+    private readonly Button buttonLeave;
+
 
     public PlayState(GameManager gm)
     {
+        backgroundTexture = Globals.Content.Load<Texture2D>("playBackground");
         _map = new Map();
         Vector2 heroTilePosition = new Vector2(2, 3); // Set the start tile for the hero
         Vector2 heroScreenPosition = _map.MapToScreen((int)heroTilePosition.X, (int)heroTilePosition.Y);
@@ -24,6 +28,9 @@ public class PlayState : State
         _hero.SetBounds(_map.MAP_SIZE, _map.TILE_SIZE);
         Pathfinder.Init(_map, _hero);
         _camera = new Camera();
+
+        buttonLeave = new(Globals.Content.Load<Texture2D>("backButton"), new(2, 3));
+        buttonLeave.OnClick += gm.MenuState;
     }
 
     public static Vector2 PointToVector2(Point point)
@@ -63,6 +70,7 @@ public class PlayState : State
 
     public override void Update(GameManager gm)
     {
+        
         InputManager.Update();
         _map.Update();
         _hero.Update();
@@ -85,11 +93,20 @@ public class PlayState : State
 
         _camera.Update(_hero._position, Globals.Bounds.X, Globals.Bounds.Y, _hero._texture);
         TransformationMatrix = _camera.Transform;
+        buttonLeave.Update();
+
+        if (InputManager.KeyState.IsKeyDown(Keys.I))
+        {
+            gm.ChangeState(GameStates.Inventory);
+        }
     }
 
 
     public override void Draw(GameManager gm)
     {
+        Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(-3000, -1000, 10000, 5000), Color.White);
+        buttonLeave.Draw();
+
         _map.Draw();
         _hero.Draw();
     }

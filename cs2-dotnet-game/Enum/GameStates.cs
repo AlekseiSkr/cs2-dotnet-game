@@ -9,5 +9,11 @@ public enum GameStates
     Trading,
     EnemyBase,
     BossMansion,
-    Boss
+    Boss,
+    Splash,
+    DialogBox,
+    Inventory,
+    Win,
+    Options,
+    GameOver
 }

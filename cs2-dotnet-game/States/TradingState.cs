@@ -18,7 +18,7 @@ public class TradingState : State
     public TradingState(GameManager gm)
     {
         backgroundTexture = Globals.Content.Load<Texture2D>("Misc/background2");
-        buttonLeaveTrading = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 850));
+        buttonLeaveTrading = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
         buttonLeaveTrading.OnClick += gm.TraderState;
     }
     public override void Draw(GameManager gm)
