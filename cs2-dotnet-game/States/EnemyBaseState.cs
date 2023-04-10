@@ -93,8 +93,7 @@ public class EnemyBaseState : State
         bp = "BP: " + gm.player.battlePoints;
         sp = "SP: " + gm.player.staminaPoints;
         enemyhp = "HP: " + enemyHP;
-
-
+        
         _inventory.Draw();
     }
 
@@ -155,6 +154,7 @@ public class EnemyBaseState : State
                 bp = "BP: " + _gm.player.battlePoints;
                 enemyHP -= attackEfficiency + _gm.player.cricAttack;
                 _gm.player.cricAttack -= 15;
+                enemyHP -= attackEfficiency;
                 enemyhp = "HP: " + enemyHP;
 
                 ChangeMessages(5);
@@ -304,7 +304,7 @@ public class EnemyBaseState : State
         ChangeMessages(3);
         _gm.player.xpPoints -= 100;
         await Task.Delay(500);
-        _inventory.Checked = false;
+        _inventory.Checked = false;n
         _gm.ChangeState(GameStates.Menu);
         await Task.Delay(500);
         buttonLeave.Disabled = false;

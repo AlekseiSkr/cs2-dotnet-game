@@ -1,5 +1,4 @@
 ﻿using _Models.Sprites.Items;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,8 +30,6 @@ public class PlayerStats
         battlePoints = 100;
         maxBattlePoints = 100;
         staminaPoints = 4;
-        xpPoints = 100;
-        attackEfficiency = 35;
         enemiesKilled = 0;
         keysObtained = 0;
         cricAttack = 0;
