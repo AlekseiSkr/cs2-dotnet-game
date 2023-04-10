@@ -9,8 +9,9 @@ namespace cs2_dotnet_game;
 
 public class GameManager
 {
-   #region Fields
+    #region Fields
     //private readonly Map _map;
+    public PlayerStats player;
     private State _gameState;
     public Matrix? CurrentStateTransformationMatrix
     {
@@ -32,6 +33,8 @@ public class GameManager
         GameStateManager.Init(this);
         ChangeState(GameStates.Splash);
         //ChangeState(GameStates.Menu);
+        player = new PlayerStats();
+        //player.keysObtained = 3;
     }
 
 
