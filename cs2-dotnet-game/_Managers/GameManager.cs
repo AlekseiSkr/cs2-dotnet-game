@@ -109,6 +109,11 @@ public class GameManager
         System.Environment.Exit(0);
     }
 
+    public void Options(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Options);
+    }
+
     public void Update()
     {
         InputManager.Update();
