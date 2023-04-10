@@ -304,7 +304,7 @@ public class EnemyBaseState : State
         ChangeMessages(3);
         _gm.player.xpPoints -= 100;
         await Task.Delay(500);
-        _inventory.Checked = false;n
+        _inventory.Checked = false;
         _gm.ChangeState(GameStates.Menu);
         await Task.Delay(500);
         buttonLeave.Disabled = false;
