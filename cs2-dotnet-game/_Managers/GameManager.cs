@@ -32,8 +32,8 @@ public class GameManager
     {
         SoundManager.Init();
         GameStateManager.Init(this);
-        //ChangeState(GameStates.Splash);
-        ChangeState(GameStates.Menu);
+        ChangeState(GameStates.Splash);
+        //ChangeState(GameStates.Menu);
         player = new PlayerStats();
         //player.keysObtained = 3;
         player.xpPoints = 300;

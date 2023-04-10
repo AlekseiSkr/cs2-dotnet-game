@@ -19,6 +19,11 @@ public class Data
 
     public static Data LoadGame()
     {
+        if (!File.Exists(SAVE_GAME_PATH))
+            return new Data()
+            { 
+                player = new PlayerStats()
+            };
         var fileContents = File.ReadAllText(SAVE_GAME_PATH);
         return JsonConvert.DeserializeObject<Data>(fileContents);
     }
