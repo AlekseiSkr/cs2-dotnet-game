@@ -135,7 +135,7 @@ public class EnemyBaseState : State
             //80% chance of success
             Random rnd = new Random();
             int number = rnd.Next(1, 101);
-            if (number < 80)
+            if (number < 75)
             {
                 UpdateCombat(1);
                 _gm.player.battlePoints -= attackBPCost;

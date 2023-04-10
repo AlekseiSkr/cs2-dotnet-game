@@ -33,7 +33,7 @@ public class BossState : State
     public override void Draw(GameManager gm)
     {
         Globals.SpriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 1920, 1080), Color.White);
-        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "Having killed his hordes, the boss' power faded and he passed away. His castle is now yours for the taking", new Vector2(400, 200), Color.Black);
+        Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "Having killed his hordes, the Stalker's power faded and he passed away. His castle is now yours for the taking", new Vector2(400, 200), Color.Black);
         buttonLeaveBase.Draw();
     }
 
