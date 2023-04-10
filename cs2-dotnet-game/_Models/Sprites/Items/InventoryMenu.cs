@@ -129,11 +129,8 @@ public class InventoryMenu
                 Vector2 topLeft = new(765, 100);
                 _inventorySlots[i].Update(topLeft + tempVec);
             }
-
-
             discardItem();
         }
-
         _inventoryButton.Update();
     }
     #endregion
