@@ -1,21 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
+using _Managers;
+using _Models;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace cs2_dotnet_game;
 
 public class GameManager
 {
-    #region Fields
+   #region Fields
     //private readonly Map _map;
-    public Map _map;
     private State _gameState;
-    
+    public Matrix? CurrentStateTransformationMatrix
+    {
+        get
+        {
+            if (_gameState != null)
+            {
+                return _gameState.TransformationMatrix;
+            }
+
+            return null;
+        }
+    }
+
     #endregion
     public GameManager()
     {
-        _map = new Map();
         SoundManager.Init();
         GameStateManager.Init(this);
-        ChangeState(GameStates.Menu);
+        ChangeState(GameStates.Splash);
+        //ChangeState(GameStates.Menu);
     }
 
 
@@ -24,44 +40,68 @@ public class GameManager
         ChangeState(GameStates.Play);
     }
 
-    public void PlayerBaseState(object sender, EventArgs e)
+    public async void PlayerBaseState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.PlayerBase);
     }
 
-    public void TraderState(object sender, EventArgs e)
+    public async void DialogbBx(object sender, EventArgs e)
     {
+        await Task.Delay(100);
+        ChangeState(GameStates.DialogBox);
+    }
+
+
+    public async void TraderState(object sender, EventArgs e)
+    {
+        await Task.Delay(100);
         ChangeState(GameStates.TraderBase);
     }
 
-    public void BossMansionState(object sender, EventArgs e)
+    public async void BossMansionState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.BossMansion);
     }
 
-    public void BossState(object sender, EventArgs e)
+    public async void BossState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.Boss);
     }
 
-    public void EnemyState(object sender, EventArgs e)
+    public async void EnemyState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.EnemyBase);
     }
 
-    public void TradingState(object sender, EventArgs e)
+    public async void TradingState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.Trading);
     }
 
-    public void MenuState(object sender, EventArgs e)
+    public async void MenuState(object sender, EventArgs e)
     {
+        await Task.Delay(100);
         ChangeState(GameStates.Menu);
     }
 
     public void ChangeState(GameStates states)
     {
         _gameState = GameStateManager.States[states];
+    }
+
+    public void LoseState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.GameOver);
+    }
+
+    public void WinState(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Win);
     }
 
     public void Quit(object sender, EventArgs e)
@@ -72,13 +112,11 @@ public class GameManager
     public void Update()
     {
         InputManager.Update();
-        //_map.Update();
         _gameState.Update(this);
     }
 
     public void Draw()
     {
         _gameState.Draw(this);
-        //_map.Draw();
     }
 }
