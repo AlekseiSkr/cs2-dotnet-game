@@ -23,7 +23,7 @@ public class BossMansionState : State
         bossCastle = Globals.Content.Load<Texture2D>("Boss/bossBase");
 
         buttonLeaveGates = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveGates.OnClick += gm.MenuState;
+        buttonLeaveGates.OnClick += gm.PlayerBaseState;
 
         buttonEnterGate = new(Globals.Content.Load<Texture2D>("Boss/gates"), new(1100, 720));
         //buttonEnterGate.OnClick += gm.BossState;

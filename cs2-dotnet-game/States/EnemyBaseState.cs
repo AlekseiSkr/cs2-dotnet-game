@@ -186,7 +186,7 @@ public class EnemyBaseState : State
 
                     _gm.player.battlePoints = _gm.player.maxBattlePoints;
                     _gm.player.healthPoints = _gm.player.maxHealthPoints;
-                    _gm.ChangeState(GameStates.Menu);
+                    _gm.ChangeState(GameStates.Play);
                     bp = "BP: " + _gm.player.battlePoints;
                     hp = "HP: " + _gm.player.healthPoints;
                     enemyhp = "HP: " + enemyHP;
@@ -305,7 +305,7 @@ public class EnemyBaseState : State
         _gm.player.xpPoints -= 100;
         await Task.Delay(500);
         _inventory.Checked = false;
-        _gm.ChangeState(GameStates.Menu);
+        _gm.ChangeState(GameStates.Play);
         await Task.Delay(500);
         buttonLeave.Disabled = false;
         buttonLeave.OnClick += Leave;

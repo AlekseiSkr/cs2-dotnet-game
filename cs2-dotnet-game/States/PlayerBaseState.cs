@@ -14,6 +14,7 @@ public class PlayerBaseState : State
     private readonly Button buttonUpdateTier2;
     private readonly Button buttonLeaveBase;
     private readonly Button buttonSleep;
+    private readonly Button buttonBossGate;
 
     private String baseTier = "Current base tier : 1";
     private String baseTierExplanationLine1 = "You can upgrade your base to increase your";
@@ -48,10 +49,13 @@ public class PlayerBaseState : State
         //buttonUpdateTier2.Disabled = true;
 
         buttonLeaveBase = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveBase.OnClick += gm.MenuState;
+        buttonLeaveBase.OnClick += gm.Start;
 
         buttonSleep = new(Globals.Content.Load<Texture2D>("sleep"), new(130, 700));
         buttonSleep.OnClick += Sleep;
+
+        buttonBossGate = new(Globals.Content.Load<Texture2D>("Enemy/Attack"), new(1600, 500));
+        buttonBossGate.OnClick += gm.BossMansionState;
 
         _gm = gm;
 
@@ -70,6 +74,7 @@ public class PlayerBaseState : State
         buttonUpdateTier2.Draw();
         buttonLeaveBase.Draw();
         buttonSleep.Draw();
+        buttonBossGate.Draw();
 
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), baseTier, new Vector2(70, 200), Color.White);
         Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), baseTierExplanationLine1, new Vector2(70, 240), Color.White);
@@ -101,6 +106,7 @@ public class PlayerBaseState : State
         }
         buttonLeaveBase.Update();
         buttonSleep.Update();
+        buttonBossGate.Update();
 
     }
 
