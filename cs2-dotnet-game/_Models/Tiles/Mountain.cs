@@ -11,6 +11,14 @@ namespace _Models.Tiles;
 
 public class Mountain : Tile
 {
-    public Mountain(Texture2D texture, Vector2 position) : base(texture, position) { }
+    public Mountain(Texture2D texture, Vector2 position) : base(texture, position)
+    {
+        _origin = new Vector2(0, texture.Height/2);
+        Blocked = true;
+    }
+    public override void Update() { }
+    public override void Draw() 
+    {
+        Globals.SpriteBatch.Draw(_texture, _position, null, _color, 0f, _origin, 1f, SpriteEffects.None, 0f);
+    }
 }
-

@@ -23,7 +23,7 @@ public class BossMansionState : State
         bossCastle = Globals.Content.Load<Texture2D>("Boss/bossBase");
 
         buttonLeaveGates = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonLeaveGates.OnClick += gm.MenuState;
+        buttonLeaveGates.OnClick += gm.PlayerBaseState;
 
         buttonEnterGate = new(Globals.Content.Load<Texture2D>("Boss/gates"), new(1100, 720));
         //buttonEnterGate.OnClick += gm.BossState;
@@ -36,13 +36,13 @@ public class BossMansionState : State
         buttonLeaveGates.Draw();
         buttonEnterGate.Draw();
 
-        if (playerKeys < 3)
+        if (gm.player.keysObtained < 3)
         {
             Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "You need at least 3 keys to unlock the gates!", new Vector2(100, 100), Color.Red);
-            Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "You currently have " + playerKeys + " key(s)", new Vector2(100, 130), Color.White);
+            Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "You currently have " + gm.player.keysObtained + " key(s)", new Vector2(100, 130), Color.White);
 
         }
-        else if (playerKeys >= 3)
+        else if (gm.player.keysObtained >= 3)
         {
             Globals.SpriteBatch.DrawString(Globals.Content.Load<SpriteFont>("Prospero"), "You have enough keys to unlock the gates!", new Vector2(100, 100), Color.LightGreen);
         }
@@ -54,7 +54,7 @@ public class BossMansionState : State
     public override void Update(GameManager gm)
     {
         buttonLeaveGates.Update();
-        if (playerKeys >= 3)
+        if (gm.player.keysObtained >= 3)
         {
             buttonEnterGate.Update();
         }

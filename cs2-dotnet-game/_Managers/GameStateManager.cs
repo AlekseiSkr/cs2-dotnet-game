@@ -26,5 +26,6 @@ public static class GameStateManager
         States.Add(GameStates.Splash, new LoadingState(gm));
         States.Add(GameStates.DialogBox, new DialogBoxState(gm));
         States.Add(GameStates.Inventory, new InventoryState(gm));
+        States.Add(GameStates.Options, new OptionsState(gm));
     }
 }

@@ -35,26 +35,27 @@ public class MenuState : State
         newGame.OnClick += gm.DialogbBx;
         //IMPORTANT: IMPLEMENT SAVE WHEN THIS IS CALLED
         exitGame.OnClick += gm.Quit;
+        optionGame.OnClick += gm.Options;
         AddButton(newGame);
         AddButton(loadGame);
         AddButton(optionGame);
         AddButton(exitGame);
 
-        //tempo buttons
-        Button buttonTrade = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
-        buttonTrade.OnClick += gm.TraderState;
-        //buttonTrade.OnClick += gm.LoseState;
-        Button buttonPlayerBase = new(Globals.Content.Load<Texture2D>("backButton"), new(300, 1000));
-        buttonPlayerBase.OnClick += gm.PlayerBaseState;
-        Button buttonBoss = new(Globals.Content.Load<Texture2D>("backButton"), new(500, 1000));
-        buttonBoss.OnClick += gm.BossMansionState;
-        Button buttonEnemyBase = new(Globals.Content.Load<Texture2D>("backButton"), new(700, 1000));
-        buttonEnemyBase.OnClick += gm.EnemyState;
+        ////tempo buttons
+        //Button buttonTrade = new(Globals.Content.Load<Texture2D>("backButton"), new(100, 1000));
+        //buttonTrade.OnClick += gm.TraderState;
+        ////buttonTrade.OnClick += gm.LoseState;
+        //Button buttonPlayerBase = new(Globals.Content.Load<Texture2D>("backButton"), new(300, 1000));
+        //buttonPlayerBase.OnClick += gm.PlayerBaseState;
+        //Button buttonBoss = new(Globals.Content.Load<Texture2D>("backButton"), new(500, 1000));
+        //buttonBoss.OnClick += gm.BossMansionState;
+        //Button buttonEnemyBase = new(Globals.Content.Load<Texture2D>("backButton"), new(700, 1000));
+        //buttonEnemyBase.OnClick += gm.EnemyState;
 
-        AddButton(buttonTrade);
-        AddButton(buttonPlayerBase);
-        AddButton(buttonBoss);
-        AddButton(buttonEnemyBase);
+        //AddButton(buttonTrade);
+        //AddButton(buttonPlayerBase);
+        //AddButton(buttonBoss);
+        //AddButton(buttonEnemyBase);
     }
     
     private Button AddButton(Button button)

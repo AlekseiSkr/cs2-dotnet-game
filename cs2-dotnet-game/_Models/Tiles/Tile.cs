@@ -16,7 +16,7 @@ public class Tile : Sprite
     protected bool _mouseSelected;
     protected Texture2D _texture;
     protected Vector2 _position;
-
+    public bool Cleared { get; set; }
 
     public Tile(Texture2D texture, Vector2 position) : base(texture, position)
     {
@@ -30,7 +30,6 @@ public class Tile : Sprite
         {
             if (InputManager.MouseClicked)
             {
-                Blocked = !Blocked;
             }
 
             if (InputManager.MouseRightClicked)
@@ -50,6 +49,6 @@ public class Tile : Sprite
 
     public override void Draw()
     {
-        Globals.SpriteBatch.Draw(_texture, _position, null, _color, 0f, _origin, 1f, SpriteEffects.None, 0f);
+        Globals.SpriteBatch.Draw(_texture, _position, null, Cleared ? Color.Red : _color, 0f, _origin, 1f, SpriteEffects.None, 0f);
     }
 }

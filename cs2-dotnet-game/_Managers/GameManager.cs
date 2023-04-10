@@ -9,9 +9,11 @@ namespace cs2_dotnet_game;
 
 public class GameManager
 {
-   #region Fields
+    #region Fields
     //private readonly Map _map;
+    public PlayerStats player;
     private State _gameState;
+    public bool Checked;
     public Matrix? CurrentStateTransformationMatrix
     {
         get
@@ -32,6 +34,10 @@ public class GameManager
         GameStateManager.Init(this);
         ChangeState(GameStates.Splash);
         //ChangeState(GameStates.Menu);
+        player = new PlayerStats();
+        //player.keysObtained = 3;
+        player.xpPoints = 300;
+        Checked= false;
     }
 
 
@@ -107,6 +113,11 @@ public class GameManager
     public void Quit(object sender, EventArgs e)
     {
         System.Environment.Exit(0);
+    }
+
+    public void Options(object sender, EventArgs e)
+    {
+        ChangeState(GameStates.Options);
     }
 
     public void Update()

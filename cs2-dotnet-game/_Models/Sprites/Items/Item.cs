@@ -14,7 +14,7 @@ namespace _Models.Sprites.Items;
 
 public class Item : Draggable2D
 {
-    protected bool isMelee;
+    public bool isMelee;
     protected double bonusDamage;
     protected Tier tierLevel;
     public InventorySlot slot;
